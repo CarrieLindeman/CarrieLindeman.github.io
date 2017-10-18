@@ -402,12 +402,21 @@
             
             
             
-            art1 = game.add.sprite(0, 0, 'art1');
-            newX = game.world.width * .6;
-            xScale = (newX / art1.width);
-            newY = game.world.height * .8;
-            yScale = ((newX*.6) / art1.height);
-            art1.scale.setTo(xScale, yScale);
+           art1 = game.add.sprite(0, 0, 'art1');
+            if(game.world.width>= 1100){
+                newX = game.world.width * .6;
+                xScale = (newX / art1.width);
+                newY = game.world.height * .8;
+                yScale = ((newX*.6) / art1.height);
+                art1.scale.setTo(xScale, yScale);
+                console.log("here");
+            }else{
+                newX = game.world.width * .98;
+                xScale = (newX / art1.width);
+                newY = game.world.height * .8;
+                yScale = ((newX*.6) / art1.height);
+                art1.scale.setTo(xScale, yScale);
+            }
             art1.x = game.world.centerX - (art1.width/2);
             art1.y = game.world.centerY - size.height - (art1.height/2);
             art1.visible = false;
