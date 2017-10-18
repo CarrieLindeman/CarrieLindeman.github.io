@@ -1,0 +1,187 @@
+<html>
+<head>
+<script src="phaser.js"></script>
+<script>
+    var game = new Phaser.Game(1000,350,Phaser.AUTO,'experience',{preload: preload, create: create, update: update});
+    var arrowR, arrowL;
+    var stackbase, item1, item2, qu1, qu2, qu3, box, output;
+    var step = 0;
+    var canMoveOn = true;
+    var text;
+            function preload(){
+                game.load.image('code','img/chained-stack/code.png');
+                
+                game.load.image('stackbase','img/chained-stack/stackbase.png');
+                game.load.image('item1','img/chained-stack/item1.png');
+                game.load.image('item2','img/chained-stack/item2.png');
+                
+                game.load.image('qu1','img/chained-stack/qu1.png');
+                game.load.image('qu2','img/chained-stack/qu2.png');
+                game.load.image('qu3','img/chained-stack/qu3.png');
+                
+                game.load.image('arrowL','img/chained-stack/left.png');
+                game.load.image('arrowR','img/chained-stack/right.png');
+                
+                game.load.image('box','img/chained-stack/box.png');
+                game.load.image('output','img/chained-stack/output.png');
+                
+                game.load.image('yes','img/chained-stack/yes.png');
+                game.load.image('no','img/chained-stack/no.png');
+            }
+    
+            function create(){
+                game.stage.backgroundColor = "#76747A";
+                var code = game.add.sprite(50,game.world.centerY-150,'code');
+                code.scale.setTo(.8,.8);
+                stackbase = game.add.sprite(400,10,'stackbase');
+                output = game.add.sprite(400,10,'output');
+                item1 = game.add.sprite(400,10,'item1');
+                //item1.visible = false;
+                item2 = game.add.sprite(400,10,'item2');
+                
+                qu1 = game.add.sprite(700,6,'qu1');
+                qu1.scale.setTo(.8,.8);
+                qu1.y = game.world.centerY - (qu1.height/2);
+                qu2 = game.add.sprite(700,10,'qu2');
+                qu2.scale.setTo(.8,.8);
+                qu2.y = game.world.centerY - (qu2.height/2);
+                qu3 = game.add.sprite(700,10,'qu3');
+                qu3.scale.setTo(.8,.8);
+                qu3.y = game.world.centerY - (qu3.height/2);
+                arrowL = game.add.button(100,300,'arrowL',moveL,this);
+                arrowL.scale.setTo(.2,.2);
+                arrowR = game.add.button(140,300,'arrowR',moveR,this);
+                arrowR.scale.setTo(.2,.2);
+                
+                yes = game.add.button(753,qu1.y+47,'yes',answer,this);
+                yes.name = "yes";
+                yes.scale.setTo(.5,.5);
+                no = game.add.button(791,qu1.y+46,'no',answer,this);
+                no.name = "no";
+                no.scale.setTo(.5,.5);
+                
+                item2.visible = false;
+                qu1.visible = false;
+                qu2.visible = false;
+                qu3.visible = false;
+                output.visible = false;
+                
+                box = game.add.sprite(95,64,'box');
+                box.scale.setTo(.75,1);
+                
+                text = game.add.text(game.world.centerX+300, game.world.height-100, "", {
+                    font: "22px Arial",
+                    fill: "#000000",
+                    align: "center"
+                });
+
+                text.anchor.setTo(0.5, 0.5);
+            }
+            
+            function update(){
+                //sets what to make visible at which step
+                
+                
+                if(step<=0){
+                    box.x = 95;
+                    box.y = 64;
+                    item2.visible = false;
+                    qu1.visible = false;
+                    qu2.visible = false;
+                    qu3.visible = false;
+                    output.visible = false;
+                    yes.visible = false;
+                    no.visible = false;
+                    text.setText("");
+                }else if(step == 1){
+                    box.x = 95;
+                    box.y = 85;
+                    item2.visible = true;
+                    qu1.visible = false;
+                    qu2.visible = false;
+                    qu3.visible = false;
+                    output.visible = false;
+                    yes.visible = false;
+                    no.visible = false;
+                    text.setText("");
+                }else if(step == 2){
+                    box.x = 95;
+                    box.y = 115;
+                    item2.visible = true;
+                    qu1.visible = true;
+                    qu2.visible = false;
+                    qu3.visible = false;
+                    output.visible = false;
+                    yes.visible = true;
+                    no.visible = true;
+                    
+                }else if(step == 3){
+                    box.x = 95;
+                    box.y = 145;
+                    item2.visible = true;
+                    qu1.visible = false;
+                    qu2.visible = true;
+                    qu3.visible = false;
+                    output.visible = false;
+                    yes.visible = true;
+                    no.visible = true;
+                    
+                }else if(step == 4){
+                    box.x = 95;
+                    box.y = 165;
+                    item2.visible = true;
+                    qu1.visible = false;
+                    qu2.visible = false;
+                    qu3.visible = false;
+                    output.visible = true;
+                    yes.visible = false;
+                    no.visible = false;
+                    text.setText("");
+                }
+                
+            }
+            
+            function answer(button){
+                
+                //depending on which instance of the button they are choosing between it will either freeze the trace or let them move on.
+                if(step == 2){
+                    
+                    if(button.name == "yes"){
+                        canMoveOn = false;
+                        text.setText("Try again!");
+                    }else{
+                        canMoveOn = true;
+                        text.setText("Keep going!");
+                    }
+                    
+                }else if(step == 3){
+                    
+                    if(button.name == "yes"){
+                        canMoveOn = true;
+                        text.setText("Keep going!"); 
+                    }else{
+                        canMoveOn = false;
+                        text.setText("Try again!");
+                    }
+                    
+                }
+            }
+    
+            function moveL(){
+                //only allows steps to change if they can move on.
+                if(step>=0 && canMoveOn==true){
+                    step--;   
+                }
+            }
+    
+            //only allows steps to change if they can move on.
+            function moveR(){
+                if(step <= 6 && canMoveOn == true){
+                    step++;   
+                }
+            }
+            
+</script>
+</head>
+<body id="experience"></body>
+</html>

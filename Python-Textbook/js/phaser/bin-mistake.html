@@ -1,0 +1,102 @@
+<html>
+<head>
+<script src="phaser.js"></script>
+<script>
+    var game = new Phaser.Game(800,350,Phaser.AUTO,'experience',{preload: preload, create: create, update: update});
+    var arrowR, arrowL;
+    var condition, state1, state2, action1, action2, box; //global variable to reference the branches of the flow chart
+    var step = 0;
+            function preload(){
+                game.load.image('code','img/bin-mistake/binaryCode.png');
+                
+                game.load.image('condition','img/bin-mistake/condition.png');
+                game.load.image('state1','img/bin-mistake/statement1.png');
+                game.load.image('state2','img/bin-mistake/statement2.png');
+                game.load.image('action1','img/bin-mistake/action1.png');
+                game.load.image('action2','img/bin-mistake/action2.png');
+                
+                game.load.image('arrowL','img/bin-mistake/left.png');
+                game.load.image('arrowR','img/bin-mistake/right.png');
+                
+                game.load.image('box','img/bin-mistake/box.png');
+            }
+    
+            function create(){
+                //initialize all of my sprites
+                
+                game.stage.backgroundColor = "#FFFFFF";
+                game.add.sprite(50,game.world.centerY-65,'code');
+                
+                condition = game.add.sprite(275,10,'condition');
+                state1 = game.add.sprite(275,10,'state1');
+                state2 = game.add.sprite(275,10,'state2');
+                action1 = game.add.sprite(275,10,'action1');
+                action2 = game.add.sprite(275,10,'action2');
+                arrowL = game.add.button(100,250,'arrowL',moveL,this);
+                arrowL.scale.setTo(.2,.2);
+                arrowR = game.add.button(140,250,'arrowR',moveR,this);
+                arrowR.scale.setTo(.2,.2);
+                
+                box = game.add.sprite(50,105,'box');
+            }
+            
+            function update(){
+                //if the learner is on a certain step than only let certain things be visible
+                
+                if(step<=0){
+                   condition.visible = true;
+                    box.y = 105;
+                    box.visible = false;
+                    state1.visible = false;
+                    state2.visible = false;
+                    action1.visible = false;
+                    action2.visible = false;
+                }else if(step==1){
+                    condition.visible = true;
+                    box.y = 145;
+                    box.visible = true;
+                    state1.visible = true;
+                    state2.visible = false;
+                    action1.visible = false;
+                    action2.visible = false;
+                }else if(step==2){
+                    condition.visible = true;
+                    box.y = 165;
+                    box.visible = true;
+                    state1.visible = true;
+                    state2.visible = false;
+                    action1.visible = true;
+                    action2.visible = false;
+                }else if(step==3){
+                    box.y = 185;
+                    box.visible = true;
+                    state1.visible = true;
+                    state2.visible = true;
+                    action1.visible = true;
+                    action2.visible = false;
+                }else{
+                    box.y = 205;
+                    box.visible = true;
+                    state1.visible = true;
+                    state2.visible = true;
+                    action1.visible = true;
+                    action2.visible = true;
+                }
+            }
+            
+            function moveL(){
+                if(step>=0){
+                    step--;   
+                }
+            }
+    
+            function moveR(){
+                if(step <= 4){
+                    step++;   
+                }
+            }
+            
+</script>
+</head>
+<body id="experience"></body>
+</html>

@@ -1,0 +1,70 @@
+<html>
+<head>
+
+<script src="phaser.js"></script>
+<script>
+    var game = new Phaser.Game(800,300,Phaser.AUTO,'experience',{preload: preload, create: create, update: update});
+    var items;
+    var num = 5;
+    var right;
+    var wrong;
+    var text;
+            function preload(){
+                items = [];
+                
+                //dynamic loading of assets 
+                for(var i = 0; i < num; i ++){
+                    game.load.spritesheet((i+1), 'img/log-mistake/'+(i+1)+'.png',150,150); 
+                }
+                game.load.image('right','img/log-mistake/success.png');
+                game.load.image('wrong','img/log-mistake/wrong.png');
+            }
+    
+            function create(){
+                game.stage.backgroundColor = "#76747A";
+                
+                //set each button to 
+                for(var i = 0; i < num; i ++){
+                    console.log(i+1);
+                    items.push(game.add.button((i * 155)+10, game.world.centerY-100, (i+1), actionOnClick, this,1,0,1));
+                    items[i].name = i;
+                    
+                }
+                right = game.add.sprite(game.world.centerX-90, game.world.height - 75, 'right');
+                wrong = game.add.sprite(game.world.centerX-90, game.world.height - 75, 'wrong');
+                right.visible = false;
+                wrong.visible = false;
+                
+                text = game.add.text(game.world.centerX, game.world.height - 65, "Select the correct statement.", {
+                    font: "22px Arial",
+                    fill: "#FFFFFF",
+                    align: "center"
+                });
+
+                text.anchor.setTo(0.5, 0.5);
+            }
+            
+            function update(){
+
+            }
+            function actionOnClick(button){
+                //based on what button they clicked it changes the values of the text and gives feedback
+                if(button.name == 0){
+                    text.setText("Incorrect. What does 5 evaluate to?");
+                }else if(button.name == 1){
+                    text.setText("Incorrect. Does this use a conjunction?");
+                }else if(button.name == 2){
+                    text.setText("Incorrect. Which conjunction is appropriate?");
+                }else if(button.name == 3){
+                    text.setText("Correct!");
+                }else if(button.name == 4){
+                    text.setText("Incorrect. What range of numbers does this represent?");   
+                }
+            }
+            
+    
+            
+</script>
+</head>
+<body id="experience"></body>
+</html>

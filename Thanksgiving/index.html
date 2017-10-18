@@ -1,0 +1,1226 @@
+<!doctype html>
+<html>
+    <head>
+        <title>goulston&amp;storrs</title>
+        <script type="text/javascript" src="assets/js/phaser.js"></script>
+        <script>
+            
+            var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+        var game = new Phaser.Game(x-20, y-20, Phaser.AUTO, 'card', { preload: preload, create: create, update: update });
+        var blinkNum = 0;
+        var blinker = false;
+        var sat = false;
+        var fall1 = false;
+        var fall2 = false;
+        var fall3 = false;
+        var rollPlay1 = false;
+        var rollPlay2 = false;
+        var rollPlay3 = false;
+        var rollPlay4 = false;
+        var rollPlay5 = false;
+        var rollPlay6 = false;
+        var rollPlay7 = false;
+        var rollPlay8 = false;
+        var rollPlay9 = false;
+        var rollPlay10 = false;
+        var rollPlay11 = false;
+        var rollPlay12 = false;
+        var rollPlay13 = false;
+        var rollPlay14 = false;
+        var rollPlay15 = false;
+        var rollPlay16 = false;
+        var rollPlay17 = false;
+        var rollPlay18 = false;
+        var rollPlay19 = false;
+        var rollPlay20 = false;
+        var rollPlay21 = false;
+        var rollPlay22 = false;
+        var rollPlay23 = false;
+        var rollPlay24 = false;
+        var rollPlay25 = false;
+        var rollPlay26 = false;
+        var rollPlay27 = false;
+        
+        
+        function preload(){
+            game.load.audio('leafSound', 'assets/sound/leaf.wav');
+            game.load.audio('sitSound', 'assets/sound/sit.mp3');
+            game.load.audio('clickSound','assets/sound/click.mp3');
+            game.load.audio('swipeSound', 'assets/sound/swipe.mp3');
+            
+            game.load.image('sky', 'assets/img/sky.png');
+            game.load.image('hills','assets/img/hills.png');
+            game.load.image('turkeyTail', 'assets/img/turkeyTail.png');
+            game.load.image('turkeyStand','assets/img/turkeyStandBody.png');
+            game.load.image('turkeySit', 'assets/img/turkeySit.png');
+            game.load.image('turkeyBlink', 'assets/img/blinkEyes.png');
+            game.load.image('branch1', 'assets/img/branch1.png');
+            game.load.image('branch2', 'assets/img/branch2.png');
+            game.load.image('thanks', 'assets/img/thanksgivingText.png');
+            game.load.image('instructions', 'assets/img/instructions.png');
+            game.load.image('brand', 'assets/img/brandText.png');
+            
+            
+            for(var i = 1; i <= 14; i++){
+                game.load.image('leaf'+i,'assets/img/leafs/leaf'+i+'.png');
+            }
+            
+            for(var i = 1; i <= 27; i++){
+                game.load.image('art'+i,'assets/img/child-art/art'+i+'.png');
+            }
+            
+            game.load.image('x','assets/img/x.png');
+        }
+        
+        function create(){
+             game.physics.startSystem(Phaser.Physics.ARCADE);
+            
+            leafRollOver = game.add.audio('leafSound');
+            sitSound = game.add.audio('sitSound');
+            clickSound = game.add.audio('clickSound');
+            swipeSound = game.add.audio('swipeSound');
+            //leafRollOver.addMarker('roll', 0, 1.5);
+            
+            
+            sky = game.add.sprite(0, 0, 'sky');
+            skySized = false;
+            
+            skyX = sky.width;
+            skyY = sky.height;
+            while(skySized == false){
+                if((skyX >= game.world.width) && (skyY >= game.world.height * .6)){
+                    skySized = true;
+                }else{
+                    skyX += 1;
+                    skyY += 1;
+                }   
+            }
+            
+            sky.width = skyX;
+            sky.height = skyY;
+            
+            size = game.add.sprite(0,0,'brand');
+            size.visible = false;
+            
+            hills = game.add.sprite(0, 0, 'hills');
+            hillsSized = false;
+            hillsX = hills.width;
+            hillsY = hills.height;
+            while(hillsSized == false){
+                if((hillsX >= game.world.width) && (hillsY >= game.world.height * .6)){
+                    hillsSized = true;
+                }else{
+                    hillsX += 1;
+                    hillsY += 1;
+                }
+            }
+            hills.width = hillsX;
+            hills.height = hillsY;
+            
+            hills.y = game.world.height * .5;
+            
+            
+            //SIZE BREAK
+            console.log(game.world.width);
+            turkeyTail = game.add.sprite(0, 0, 'turkeyTail');
+            //turkeyTail.x = game.world.centerX-(turkeyTail.width/2);
+            //turkeyTail.y = game.world.centerY-(turkeyTail.height/2);
+            turkeyTail.anchor.x = .5;
+            turkeyTail.anchor.y = .9;
+            turkeyTail.x = game.world.centerX;
+            turkeyTail.y = game.world.centerY+(turkeyTail.height/2)-30;
+            
+            turkeyStand = game.add.sprite(0, 0, 'turkeyStand');
+            turkeyStand.x = game.world.centerX-(turkeyStand.width/2);
+            turkeyStand.y = game.world.centerY-(turkeyStand.height/2);
+            
+            turkeySit = game.add.sprite(0, 0, 'turkeySit');
+            turkeySit.x = game.world.centerX-(turkeySit.width/2);
+            turkeySit.y = game.world.centerY-(turkeySit.height/2)+18;
+            turkeySit.visible = false;
+            
+            turkeyBlink = game.add.sprite(0, 0, 'turkeyBlink');
+            turkeyBlink.x = turkeySit.x + (turkeySit.width/2) - (turkeyBlink.width/2)+.5;
+            turkeyBlink.y = turkeySit.y+61;
+            turkeyBlink.visible = false;
+            
+            thanks = game.add.sprite(0, 0, 'thanks');
+            instructions = game.add.sprite(0, 0, 'instructions');
+            
+            if(game.world.width >= 1100){
+            thanks.scale.setTo(.8,.8);  
+            instructions.scale.setTo(.9,.9);
+            }else{
+            thanks.scale.setTo(1.2,1.2);
+            instructions.scale.setTo(1.5,1.5);
+            }
+            thanks.x = game.world.centerX - (thanks.width/2);
+            thanks.y = (thanks.height/2);
+            
+            instructions.x = game.world.centerX - (instructions.width/2);
+            instructions.y = thanks.y + thanks.height + 10;
+            
+            thanks.alpha= 0;
+            instructions . alpha = 0;
+            
+            branch1 = game.add.sprite(0,0,'branch1');
+            branch2 = game.add.sprite(0,0,'branch2');
+            /*
+            if(game.world.width >= 1100){
+                branch1.y = instructions.y+instructions.height;
+                branch2.y = instructions.y+instructions.height;
+                console.log('here');
+            }else{
+                branch1.y = (game.world.height/2)-(branch1.height*2);
+                branch2.y = (game.world.height/2)-(branch2.height*2);
+            }*/
+            
+            if(game.world.width >= game.world.height){
+                branch1.y = instructions.y;
+                branch2.y = instructions.y;
+            }else{
+                branch1.y = instructions.y+instructions.height;
+                branch2.y = instructions.y+instructions.height;    
+            }
+            
+            branch2.x = game.width - branch2.width;
+            
+            /*BUTTONS*/
+            
+            
+            leaf1button = game.add.button(0,0, 'leaf1', actionOnClick, this, 1, 1, 2);
+            leaf1button.inputEnabled = true;
+            leaf1button.name = "1";
+            leaf1button.visible = false;
+            
+            leaf2button = game.add.button(0,0, 'leaf2', actionOnClick, this, 1, 1, 2);
+            leaf2button.inputEnabled = true;
+            leaf2button.name = "2";
+            leaf2button.visible = false;
+            
+            leaf3button = game.add.button(0,0, 'leaf3', actionOnClick, this, 1, 1, 2);
+            leaf3button.inputEnabled = true;
+            leaf3button.name = "3";
+            leaf3button.visible = false;
+            
+            leaf4button = game.add.button(0,0, 'leaf4', actionOnClick, this, 1, 1, 2);
+            leaf4button.inputEnabled = true;
+            leaf4button.name = "4";
+            leaf4button.visible = false;
+            
+            leaf5button = game.add.button(0,0, 'leaf5', actionOnClick, this, 1, 1, 2);
+            leaf5button.inputEnabled = true;
+            leaf5button.name = "5";
+            leaf5button.visible = false;
+            
+            leaf6button = game.add.button(0,0, 'leaf6', actionOnClick, this, 1, 1, 2);
+            leaf6button.inputEnabled = true;
+            leaf6button.name = "6";
+            leaf6button.visible = false;
+            
+            leaf7button = game.add.button(0,0, 'leaf7', actionOnClick, this, 1, 1, 2);
+            leaf7button.inputEnabled = true;
+            leaf7button.name = "7";
+            leaf7button.visible = false;
+            
+            leaf8button = game.add.button(0,0, 'leaf8', actionOnClick, this, 1, 1, 2);
+            leaf8button.inputEnabled = true;
+            leaf8button.name = "8";
+            leaf8button.visible = false;
+       
+            leaf9button = game.add.button(0,0, 'leaf9', actionOnClick, this, 1, 1, 2);
+            leaf9button.inputEnabled = true;
+            leaf9button.name = "9";
+            leaf9button.visible = false;
+            
+            leaf10button = game.add.button(0,0, 'leaf10', actionOnClick, this, 1, 1, 2);
+            leaf10button.inputEnabled = true;
+            leaf10button.name = "10";
+            leaf10button.visible = false;
+            
+            leaf11button = game.add.button(0,0, 'leaf11', actionOnClick, this, 1, 1, 2);
+            leaf11button.inputEnabled = true;
+            leaf11button.name = "11";
+            leaf11button.visible = false;
+            
+            leaf12button = game.add.button(0,0, 'leaf12', actionOnClick, this, 1, 1, 2);
+            leaf12button.inputEnabled = true;
+            leaf12button.name = "12";
+            leaf12button.visible = false;
+            
+            leaf13button = game.add.button(0,0, 'leaf13', actionOnClick, this, 1, 1, 2);
+            leaf13button.inputEnabled = true;
+            leaf13button.name = "13";
+            leaf13button.visible = false;
+            
+            leaf14button = game.add.button(0,0, 'leaf14', actionOnClick, this, 1, 1, 2);
+            leaf14button.inputEnabled = true;
+            leaf14button.name = "14";
+            leaf14button.visible = false; 
+            
+            leaf15button = game.add.button(branch1.x+200, branch1.y+25, 'leaf1', actionOnClick, this, 1, 1, 2);
+            leaf15button.inputEnabled = true;
+            leaf15button.name = "15";
+            
+            leaf16button = game.add.button(branch1.x+180, branch1.y+150, 'leaf2', actionOnClick, this, 1, 1, 2);
+            leaf16button.inputEnabled = true;
+            leaf16button.name = "16";
+            
+            leaf17button = game.add.button(branch1.x+350, branch1.y+72, 'leaf3', actionOnClick, this, 1, 1, 2);
+            leaf17button.inputEnabled = true;
+            leaf17button.name = "17";
+            
+            leaf18button = game.add.button(branch1.x+18,branch1.y+158, 'leaf4', actionOnClick, this, 1, 1, 2);
+            leaf18button.inputEnabled = true;
+            leaf18button.name = "18";
+            
+            leaf19button = game.add.button(branch1.x+254,branch1.y+150, 'leaf5', actionOnClick, this, 1, 1, 2);
+            leaf19button.inputEnabled = true;
+            leaf19button.name = "19"; 
+            
+            leaf20button = game.add.button(branch1.x+255,branch1.y+50, 'leaf6', actionOnClick, this, 1, 1, 2);
+            leaf20button.inputEnabled = true;
+            leaf20button.name = "20";
+            
+            leaf21button = game.add.button(branch1.x+300,branch1.y+50, 'leaf7', actionOnClick, this, 1, 1, 2);
+            leaf21button.inputEnabled = true;
+            leaf21button.name = "21"; 
+            
+            leaf22button = game.add.button(branch2.x+110,branch2.y+110, 'leaf8', actionOnClick, this, 1, 1, 2);
+            leaf22button.inputEnabled = true;
+            leaf22button.name = "22"; 
+            
+            leaf23button = game.add.button(branch2.x+220,branch2.y+40, 'leaf9', actionOnClick, this, 1, 1, 2);
+            leaf23button.inputEnabled = true;
+            leaf23button.name = "23"; 
+            
+            leaf24button = game.add.button(branch2.x+220,branch2.y+90, 'leaf10', actionOnClick, this, 1, 1, 2);
+            leaf24button.inputEnabled = true;
+            leaf24button.name = "24"; 
+            
+            leaf25button = game.add.button(branch2.x+200,branch2.y+12, 'leaf11', actionOnClick, this, 1, 1, 2);
+            leaf25button.inputEnabled = true;
+            leaf25button.name = "25"; 
+            
+            leaf26button = game.add.button(branch2.x+350,branch2.y+15, 'leaf12', actionOnClick, this, 1, 1, 2);
+            leaf26button.inputEnabled = true;
+            leaf26button.name = "26"; 
+            
+            leaf27button = game.add.button(branch2.x+450,branch2.y+110, 'leaf13', actionOnClick, this, 1, 1, 2);
+            leaf27button.inputEnabled = true;
+            leaf27button.name = "27"; 
+            
+            
+            leaf1 = game.add.sprite(branch1.x+20, branch1.y+(branch1.height/2)-50,'leaf1');
+            leaf1.inputEnabled = true;
+            game.physics.enable(leaf1, Phaser.Physics.ARCADE);
+            leaf1.body.gravity.y = 35.8;
+            leaf1.body.allowGravity = false;
+            
+            leaf2 = game.add.sprite(branch1.x+60, branch1.y+(branch1.height/2)+20,'leaf2');
+            leaf2.inputEnabled = true;
+            game.physics.enable(leaf2, Phaser.Physics.ARCADE);
+            leaf2.body.gravity.y = 35.8;
+            leaf2.body.allowGravity = false;
+            
+            leaf3 = game.add.sprite(branch1.x+130, branch1.y+(branch1.height/2)-60, 'leaf3','leaf3');
+            leaf3.inputEnabled = true;
+            game.physics.enable(leaf3, Phaser.Physics.ARCADE);
+            leaf3.body.gravity.y = 35.8;
+            leaf3.body.allowGravity = false;
+            
+            leaf4 = game.add.sprite(branch1.x+210, branch1.y+(branch1.height/2)+45,'leaf4');
+            leaf4.inputEnabled = true;
+            game.physics.enable(leaf4, Phaser.Physics.ARCADE);
+            leaf4.body.gravity.y = 35.8;
+            leaf4.body.allowGravity = false;
+            
+            leaf5 = game.add.sprite(branch1.x+270, branch1.y+(branch1.height/2)-70,'leaf5');
+            leaf5.inputEnabled = true;
+            game.physics.enable(leaf5, Phaser.Physics.ARCADE);
+            leaf5.body.gravity.y = 35.8;
+            leaf5.body.allowGravity = false;
+            
+            leaf6 = game.add.sprite(branch1.x+370, branch1.y+(branch1.height/2)-42,'leaf6');
+            leaf6.inputEnabled = true;
+            game.physics.enable(leaf6, Phaser.Physics.ARCADE);
+            leaf6.body.gravity.y = 35.8;
+            leaf6.body.allowGravity = false;
+            
+            leaf7 = game.add.sprite(branch1.x+410, branch1.y+(branch1.height/2)-72,'leaf7');
+            leaf7.inputEnabled = true;
+            game.physics.enable(leaf7, Phaser.Physics.ARCADE);
+            leaf7.body.gravity.y = 35.8;
+            leaf7.body.allowGravity = false;
+            
+            leaf8 = game.add.sprite(branch2.x+500, branch1.y+(branch1.height/2)-55,'leaf8');
+            leaf8.inputEnabled = true;
+            game.physics.enable(leaf8, Phaser.Physics.ARCADE);
+            leaf8.body.gravity.y = 35.8;
+            leaf8.body.allowGravity = false;
+            
+            leaf9 = game.add.sprite(branch2.x+430, branch1.y+(branch1.height/2)-122,'leaf9');
+            leaf9.inputEnabled = true;
+            game.physics.enable(leaf9, Phaser.Physics.ARCADE);
+            leaf9.body.gravity.y = 35.8;
+            leaf9.body.allowGravity = false;
+            
+            leaf10 = game.add.sprite(branch2.x+380, branch1.y+(branch1.height/2)-2,'leaf10');
+            leaf10.inputEnabled = true;
+            game.physics.enable(leaf10, Phaser.Physics.ARCADE);
+            leaf10.body.gravity.y = 35.8;
+            leaf10.body.allowGravity = false;
+            
+            leaf11 = game.add.sprite(branch2.x+350, branch1.y+(branch1.height/2)-72,'leaf11');
+            leaf11.inputEnabled = true;
+            game.physics.enable(leaf11, Phaser.Physics.ARCADE);
+            leaf11.body.gravity.y = 35.8;
+            leaf11.body.allowGravity = false;
+            
+            leaf12 = game.add.sprite(branch2.x+280, branch1.y+(branch1.height/2)-78,'leaf12');
+            leaf12.inputEnabled = true;
+            game.physics.enable(leaf12, Phaser.Physics.ARCADE);
+            leaf12.body.gravity.y = 35.8;
+            leaf12.body.allowGravity = false;
+            
+            leaf13 = game.add.sprite(branch2.x+150, branch1.y+(branch1.height/2)-58,'leaf13');
+            leaf13.inputEnabled = true;
+            game.physics.enable(leaf13, Phaser.Physics.ARCADE);
+            leaf13.body.gravity.y = 35.8;
+            leaf13.body.allowGravity = false;
+            
+            leaf14 = game.add.sprite(branch2.x+100, branch1.y+(branch1.height/2)-85,'leaf14');
+            leaf14.inputEnabled = true;
+            game.physics.enable(leaf14, Phaser.Physics.ARCADE);
+            leaf14.body.gravity.y = 35.8;
+            leaf14.body.allowGravity = false;
+            
+            
+            
+            art1 = game.add.sprite(0, 0, 'art1');
+            newX = game.world.width * .6;
+            xScale = (newX / art1.width);
+            newY = game.world.height * .8;
+            yScale = ((newX*.6) / art1.height);
+            art1.scale.setTo(xScale, yScale);
+            art1.x = game.world.centerX - (art1.width/2);
+            art1.y = game.world.centerY - size.height - (art1.height/2);
+            art1.visible = false;
+
+            art2 = game.add.sprite(0, 0, 'art2');
+            art2.scale.setTo(xScale, yScale);
+            art2.x = game.world.centerX - (art2.width/2);
+            art2.y = game.world.centerY - (art2.height/2) - size.height;
+            art2.visible = false;
+            
+            art3 = game.add.sprite(0, 0, 'art3');
+            art3.scale.setTo(xScale, yScale);
+            art3.x = game.world.centerX - (art3.width/2);
+            art3.y = game.world.centerY - (art3.height/2) - size.height;
+            art3.visible = false;
+            
+            art4 = game.add.sprite(0, 0, 'art4');
+            art4.scale.setTo(xScale, yScale);
+            art4.x = game.world.centerX - (art4.width/2);
+            art4.y = game.world.centerY - (art4.height/2) - size.height;
+            art4.visible = false;
+            
+            art5 = game.add.sprite(0, 0, 'art5');
+            art5.scale.setTo(xScale, yScale);
+            art5.x = game.world.centerX - (art5.width/2);
+            art5.y = game.world.centerY - (art5.height/2) - size.height;
+            art5.visible = false;
+            
+            art6 = game.add.sprite(0, 0, 'art6');
+            art6.scale.setTo(xScale, yScale);
+            art6.x = game.world.centerX - (art6.width/2);
+            art6.y = game.world.centerY - (art6.height/2) - size.height;
+            art6.visible = false;
+            
+            art7 = game.add.sprite(0, 0, 'art7');
+            art7.scale.setTo(xScale, yScale);
+            art7.x = game.world.centerX - (art7.width/2);
+            art7.y = game.world.centerY - (art7.height/2) - size.height;
+            art7.visible = false;
+            
+            art8 = game.add.sprite(0, 0, 'art8');
+            art8.scale.setTo(xScale, yScale);
+            art8.x = game.world.centerX - (art8.width/2);
+            art8.y = game.world.centerY - (art8.height/2) - size.height;
+            art8.visible = false;
+            
+            art9 = game.add.sprite(0, 0, 'art9');
+            art9.scale.setTo(xScale, yScale);
+            art9.x = game.world.centerX - (art9.width/2);
+            art9.y = game.world.centerY - (art9.height/2) - size.height;
+            art9.visible = false;
+
+            art10 = game.add.sprite(0, 0, 'art10');
+            art10.scale.setTo(xScale, yScale);
+            art10.x = game.world.centerX - (art10.width/2);
+            art10.y = game.world.centerY - (art10.height/2) - size.height;
+            art10.visible = false;
+            
+            art11 = game.add.sprite(0, 0, 'art11');
+            art11.scale.setTo(xScale, yScale);
+            art11.x = game.world.centerX - (art11.width/2);
+            art11.y = game.world.centerY - (art11.height/2) - size.height;
+            art11.visible = false;
+            
+            art12 = game.add.sprite(0, 0, 'art12');
+            art12.scale.setTo(xScale, yScale);
+            art12.x = game.world.centerX - (art12.width/2);
+            art12.y = game.world.centerY - (art12.height/2) - size.height;
+            art12.visible = false;
+            
+            art13 = game.add.sprite(0, 0, 'art13');
+            art13.scale.setTo(xScale, yScale);
+            art13.x = game.world.centerX - (art13.width/2);
+            art13.y = game.world.centerY - (art13.height/2) - size.height;
+            art13.visible = false;
+
+            art14 = game.add.sprite(0, 0, 'art14');
+            art14.scale.setTo(xScale, yScale);
+            art14.x = game.world.centerX - (art14.width/2);
+            art14.y = game.world.centerY - (art14.height/2) - size.height;
+            art14.visible = false;
+            
+            art15 = game.add.sprite(0, 0, 'art15');
+            art15.scale.setTo(xScale, yScale);
+            art15.x = game.world.centerX - (art15.width/2);
+            art15.y = game.world.centerY - (art15.height/2) - size.height;
+            art15.visible = false;
+            
+            art16 = game.add.sprite(0, 0, 'art16');
+            art16.scale.setTo(xScale, yScale);
+            art16.x = game.world.centerX - (art16.width/2);
+            art16.y = game.world.centerY - (art16.height/2) - size.height;
+            art16.visible = false;
+            
+            art17 = game.add.sprite(0, 0, 'art17');
+            art17.scale.setTo(xScale, yScale);
+            art17.x = game.world.centerX - (art17.width/2);
+            art17.y = game.world.centerY - (art17.height/2) - size.height;
+            art17.visible = false;
+            
+            art18 = game.add.sprite(0, 0, 'art18');
+            art18.scale.setTo(xScale, yScale);
+            art18.x = game.world.centerX - (art18.width/2);
+            art18.y = game.world.centerY - (art18.height/2) - size.height;
+            art18.visible = false;
+            
+            art19 = game.add.sprite(0, 0, 'art19');
+            art19.scale.setTo(xScale, yScale);
+            art19.x = game.world.centerX - (art19.width/2);
+            art19.y = game.world.centerY - (art19.height/2) - size.height;
+            art19.visible = false;
+            
+            art20 = game.add.sprite(0, 0, 'art20');
+            art20.scale.setTo(xScale, yScale);
+            art20.x = game.world.centerX - (art20.width/2);
+            art20.y = game.world.centerY - (art20.height/2) - size.height;
+            art20.visible = false;
+            
+            art21 = game.add.sprite(0, 0, 'art21');
+            art21.scale.setTo(xScale, yScale);
+            art21.x = game.world.centerX - (art21.width/2);
+            art21.y = game.world.centerY - (art21.height/2) - size.height;
+            art21.visible = false;
+            
+            art22 = game.add.sprite(0, 0, 'art22');
+            art22.scale.setTo(xScale, yScale);
+            art22.x = game.world.centerX - (art22.width/2);
+            art22.y = game.world.centerY - (art22.height/2) - size.height;
+            art22.visible = false;
+            
+            art23 = game.add.sprite(0, 0, 'art23');
+            art23.scale.setTo(xScale, yScale);
+            art23.x = game.world.centerX - (art23.width/2);
+            art23.y = game.world.centerY - (art23.height/2) - size.height;
+            art23.visible = false;
+            
+            art24 = game.add.sprite(0, 0, 'art24');
+            art24.scale.setTo(xScale, yScale);
+            art24.x = game.world.centerX - (art24.width/2);
+            art24.y = game.world.centerY - (art24.height/2) - size.height;
+            art24.visible = false;
+            
+            art25 = game.add.sprite(0, 0, 'art25');
+            art25.scale.setTo(xScale, yScale);
+            art25.x = game.world.centerX - (art25.width/2);
+            art25.y = game.world.centerY - (art25.height/2) - size.height;
+            art25.visible = false;
+            
+            art26 = game.add.sprite(0, 0, 'art26');
+            art26.scale.setTo(xScale, yScale);
+            art26.x = game.world.centerX - (art26.width/2);
+            art26.y = game.world.centerY - (art26.height/2) - size.height;
+            art26.visible = false;
+            
+            art27 = game.add.sprite(0, 0, 'art27');
+            art27.scale.setTo(xScale, yScale);
+            art27.x = game.world.centerX - (art27.width/2);
+            art27.y = game.world.centerY - (art27.height/2) - size.height;
+            art27.visible = false;
+
+            xButton = game.add.button(0, 0, 'x', closeArt, this, 1, 1, 2);
+            xButton.x = art1.x + art1.width - xButton.width-3;
+            xButton.y = art1.y;
+            xButton.visible = false;
+            
+            poly = new Phaser.Polygon();
+
+            //  And then populate it via setTo, using any combination of values as above
+            poly.setTo([ new Phaser.Point(0, game.world.height), new Phaser.Point(0, game.world.height - size.height - 18), new Phaser.Point(game.world.width, game.world.height - size.height - 18), new Phaser.Point(game.world.width, game.world.height) ]);
+
+
+
+            graphics = game.add.graphics(0, 0);
+
+            graphics.beginFill(0xffffff);
+            graphics.drawPolygon(poly.points);
+            graphics.endFill();
+            
+            brand = game.add.sprite(0,0,'brand');
+            brand.x = game.world.centerX-(brand.width/2);
+            brand.y = game.world.height-brand.height-5;
+            
+        }
+        
+        function update(){
+            game.add.tween(thanks).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
+            if(thanks.alpha >.8){
+                game.add.tween(instructions).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
+            }
+            
+            var sizeUp = 1.09;
+           
+             if(leaf1button.input.pointerOver() == true){
+                leaf1button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay1 == false){
+                    leafRollOver.play();
+                    rollPlay1 = true;
+                }
+            }else{
+                leaf1button.scale.setTo(1,1);
+                rollPlay1 = false;
+            }
+             if(leaf2button.input.pointerOver() == true){
+                leaf2button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay2 == false){
+                    leafRollOver.play();
+                    rollPlay2 = true;
+                }
+            }else{
+                leaf2button.scale.setTo(1,1);
+                rollPlay2 = false;
+            }
+             if(leaf3button.input.pointerOver() == true){
+                leaf3button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay3 == false){
+                    leafRollOver.play();
+                    rollPlay3 = true;
+                }
+            }else{
+                leaf3button.scale.setTo(1,1);
+                rollPlay3 = false;
+            }
+             if(leaf4button.input.pointerOver() == true){
+                leaf4button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay4 == false){
+                    leafRollOver.play();
+                    rollPlay4 = true;
+                }
+            }else{
+                leaf4button.scale.setTo(1,1);
+                rollPlay4 = false;
+            }
+             if(leaf5button.input.pointerOver() == true){
+                leaf5button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay5 == false){
+                    leafRollOver.play();
+                    rollPlay5 = true;
+                }
+            }else{
+                leaf5button.scale.setTo(1,1);
+                rollPlay5 = false;
+            }
+             if(leaf6button.input.pointerOver() == true){
+                leaf6button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay6 == false){
+                    leafRollOver.play();
+                    rollPlay6 = true;
+                }
+            }else{
+                leaf6button.scale.setTo(1,1);
+                rollPlay6 = false;
+            }
+             if(leaf7button.input.pointerOver() == true){
+                leaf7button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay7 == false){
+                    leafRollOver.play();
+                    rollPlay7 = true;
+                }
+            }else{
+                leaf7button.scale.setTo(1,1);
+                rollPlay7 = false;
+            }
+             if(leaf8button.input.pointerOver() == true){
+                leaf8button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay8 == false){
+                    leafRollOver.play();
+                    rollPlay8 = true;
+                }
+            }else{
+                leaf8button.scale.setTo(1,1);
+                rollPlay8 = false;
+            }
+             if(leaf9button.input.pointerOver() == true){
+                leaf9button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay9 == false){
+                    leafRollOver.play();
+                    rollPlay9 = true;
+                }
+            }else{
+                leaf9button.scale.setTo(1,1);
+                rollPlay9 = false;
+            }
+             if(leaf10button.input.pointerOver() == true){
+                leaf10button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay10 == false){
+                    leafRollOver.play();
+                    rollPlay10 = true;
+                }
+            }else{
+                leaf10button.scale.setTo(1,1);
+                rollPlay10 = false;
+            }
+             if(leaf11button.input.pointerOver() == true){
+                leaf11button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay11 == false){
+                    leafRollOver.play();
+                    rollPlay11 = true;
+                }
+            }else{
+                leaf11button.scale.setTo(1,1);
+                rollPlay11 = false;
+            }
+             if(leaf12button.input.pointerOver() == true){
+                leaf12button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay12 == false){
+                    leafRollOver.play();
+                    rollPlay12 = true;
+                }
+            }else{
+                leaf12button.scale.setTo(1,1);
+                rollPlay12 = false;
+            }
+             if(leaf13button.input.pointerOver() == true){
+                leaf13button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay13 == false){
+                    leafRollOver.play();
+                    rollPlay13 = true;
+                }
+            }else{
+                leaf13button.scale.setTo(1,1);
+                rollPlay13 = false;
+            }
+             if(leaf14button.input.pointerOver() == true){
+                leaf14button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay14 == false){
+                    leafRollOver.play();
+                    rollPlay14 = true;
+                }
+            }else{
+                leaf14button.scale.setTo(1,1);
+                rollPlay14 = false;
+            }
+             if(leaf15button.input.pointerOver() == true){
+                leaf15button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay15 == false){
+                    leafRollOver.play();
+                    rollPlay15 = true;
+                }
+            }else{
+                leaf15button.scale.setTo(1,1);
+                rollPlay15 = false;
+            }
+             if(leaf16button.input.pointerOver() == true){
+                leaf16button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay16 == false){
+                    leafRollOver.play();
+                    rollPlay16 = true;
+                }
+            }else{
+                leaf16button.scale.setTo(1,1);
+                rollPlay16 = false;
+            }
+             if(leaf17button.input.pointerOver() == true){
+                leaf17button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay17 == false){
+                    leafRollOver.play();
+                    rollPlay17 = true;
+                }
+            }else{
+                leaf17button.scale.setTo(1,1);
+                rollPlay17 = false;
+            }
+             if(leaf18button.input.pointerOver() == true){
+                leaf18button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay18 == false){
+                    leafRollOver.play();
+                    rollPlay18 = true;
+                }
+            }else{
+                leaf18button.scale.setTo(1,1);
+                rollPlay18 = false;
+            }
+             if(leaf19button.input.pointerOver() == true){
+                leaf19button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay19 == false){
+                    leafRollOver.play();
+                    rollPlay19 = true;
+                }
+            }else{
+                leaf19button.scale.setTo(1,1);
+                rollPlay19 = false;
+            }
+             if(leaf20button.input.pointerOver() == true){
+                leaf20button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay20 == false){
+                    leafRollOver.play();
+                    rollPlay20 = true;
+                }
+            }else{
+                leaf20button.scale.setTo(1,1);
+                rollPlay20 = false;
+            }
+             if(leaf21button.input.pointerOver() == true){
+                leaf21button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay21 == false){
+                    leafRollOver.play();
+                    rollPlay21 = true;
+                }
+            }else{
+                leaf21button.scale.setTo(1,1);
+                rollPlay21 = false;
+            }
+             if(leaf22button.input.pointerOver() == true){
+                leaf22button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay22 == false){
+                    leafRollOver.play();
+                    rollPlay22 = true;
+                }
+            }else{
+                leaf22button.scale.setTo(1,1);
+                rollPlay22 = false;
+            }
+             if(leaf23button.input.pointerOver() == true){
+                leaf23button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay23 == false){
+                    leafRollOver.play();
+                    rollPlay23 = true;
+                }
+            }else{
+                leaf23button.scale.setTo(1,1);
+                rollPlay23 = false;
+            }
+             if(leaf24button.input.pointerOver() == true){
+                leaf24button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay24 == false){
+                    leafRollOver.play();
+                    rollPlay24 = true;
+                }
+            }else{
+                leaf24button.scale.setTo(1,1);
+                rollPlay24 = false;
+            }
+             if(leaf25button.input.pointerOver() == true){
+                leaf25button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay25 == false){
+                    leafRollOver.play();
+                    rollPlay25 = true;
+                }
+            }else{
+                leaf25button.scale.setTo(1,1);
+                rollPlay25 = false;
+            }
+             if(leaf26button.input.pointerOver() == true){
+                leaf26button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay26 == false){
+                    leafRollOver.play();
+                    rollPlay26 = true;
+                }
+            }else{
+                leaf26button.scale.setTo(1,1);
+                rollPlay26 = false;
+            }
+             if(leaf27button.input.pointerOver() == true){
+                leaf27button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay27 == false){
+                    leafRollOver.play();
+                    rollPlay27 = true;
+                }
+            }else{
+                leaf27button.scale.setTo(1,1);
+                rollPlay27 = false;
+            }
+           
+           
+            
+            //tweenA = game.add.tween(turkeyTail).to({ angle : -5}, 100, Phaser.Easing.Bounce.Out, true);
+            //tweenB = game.add.tween(turkeyTail).to({ angle : 5}, 100, Phaser.Easing.Bounce.Out, true);
+            //tweenB.chain(tweenA);
+            //game.add.tween(turkeyTail).to({ angle : -5}, 100, Phaser.Easing.Bounce.Out, true);
+            //game.add.tween(turkeyTail).to({ angle : 0}, 50, Phaser.Easing.Bounce.Out, true);
+            //game.add.tween(turkeyTail).to( { alpha: 0 }, 100, Phaser.Easing.Linear.None, true, 0, 100, true); 
+            
+            
+            if(game.time.totalElapsedSeconds()>6){
+                turkeyStand.visible = false;
+                turkeyTail.visible = false;
+                turkeySit.visible = true;
+                
+                if(sat == false){
+                playSitSound();
+                //branchWiggle();
+                }
+                
+                sat = true;
+            }
+            
+            if(game.time.totalElapsedSeconds() > 6.3 && fall1 == false){
+                leaf1.body.allowGravity = true;
+                leaf4.body.allowGravity = true;
+                leaf7.body.allowGravity = true;
+                leaf10.body.allowGravity = true;
+                //game.add.tween(leaf1).to({ y: game.world.height - 20 - (game.world.height*.25)}, 2000, Phaser.Easing.Linear.In, true);
+                //game.add.tween(leaf4).to({ y: game.world.height - 20 - (game.world.height*.22)}, 1400, Phaser.Easing.Linear.None, true);
+                //game.add.tween(leaf7).to({ y: game.world.height - 100 - (game.world.height*.15)}, 2600, Phaser.Easing.Linear.None, true);
+                //game.add.tween(leaf10).to({ y: game.world.height - 40 - (game.world.height*.30)}, 2400, Phaser.Easing.Linear.None, true);
+                fall1 = true;
+            }
+            
+            if(game.time.totalElapsedSeconds() > 7 && fall2 == false){
+                leaf2.body.allowGravity = true;
+                leaf5.body.allowGravity = true;
+                leaf8.body.allowGravity = true;
+                leaf11.body.allowGravity = true;
+                leaf13.body.allowGravity = true;
+                fall2 = true;
+            }
+            
+            if(game.time.totalElapsedSeconds() > 7.75 && fall3 == false){
+                leaf3.body.allowGravity = true;
+                leaf6.body.allowGravity = true;
+                leaf9.body.allowGravity = true;
+                leaf12.body.allowGravity = true;
+                leaf14.body.allowGravity = true;
+                
+                fall3 = true;
+            }
+            
+            if(leaf1.y >=  game.world.height - 20 - (game.world.height*.25) && fall1 == true && leaf1.visible == true){
+                leaf1button.x = leaf1.x;
+                leaf1button.y = leaf1.y;
+                leaf1.visible = false;
+                leaf1button.visible = true;
+                
+            }
+            if(leaf2.y >=  game.world.height - 20 - (game.world.height*.22) && fall1 == true && leaf2.visible == true){
+                leaf2button.x = leaf2.x;
+                leaf2button.y = leaf2.y;
+                leaf2.visible = false;
+                leaf2button.visible = true;
+                
+            }
+            if(leaf3.y >=  game.world.height - 20 - (game.world.height*.35) && fall1 == true && leaf3.visible == true){
+                leaf3button.x = leaf3.x;
+                leaf3button.y = leaf3.y;
+                leaf3.visible = false;
+                leaf3button.visible = true;
+                
+            }
+            if(leaf4.y >=  game.world.height - 20 - (game.world.height*.28) && fall1 == true && leaf4.visible == true){
+                leaf4button.x = leaf4.x;
+                leaf4button.y = leaf4.y;
+                leaf4.visible = false;
+                leaf4button.visible = true;
+                
+            }
+            if(leaf5.y >=  game.world.height - 20 - (game.world.height*.30) && fall1 == true && leaf5.visible == true){
+                leaf5button.x = leaf5.x;
+                leaf5button.y = leaf5.y;
+                leaf5.visible = false;
+                leaf5button.visible = true;
+                
+            }
+            if(leaf6.y >=  game.world.height - 20 - (game.world.height*.25) && fall1 == true && leaf6.visible == true){
+                leaf6button.x = leaf6.x;
+                leaf6button.y = leaf6.y;
+                leaf6.visible = false;
+                leaf6button.visible = true;
+                
+            }
+            if(leaf7.y >=  game.world.height - 20 - (game.world.height*.37) && fall1 == true && leaf7.visible == true){
+                leaf7button.x = leaf7.x;
+                leaf7button.y = leaf7.y;
+                leaf7.visible = false;
+                leaf7button.visible = true;
+                
+            }
+            if(leaf8.y >=  game.world.height - 20 - (game.world.height*.22) && fall1 == true && leaf8.visible == true){
+                leaf8button.x = leaf8.x;
+                leaf8button.y = leaf8.y;
+                leaf8.visible = false;
+                leaf8button.visible = true;
+                
+            }
+            if(leaf9.y >=  game.world.height - 20 - (game.world.height*.30) && fall1 == true && leaf9.visible == true){
+                leaf9button.x = leaf9.x;
+                leaf9button.y = leaf9.y;
+                leaf9.visible = false;
+                leaf9button.visible = true;
+                
+            }
+            if(leaf10.y >=  game.world.height - 20 - (game.world.height*.25) && fall1 == true && leaf10.visible == true){
+                leaf10button.x = leaf10.x;
+                leaf10button.y = leaf10.y;
+                leaf10.visible = false;
+                leaf10button.visible = true;
+                
+            }
+            if(leaf11.y >=  game.world.height - 20 - (game.world.height*.31) && fall1 == true && leaf11.visible == true){
+                leaf11button.x = leaf11.x;
+                leaf11button.y = leaf11.y;
+                leaf11.visible = false;
+                leaf11button.visible = true;
+                
+            }
+            if(leaf12.y >=  game.world.height - 20 - (game.world.height*.37) && fall1 == true && leaf12.visible == true){
+                leaf12button.x = leaf12.x;
+                leaf12button.y = leaf12.y;
+                leaf12.visible = false;
+                leaf12button.visible = true;
+                
+            }
+            if(leaf13.y >=  game.world.height - 20 - (game.world.height*.27) && fall1 == true && leaf13.visible == true){
+                leaf13button.x = leaf13.x;
+                leaf13button.y = leaf13.y;
+                leaf13.visible = false;
+                leaf13button.visible = true;
+                
+            }
+            if(leaf14.y >=  game.world.height - 20 - (game.world.height*.25) && fall1 == true && leaf14.visible == true){
+                leaf14button.x = leaf14.x;
+                leaf14button.y = leaf14.y;
+                leaf14.visible = false;
+                leaf14button.visible = true;
+                
+            }
+            
+             
+            if(sat == true){
+                
+                
+                if((Math.floor(Math.random() * 1001) >995) || blinker == true){
+                    turkeyBlink.visible = true;
+                    //turkeySit.visible = true;
+                    blinkNum += 1;
+                    blinker = true;
+                    if(blinkNum > 22){
+                        blinker = false;
+                        blinkNum = 0;
+                    }
+                    
+                }else{
+                    turkeyBlink.visible = false;
+                    //turkeySit.visible = true;
+                }
+            }
+            
+            if(art1.visible == true || art2.visible == true || art3.visible == true || art4.visible == true || art5.visible == true || art6.visible == true || art7.visible == true || art8.visible == true || art9.visible == true || art10.visible == true || art11.visible == true || art12.visible == true || art13.visible == true || art14.visible == true || art15.visible == true || art16.visible == true || art23.visible == true || art24.visible == true || art25.visible == true || art26.visible == true || art27.visible == true || art8.visible == true || art17.visible == true || art18.visible == true || art19.visible == true || art20.visible == true || art21.visible == true || art22.visible == true){
+                rollPlay1 = true;
+                rollPlay2 = true;
+                rollPlay3 = true;
+                rollPlay4 = true;
+                rollPlay5 = true;
+                rollPlay6 = true;
+                rollPlay7 = true;
+                rollPlay8 = true;
+                rollPlay9 = true;
+                rollPlay10 = true;
+                rollPlay11 = true;
+                rollPlay12 = true;
+                rollPlay13 = true;
+                rollPlay14 = true;
+                rollPlay15 = true;
+                rollPlay16 = true;
+                rollPlay17 = true;
+                rollPlay18 = true;
+                rollPlay19 = true;
+                rollPlay20 = true;
+                rollPlay21 = true;
+                rollPlay22 = true;
+                rollPlay23 = true;
+                rollPlay24 = true;
+                rollPlay25 = true;
+                rollPlay26 = true;
+                rollPlay27 = true;
+            }
+            
+            
+        }
+        
+        /*BUTTON FUNCTIONS*/
+    
+        function actionOnClick (button) {
+            swipeSound.play();
+            xButton.visible = true;
+            
+            art1.visible = false; 
+            art2.visible = false;
+            art3.visible = false;
+            art4.visible = false;
+            art5.visible = false;
+            art6.visible = false;
+            art7.visible = false;
+            art8.visible = false;
+            art9.visible = false;
+            art10.visible = false;
+            art11.visible = false;
+            art12.visible = false;
+            art13.visible = false;
+            art13.visible = false;
+            art14.visible = false;
+            art15.visible = false;
+            art16.visible = false; 
+            art17.visible = false;
+            art18.visible = false;
+            art19.visible = false;
+            art20.visible = false;
+            art21.visible = false;
+            art22.visible = false;
+            art23.visible = false;
+            art24.visible = false;
+            art25.visible = false;
+            art26.visible = false;
+            art27.visible = false;
+            
+            var leafNum = Number(button.name);
+            
+            if(leafNum ==1){
+             art1.visible = true;   
+            }else if(leafNum == 2){
+             art2.visible = true;
+            }else if(leafNum == 3){
+             art3.visible = true;   
+            }else if(leafNum == 4){
+             art4.visible = true;
+            }else if(leafNum == 5){
+             art5.visible = true;
+            }else if(leafNum == 6){
+             art6.visible = true;
+            }else if(leafNum == 7){
+             art7.visible = true;
+            }else if(leafNum == 8){
+             art8.visible = true;
+            }else if(leafNum == 9){
+             art9.visible = true;
+            }else if(leafNum == 10){
+             art10.visible = true;
+            }else if(leafNum == 11){
+             art11.visible = true;
+            }else if(leafNum == 12){
+             art12.visible = true;
+            }else if(leafNum == 13){
+             art13.visible = true;
+            }else if(leafNum == 14){
+             art14.visible = true;
+            }else if(leafNum == 15){
+             art15.visible = true;
+            }else if(leafNum == 16){
+             art16.visible = true;
+            }else if(leafNum == 17){
+             art17.visible = true;
+            }else if(leafNum == 18){
+             art18.visible = true;
+            }else if(leafNum == 19){
+             art19.visible = true;
+            }else if(leafNum == 20){
+             art20.visible = true;
+            }else if(leafNum == 21){
+             art21.visible = true;
+            }else if(leafNum == 22){
+             art22.visible = true;
+            }else if(leafNum == 23){
+             art23.visible = true;
+            }else if(leafNum == 24){
+             art24.visible = true;
+            }else if(leafNum == 25){
+             art25.visible = true;
+            }else if(leafNum == 26){
+             art26.visible = true;
+            }else if(leafNum == 27){
+             art27.visible = true;
+            }
+            
+        
+        }
+            
+        function playSitSound(){
+            sitSound.play();
+        }
+            
+        function branchWiggle(){
+            console.log('here');
+            game.add.tween(branch1).to( { y: branch1.y-3 }, 500, Phaser.Easing.Linear.None, true);
+            game.add.tween(branch2).to( { y: branch2.y-3 }, 500, Phaser.Easing.Linear.None, true);
+        }
+            
+        function closeArt() {
+            clickSound.play();
+            art1.visible = false;
+            art2.visible = false;
+            art3.visible = false;
+            art4.visible = false;
+            art5.visible = false;
+            art6.visible = false;
+            art7.visible = false;
+            art8.visible = false;
+            art9.visible = false;
+            art10.visible = false;
+            art11.visible = false;
+            art12.visible = false;
+            art13.visible = false;
+            art14.visible = false;
+            art15.visible = false;
+            art16.visible = false;
+            art17.visible = false;
+            art18.visible = false;
+            art19.visible = false;
+            art20.visible = false;
+            art21.visible = false;
+            art22.visible = false;
+            art23.visible = false;
+            art24.visible = false;
+            art25.visible = false;
+            art26.visible = false;
+            art27.visible = false;
+            xButton.visible = false;
+            
+        }
+        
+            
+        </script>
+    </head>
+    <body>
+        <div id="card">
+        </div>
+    </body>
+</html>

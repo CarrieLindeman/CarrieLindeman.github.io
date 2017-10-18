@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Selection</title>
+
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/freelancer.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <script src="js/phaser/phaser.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#page-top">Selection</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#vande">Boolean Values &amp; Expressions</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#logic">Logical Operators</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#nested">Nested</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#chained">Chained</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#exercises">Exercises</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#glossary">Glossary</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="img-responsive" src="img/profile.png" alt="">
+                    <div class="intro-text">
+                        <span class="name">Python</span>
+                        <span class="skills">Learning Selection using Python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Portfolio Grid Section -->
+    <section id="vande">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Boolean Values and Expressions</h2>
+                    <img src="img/bannergrey.png">
+                </div>
+                <h4>Boolean Values</h4>
+                <p>The Python type for storing true and false values is called bool, named after the British mathematician, <a href="https://en.wikipedia.org/wiki/George_Boole" target="_blank">George Boole</a>. He created Boolean Algebra, which is the basis of all modern computer arithmetic. Computers operate on a binary system. Think on and off, 1 or 0, true or false.</p>
+                <img class="img-responsive" src="img/code/boolcode.png">
+                <p>There are only two boolean values. They are True and False. Capitalization is important, since true and false are not boolean values (remember Python is case sensitive).
+                </p>
+                <img class="img-responsive" src="img/code/boolcapt.png">
+                <h4>Boolean Expressions</h4>
+                <p>A boolean expression is an expression that evaluates to a boolean value. The equality operator, ==, compares two values and produces a boolean value related to whether the two values are equal to one another.</p>
+                <img class="img-responsive" src="img/code/boolex.png">
+                <p>The == operator is one of six common comparison operators; the others are:
+                    <ul style="list-style-type:none">
+                        <li><strong>x != y</strong>  # x is not equal to y</li>
+                        <li><strong>x &gt; y</strong>   # x is greater than y</li>
+                        <li><strong>x &lt; y</strong>   # x is less than y</li>
+                        <li><strong>x &gt;= y</strong>  # x is greater than or equal to y</li>
+                        <li><strong>x &lt;= y</strong>  # x is less than or equal to y</li>
+                    </ul>
+                <img class="img-responsive" src="img/code/boolcomp.png">
+                </p>
+            <p><small>
+                Although these operations are probably familiar to you, the Python symbols are different from the mathematical symbols. A common error is to use a single equal sign (=) instead of a double equal sign (==). Remember that = is an assignment operator and == is a comparison operator. Also, there is no such thing as =&lt; or =&gt;. <br> Note too that an equality test is symmetric, but assignment is not. For example, if a == 7 then 7 == a. But in Python, the statement a = 7 is legal and 7 = a is not. (Can you explain why?)</small></p>
+                <p id="bool-mistake"></p>
+                
+                <h3>How do you feel?</h3>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" onclick="confused1()">Confused</button>
+        <button type="button" class="btn btn-default" onclick="content1()">Content</button>
+        <button type="button" class="btn btn-default" onclick="confident1()">Confident</button>
+    </div>
+
+<p id="bool-respond"></p>
+
+<script>
+    var myCode = "<h4>Try this!</h4><p>Boolean values are not strings! It is extremely important to realize that True and False are not strings. They are not surrounded by quotes. They are the only two values in the data type bool.</p><p>Drag and drop the following expressions or values to the right category.</p><iframe src='http://carrielindeman.github.io/Python-Textbook/js/phaser/bool-mistake.html' height='320 px' width='720 px' scrolling='no' frameborder='0'></iframe>";
+function confused1() { 
+    
+    document.getElementById("bool-mistake").innerHTML = myCode;
+    document.getElementById("bool-respond").innerHTML = "<p>Try <a href='#vande'>this section</a> again!</p>";
+}
+function content1(){
+    document.getElementById("bool-mistake").innerHTML = myCode;
+    document.getElementById("bool-respond").innerHTML = "<p>Would you like to try <a href='#vande'>this section</a> again?</p>";
+}
+function confident1(){
+    document.getElementById("bool-mistake").innerHTML = "";
+    document.getElementById("bool-respond").innerHTML = "<p>Congratulations!</p>";
+    
+}
+</script>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="success" id="logic">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Logical Operators</h2>
+                    <img src="img/banner.png">
+                </div>
+                <p>There are three logical operators: and, or, and not. The semantics (meaning) of these operators is similar to their meaning in English. For example, x &gt; 0 and x &lt; 10 is true only if x is greater than 0 and at the same time, x is less than 10. How would you describe this in words? You would say that x is between 0 and 10, not including the endpoints.</p>
+<p>n % 2 == 0 or n % 3 == 0 is true if either of the conditions is true, that is, if the number is divisible by 2 or divisible by 3. In this case, one, or the other, or both of the parts has to be true for the result to be true.</p>
+                <p>
+                    <img class="img-responsive" src="img/code/logicalop.png">
+                </p>
+<p>Finally, the not operator negates a boolean expression, so not  x &gt; y is true if x &gt; y is false, that is, if x is less than or equal to y.
+</p>        
+                <h4>Precidence of Operators</h4>
+                <p>We have now added a number of additional operators to those we learned in the previous chapters. It is important to understand how these operators relate to the others with respect to operator precedence. Python will always evaluate the arithmetic operators first (** is highest, then multiplication/division, then addition/subtraction). Next comes the relational operators. Finally, the logical operators are done last. This means that the expression x*5 &gt;= 10 and y-6 &lt;= 20 will be evaluated so as to first perform the arithmetic and then check the relationships. The and will be done last. Although many programmers might place parenthesis around the two relational expressions, it is not necessary.</p>
+<p>
+The following table summarizes the operator precedence from highest to lowest. A complete table for the entire language can be found in the <a href="https://docs.python.org/3/reference/expressions.html#expression-lists" target="_blank">Python Documentation</a>.
+</p>
+    <p id="log-op-mistake"></p>
+        <h3>How do you feel?</h3>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" onclick="confused2()">Confused</button>
+        <button type="button" class="btn btn-default" onclick="content2()">Content</button>
+        <button type="button" class="btn btn-default" onclick="confident2()">Confident</button>
+    </div>
+
+<p id="log-op-respond"></p>
+
+<script>
+    var myCode2 = "<h4>Check this out!</h4><p>There is a very common mistake that occurs when programmers try to write boolean expressions. For example, what if we have a variable number and we want to check to see if its value is 5,6, or 7. In words we might say: “number equal to 5 or 6 or 7”. However, if we translate this into Python, number == 5 or 6 or 7, it will not be correct. The or operator must join the results of three equality checks. The correct way to write this is number == 5 or number == 6 or number == 7. This may seem like a lot of typing but it is absolutely necessary. You cannot take a shortcut.<p><p>What is the correct Python expression for checking to see if a number stored in a variable x is between 0 and 5?</p><p><iframe src='http://carrielindeman.github.io/Python-Textbook/js/phaser/log-op-mistake.html' height='320 px' width='820 px' scrolling='no' frameborder='0'></iframe></p>";
+function confused2() {
+    document.getElementById("log-op-mistake").innerHTML = myCode2;
+    document.getElementById("log-op-respond").innerHTML = "<p>Try <a href='#logic'>this section</a> again!</p>";
+}
+function content2(){
+    document.getElementById("log-op-mistake").innerHTML = myCode2;
+    document.getElementById("log-op-respond").innerHTML = "<p>Would you like to try <a href='#logic'>this section</a> again?</p>";
+}
+function confident2(){
+    document.getElementById("log-op-mistake").innerHTML = "";
+    document.getElementById("log-op-respond").innerHTML = "<p>Congratulations!</p>";
+    
+}
+</script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="nested">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Nested Conditionals</h2>
+                    <img src="img/bannergrey.png">
+                    </div>
+                <p>In order to write useful programs, we almost always need the ability to check conditions and change the behavior of the program accordingly. <strong>Selection statements</strong>, sometimes also referred to as <strong>conditional statements</strong>, give us this ability. The simplest form of selection is the if statement. This is sometimes referred to as <strong>binary selection</strong> since there are two possible paths of execution.
+</p>
+                <div id=bin-mistake>
+                <img class="img-responsive" src = "img/code/binaryCode.png">
+                </div>
+                    <p>One conditional can also be nested within another. For example, assume we have two integer variables, x and y. The following pattern of selection shows how we might decide how they are related to each other.</p>
+                <img class="img-responsive" src = "img/code/nestedCode.png">
+                <div id="nest-mistake"></div>
+                    <p>The outer conditional contains two branches. The second branch (the else from the outer) contains another if statement, which has two branches of its own. Those two branches could contain conditional statements as well.</p>
+                <div id="nest-stack"></div>
+                    
+                
+        <h3 id="set3">How do you feel?</h3>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" onclick="confused3()">Confused</button>
+        <button type="button" class="btn btn-default" onclick="content3()">Content</button>
+        <button type="button" class="btn btn-default" onclick="confident3()">Confident</button>
+    </div>
+
+<p id="bin-respond"></p>
+
+<script>
+    var myCode3 = "<h4>What about this?</h4><p>This is a flow chart that represent binary selection, or an if-else statement. Click the arrows to see what part of the flow chart correspondes to the code.</p><p><iframe src='http://carrielindeman.github.io/Python-Textbook/js/phaser/bin-mistake.html' height='370 px' width='820 px' scrolling='no' frameborder='0'></iframe></p>";
+    var codeNest = "<h4>Visual like this!</h4><p>Nested conditionals are like Russian nesting dolls! A condition is contained within an outer condition.</p><p><iframe src='http://carrielindeman.github.io/Python-Textbook/js/phaser/nest-mistake.html' height='370 px' width='220 px' scrolling='no' frameborder='0'></iframe></p>";
+    var codeNestStack = "<p><iframe src='http://carrielindeman.github.io/Python-Textbook/js/phaser/nest-stack.html' height='370 px' width='1020 px' scrolling='no' frameborder='0'></iframe></p>";
+function confused3() {
+    document.getElementById("bin-mistake").innerHTML = myCode3;
+    document.getElementById("nest-mistake").innerHTML = codeNest;
+    document.getElementById("nest-stack").innerHTML = codeNestStack;
+    document.getElementById("bin-respond").innerHTML = "<p>Try <a href='#nested'>this section</a> again!</p>";
+}
+function content3(){
+    document.getElementById("bin-mistake").innerHTML = myCode3;
+    document.getElementById("nest-mistake").innerHTML = codeNest;
+    document.getElementById("nest-stack").innerHTML = codeNestStack;
+    document.getElementById("bin-respond").innerHTML = "<p>Would you like to try <a href='#nested'>this section</a> again?</p>";
+}
+function confident3(){
+    document.getElementById("bin-mistake").innerHTML = "";
+    document.getElementById("bin-respond").innerHTML = "<p>Congratulations!</p>";
+    
+}
+</script>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="success" id="chained">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Chained Conditionals</h2>
+                    <img src="img/banner.png">
+                </div>
+                <p>Python provides an alternative way to write nested selection such as the one shown in the previous section. This is sometimes referred to as a chained conditional.</p>
+                <div id="chained-stack">
+                    <img class="img-responsive" src="img/code/chainedCode.png">
+                </div>
+                <p><strong>elif</strong> is an abbreviation of else if. Again, exactly one branch will be executed. There is no limit of the number of elif statements but only a single (and optional) final else statement is allowed and it must be the last branch in the statement.</p>
+                <p>Each condition is checked in order. If the first is false, the next is checked, and so on. If one of them is true, the corresponding branch executes, and the statement ends. Even if more than one condition is true, only the first true branch executes.</p>
+
+        <h3>How do you feel?</h3>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" onclick="confused4()">Confused</button>
+        <button type="button" class="btn btn-default" onclick="content4()">Content</button>
+        <button type="button" class="btn btn-default" onclick="confident4()">Confident</button>
+    </div>
+                <p id="chained-response"></p>
+
+<script>
+    var myCode4 = "<h4>Follow this!</h4><p>Follow this stack trace of a program that uses chained selection statements. Answer the questions for each selection statement to complete the trace to output.</p><p><iframe src='http://carrielindeman.github.io/Python-Textbook/js/phaser/chained-stack.html' height='380 px' width='1020 px' scrolling='no' frameborder='0'></iframe></p>";
+function confused4() {
+    document.getElementById("chained-stack").innerHTML = myCode4;
+    document.getElementById("chained-response").innerHTML = "<p>Try <a href='#chained'>this section</a> again!</p>";
+}
+function content4(){
+    document.getElementById("chained-stack").innerHTML = myCode4;
+    document.getElementById("chained-response").innerHTML = "<p>Would you like to try <a href='#chained'>this section</a> again?</p>";
+}
+function confident4(){
+    document.getElementById("chained-stack").innerHTML = "";
+    document.getElementById("chained-response").innerHTML = "<p>Congratulations!</p>";
+    
+}
+</script>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="exercises">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Exercises</h2>
+                    <img src="img/bannergrey.png">
+                </div>
+                <p>What do the following expressions evaluate to?
+                    <ul id="q1" style='list-style-type:none'>
+                        <li>3 == 3</li>
+                        <li>3 != 3</li>
+                        <li>3 >= 4</li>
+                        <li>not (3 &lt; 4)</li>
+                        <!--<li>3 == 3<small> Think about what datatype this will evaluate to.</small></li>
+                        <li>3 != 3<small> Refresh your memory about what != means.</small></li>
+                        <li>3 >= 4<small> What does >= mean to Python?</small></li>
+                        <li>not (3 &lt; 4) <small> Think about the order of operations.</small></li>-->
+                    </ul>
+            </p>
+            <p>
+                <h3>How do you feel?</h3>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" onclick="confused5()">Confused</button>
+        <button type="button" class="btn btn-default" onclick="content5()">Content</button>
+        <button type="button" class="btn btn-default" onclick="confident5()">Confident</button>
+    </div>
+                <p id="ex-response1"></p>
+
+<script>
+    var exercise1 = "<li>3 == 3 <small> Think about what datatype this will evaluate to.</small></li><li>3 != 3 <small> Refresh your memory about what != means.</small></li><li>3 >= 4 <small> What does >= mean to Python?</small></li><li>not (3 &lt; 4) <small> Think about the order of operations.</small></li>";
+    var answer1 = "<li>3 == 3  True</li><li>3 != 3  False</li><li>3 >= 4  False</li><li>not (3 &lt; 4) False</li>";
+function confused5() {
+    document.getElementById("q1").innerHTML = exercise1;
+    document.getElementById("ex-response1").innerHTML = "<p>Try <a href='#vande'>this section</a> again!</p>";
+}
+function content5(){
+    document.getElementById("q1").innerHTML = exercise1;
+    document.getElementById("ex-response1").innerHTML = "<p>Would you like to try <a href='#vande'>this section</a> again?</p>";
+}
+function confident5(){
+    document.getElementById("q1").innerHTML = answer1;
+    document.getElementById("ex-response1").innerHTML = "<p>Congratulations!</p>";
+    
+}
+</script>
+            </p>
+            <p>
+                Give the logical opposites of these conditions. You are not allowed to use the not operator.
+                <ul id="q2" style='list-style-type:none'>
+                    <li>a &gt; b</li>
+                    <li>a &gt;= b</li>
+                    <li>a &gt;= 18 and day == 3</li>
+                    <li>a &gt;= 18 or day != 3</li>
+                </ul>
+            </p>
+    <p>
+                <h3>How do you feel?</h3>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" onclick="confused6()">Confused</button>
+        <button type="button" class="btn btn-default" onclick="content6()">Content</button>
+        <button type="button" class="btn btn-default" onclick="confident6()">Confident</button>
+    </div>
+                <p id="ex-response2"></p>
+
+<script>
+    var exercise2 = "<li>a &gt; b <small> Opposite of greater than?</small></li><li>a &gt;= b <small> What does &gt;= mean to Python?</small></li><li>a &gt;= 18 and day == 3 <small> What does the logical operator 'and' do?</small></li><li>a &gt;= 18 or day != 3 <small> What does the logical operator 'or' do?</small></li>";
+    var answer2 = "<li>a &gt; b <small> &#91;a &lt; b&#93;</small></li><li>a &gt;= b <small> &#91;a &lt;= b&#93;</small></li><li>a &gt;= 18 and day == 3 <small> &#91;a &lt;= 18 or day != 3&#93;</small></li><li>a &gt;= 18 or day != 3 <small> &#91;a &lt;= 18 and day == 3&#93;</small></li>";
+function confused6() {
+    document.getElementById("q2").innerHTML = exercise2;
+    document.getElementById("ex-response2").innerHTML = "<p>Try <a href='#logic'>this section</a> again!</p>";
+}
+function content6(){
+    document.getElementById("q2").innerHTML = exercise2;
+    document.getElementById("ex-response2").innerHTML = "<p>Would you like to try <a href='#logic'>this section</a> again?</p>";
+}
+function confident6(){
+    document.getElementById("q2").innerHTML = answer2;
+    document.getElementById("ex-response2").innerHTML = "<p>Congratulations!</p>";
+    
+}
+</script>
+            </p>
+        <p>
+            Write a function which is given an exam mark, and it returns a string -- the grade for that mark -- according to this scheme:
+            <ul style='list-style-type:none'>
+                <li>A : &gt;= 90</li>
+                <li>B : 80 - 90</li>
+                <li>C : 70 - 80</li>
+                <li>D : 60 - 70</li>
+                <li>F : &lt; 60</li>
+            </ul>
+        </p>
+        <p id="q3"></p>
+
+        <p>
+                        <h3>How do you feel?</h3>
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" onclick="confused7()">Confused</button>
+                <button type="button" class="btn btn-default" onclick="content7()">Content</button>
+                <button type="button" class="btn btn-default" onclick="confident7()">Confident</button>
+            </div>
+                        <p id="ex-response3"></p>
+
+        <script>
+            var exercise3 = "What kind of code structure will be most helpful for this problem?";
+            var answer3 = "<img src='img/code/exerciseCode.png'>";
+        function confused7() {
+            document.getElementById("q3").innerHTML = exercise3;
+            document.getElementById("ex-response3").innerHTML = "<p>Try <a href='#nested'>this section</a> again!</p>";
+        }
+        function content7(){
+            document.getElementById("q3").innerHTML = exercise3;
+            document.getElementById("ex-response3").innerHTML = "<p>Would you like to try <a href='#nested'>this section</a> again?</p>";
+        }
+        function confident7(){
+            document.getElementById("q3").innerHTML = answer3;
+            document.getElementById("ex-response3").innerHTML = "<p>Congratulations!</p>";
+
+        }
+        </script>
+                    </p>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above" id="glossary">
+            <div class="container">
+                <div class="row">
+                 <h2>Glossary</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-left" id="gloss">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Created by Carrie Lindeman 2016
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top page-scroll visible-xs visible-sm">
+        <a class="btn btn-primary" href="#page-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>
+
+    
+   
+   
+   
+   
+   
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/freelancer.js"></script>
+    
+    <script src="js/glossary.js"></script>
+
+</body>
+
+</html>

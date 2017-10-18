@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Once Upon a Time</title>
+        <script type="text/javascript" src="assets/js/phaser.js"></script>
+        <script>
+            
+            /*
+            Carrie Lindeman
+            3/28/2016
+            Computational Foundations of Emerging Media
+            Challenge 4 - Once Upon a Time
+            
+            The emotion I wanted to convey through my still art was that of adventure and wonder and I tried to continue that through the interactive update! I decided to make a story book page that had the same scene but during the day. This page seems safe and predictable. When the user clicks on the sun it reveals a moving and multi-dimensional version of that same scene. My reasoning for this interaction is that I wanted to emphasize the mystery of what really happened once upon a time. I think that the contrast of the safe story page and the interactive night makes the user questions their assumptions about what a traditional story can be. It also gives the user an immediate feeling of wonder because there is an element of transition, from day to night.
+            My night interactions were all based on different paths the story could take. I gave the sword a looping glow fade tween and some magical particles as if the story was about the princess finding her destiny with this magical sword. I wanted this to entrance the viewer and make them mesmerized by the magic. The next interaction was the twinkling stars and drawing constellations. I made this with an adventure story in mind. I imagined that the princess had to navigate her way home by the stars and that her story would one day be immortalized in a constellation. I want the user to feel creative and hopeful when making their own constellations. I also added the dragon animation. This is based on a story where the princess must do the saving and defeat a vicious dragion. I wanted my user to feel fearful for the princess but excited for the adventure. I think that controlling the dragon's movements has sort of an ominous feeling when it comes to wondering what the princess will have to do with that magical sword in order to defeat him.
+            I finally added sounds that I thought represented two different aspects of fairytales. We like fairytales because they are familiar and unintimidating, but when we are a kid, they are as exciting as any adventure. I wanted to capture that wonder and mystery in my interactive media experience.
+            */
+            
+            var game = new Phaser.Game(1000,600,Phaser.AUTO,'experience',{preload: preload, create: create, update: update});
+            
+            //global variables for assets that I utilized in outside functions. Not all of these were used
+            var moon,backLand, frontLand, castleLand, castle, wLight, railing, princessLand, princess, princessGlow,sword,swordGlow,swordShadow,stars,randx,randy,dragon, day, dayPrincess, constellations, wings, once, music1,music2,arrow;
+            
+            var lastTime = 0; // used for random
+            var lastTime2 = 0; // used for random
+            var oldStarIndex = 0; 
+            var emitter;
+            var button;
+            
+            function preload(){
+                game.load.image('sky','assets/img/sky2.png'); 
+                game.load.image('moon','assets/img/moon.png');
+                game.load.image('backLand','assets/img/backLand.png');
+                game.load.image('frontLand','assets/img/frontLand.png');
+                game.load.image('castleLand','assets/img/castleLand.png');
+                game.load.image('castle','assets/img/castle.png');
+                game.load.image('arrow','assets/img/arrow.png');
+                game.load.image('wLight','assets/img/castleLight.png');
+                game.load.image('railing','assets/img/railing.png');
+                game.load.image('princessLand','assets/img/princessLand.png');
+                
+                game.load.image('princess','assets/img/princess.png');
+                game.load.image('princessGlow','assets/img/princessGlow.png');
+                
+                game.load.image('sword','assets/img/plainSword.png');
+                game.load.image('swordGlow','assets/img/swordGlow.png');
+                game.load.image('swordShadow','assets/img/swordShadow.png');
+                
+                game.load.spritesheet('dragon','assets/img/dragon-sprite.png',288,150);
+                game.load.spritesheet('starsprite','assets/img/star-sprite2.png',90,84);
+                
+                game.load.image('day','assets/img/Day2.png');
+                game.load.image('dayPrincess','assets/img/dayPrincess.png');
+                
+                game.load.image('spark', 'assets/img/spark.png');
+                game.load.image('spark2', 'assets/img/spark2.png');
+                game.load.image('spark3', 'assets/img/spark3.png');
+                
+                game.load.image(1,'assets/img/starSprites/1.png');
+                game.load.image(2,'assets/img/starSprites/2.png');
+                game.load.image(3,'assets/img/starSprites/3.png');
+                
+                game.load.audio('music1', ['assets/music1.mp3']);
+                game.load.audio('music2', ['assets/music2.mp3']);
+                game.load.audio('wings', ['assets/wings.wav']);
+                game.load.audio('once', ['assets/once.wav']);
+                
+                
+            }
+            
+            function create(){
+                music1 = game.add.audio('music1');
+                music1.loopFull();
+                music1.mute = false; //starting day music
+                music2 = game.add.audio('music2');
+                music2.loopFull();
+                music2.mute = true; //muting night music
+                wings = game.add.audio('wings');
+                once = game.add.audio('once');
+                once.play(); // introductory sound
+
+                
+                wings.loopFull();
+                wings.mute = true; //unmute when dragon moves
+                
+                game.add.sprite(0,0,'sky');
+                
+                constellations = game.add.group(); //initialize group that will hold star drawings
+                
+                star = game.add.sprite(10,10,'starsprite'); // add twinkling star
+                stars = [];
+                for(var i = 0; i < 50; i++){
+                    stars.push(game.add.sprite(getRandom(0,1000),getRandom(0,300),'starsprite'));//adds randomly placed star to array
+                    stars[i].animations.add('twinkle',[0,1,2,3,4,5,6,7,8,9,10,11,12],18,false); //adds the twinkle animation to each star
+                }
+                button = game.add.button(652, 32, 'moon', actionOnClick, this, 0, 0, 0); // adds moon button
+                
+                dragon = game.add.sprite(200, 270, 'dragon');
+                
+                backLand = game.add.sprite(0,0,'backLand');
+                frontLand = game.add.sprite(0,0,'frontLand');
+                castleLand = game.add.sprite(0,0,'castleLand');
+                castle = game.add.sprite(0,0,'castle');
+                arrow = game.add.sprite(180,325,'arrow');
+                arrow.visible=false;
+                wLight = game.add.sprite(0,0,'wLight');
+                railing = game.add.sprite(0,0,'railing');
+                
+                //BEGING EMITTER CODE
+                emitter = game.add.emitter(566, 351,50);
+                emitter.gravity = 0;
+
+                emitter.makeParticles(['spark','spark2','spark3']); //random selection to three diff particles
+
+                emitter.start(false, 1500, 5);
+                
+                princessLand = game.add.sprite(0,0,'princessLand');
+                princessGlow = game.add.sprite(0,0,'princessGlow');
+                princess = game.add.sprite(0,0,'princess');
+                swordGlow = game.add.sprite(0,0,'swordGlow');
+                sword = game.add.sprite(0,0,'sword');
+                swordShadow = game.add.sprite(0,0,'swordShadow');
+                
+                
+                swordGlow.alpha = 0; //initialize sprite alpha for the glows
+                princessGlow.alpha = .2;
+                swordShadow.alpha = 1;
+                game.add.tween(swordGlow).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 2000, true); //add fading tween
+                game.add.tween(emitter).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true,0, 2000, true);    //for each glow
+                game.add.tween(swordShadow).to( {alpha: 0}, 2000, Phaser.Easing.Linear.None, true, 0, 2000, true); //and shadow
+                game.add.tween(princessGlow).to( { alpha: 1}, 2000, Phaser.Easing.Linear.None, true, 0, 2000,true);
+                
+                
+                dragon.scale.setTo(.5,.5);
+                dragon.animations.add('flyR', [0, 1, 2, 3, 4, 5], 4, true);
+                dragon.animations.add('flyL', [6, 7, 8, 9, 10, 11], 4, true);
+                dragon.animations.play('flyR');
+                
+                cursors = game.input.keyboard.createCursorKeys(); //sets arrow keys to be cursors
+                
+                day = game.add.sprite(0,0,'day');//adds day image
+                dayPrincess = game.add.sprite(0,0,'dayPrincess');
+                day.visible = true;//initialize to visible
+                dayPrincess.visible = true;
+              
+            }
+            
+            function update(){
+                if(game.input.x > 101 && game.input.x < 348 && game.input.y > 282 && game.input.y < 420){
+                    if(day.visible==false){
+                        arrow.visible=true;  
+                    }
+                }else{
+                    arrow.visible=false;   
+                }
+                
+                //code to draw a constellation on the night sky
+                if(day.visible==false && game.input.activePointer.isDown){
+                    makeStar();   
+                }
+                
+                //turns on day sounds and off night sounds
+                if(day.visible==true){
+                    music1.mute = false;
+                    music2.mute = true;
+                    wings.mute = true;
+                }
+                //turns on night sounds and off day sounds
+                if(day.visible==false){
+                    music1.mute = true;
+                    music2.mute = false;
+                }
+                
+                //code to control the dragon's position and to play flying animation
+                
+                if(cursors.left.isDown){
+                    dragon.animations.play('flyL');
+                    wings.mute = false;
+                    dragon.x-=.7; 
+                }
+                if(cursors.right.isDown){
+                    dragon.animations.play('flyR');
+                    wings.play();
+                    wings.mute = false;
+                    dragon.x+=.7;
+                }
+                 if (cursors.up.isDown){
+                    wings.mute = false;
+                    dragon.y-=.5;    
+                }
+                if(cursors.down.isDown){
+                    wings.mute = false;
+                    dragon.y+=.5;
+                }
+                
+                var randomTime = getRandom(1500,5500);
+                // evaluates to true if the current time is greater than the last time we ran this code plus a random number
+                if(game.time.now >= lastTime + (randomTime/2)){
+                    var index = parseInt(getRandom(0,50)); // gets random INT for an index
+                    stars[index].animations.play('twinkle');// plays that index's star and twinkles
+                    lastTime=game.time.now;                 //updates last time to be now
+                    stars[oldStarIndex].animations.stop(null, true);//stops the last star's animation so they do not all keep going
+                    oldStarIndex = index; //assigns new old star
+                   
+                }
+                
+            }
+            
+            //function to adds a random (of three) stars to the constellation group at the x y position of the user's mouse 
+            function makeStar(){
+                var x = game.input.x - 13;
+                var y = game.input.y - 13;
+                var num = Math.ceil(getRandom(0,3));
+                constellations.create(x,y,num);
+            }
+            
+            //reverses the day visibility based on the moon click
+            function actionOnClick () {
+                day.visible =! day.visible;
+                dayPrincess.visible =! dayPrincess.visible;
+                //resets the constellations and dragon position
+                constellations.removeAll();
+                dragon.x = 131; 
+                dragon.y = 270;
+            }
+            //return a random double between min and max 
+            function getRandom(min, max){
+                return Math.random() * (max - min) +min;
+            }
+            
+        </script>
+    </head>
+    <body>
+        <div id="experience">
+
+            
+        </div>
+    </body>
+</html>

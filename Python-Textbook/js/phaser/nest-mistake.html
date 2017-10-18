@@ -1,0 +1,64 @@
+<html>
+<head>
+<script src="phaser.js"></script>
+<script>
+    var game = new Phaser.Game(200,350,Phaser.AUTO,'experience',{preload: preload, create: create, update: update});
+    var scaleNumber=1;
+    var currentDoll;
+    var pastDoll;
+            function preload(){
+                game.load.image('top','img/nest-mistake/top.png');
+                game.load.image('bottom','img/nest-mistake/bottom.png');
+                game.load.image('reset','img/nest-mistake/reset.png');
+            }
+    
+            function create(){
+                game.stage.backgroundColor = "#FFFFFF";
+                currentDoll = new Doll(scaleNumber);
+                game.add.button(5,5,'reset',reset,this);
+                
+            }
+            
+            function update(){
+                game.input.onDown.addOnce(updateDoll, this);
+            }
+    
+            function reset(){
+                //resets the dolls to a new full sized doll
+                scaleNumber = 1; 
+                updateDoll();
+            }
+            
+            function updateDoll(){
+                //make the old doll move and constructs a new doll.
+                moveDoll();
+                currentDoll = new Doll(scaleNumber);
+            }
+            
+            function moveDoll(){
+                //makes doll halves fly away!
+                game.add.tween(currentDoll.top).to({y:-500}, 1000, Phaser.Linear, true, 1000);
+                game.add.tween(currentDoll.bottom).to({y:500}, 1000, Phaser.Linear, true, 1000);
+            }
+    
+            //Doll object that takes the amount it should scale by as a fraction
+            //scales the two halves of the doll and places them.
+            //Then it sets the scale number to something smaller.
+            function Doll(scalePercent){
+                
+                this.scaleP = scalePercent;
+                this.top = game.add.sprite(game.world.centerX,0,'top');
+                this.top.scale.setTo(this.scaleP,this.scaleP);
+                this.top.x = game.world.centerX - (this.top.width/2);
+                this.top.y = game.world.centerY - (this.top.height/2);
+                this.bottom = game.add.sprite(game.world.centerX,0,'bottom');
+                this.bottom.scale.setTo(this.scaleP,this.scaleP);
+                this.bottom.x = game.world.centerX - (this.bottom.width/2);
+                this.bottom.y = game.world.centerY - (this.bottom.height/2)-2;
+                scaleNumber = this.scaleP*.75;
+            }
+            
+</script>
+</head>
+<body id="experience"></body>
+</html>

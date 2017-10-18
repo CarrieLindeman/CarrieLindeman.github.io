@@ -1,0 +1,59 @@
+{
+    "statesV" : [
+        {
+            "name":"Kansas",
+            "count":194,
+            "diff":72
+        },
+        {
+            "name":"Nevada",
+            "count":166,
+            "diff":44
+        },
+        {
+            "name":"Illinois",
+            "count":161,
+            "diff":39
+        },
+        {
+            "name":"Colorado",
+            "count":159,
+            "diff":37
+        },
+        {
+            "name":"Massachusetts",
+            "count":153,
+            "diff":31
+        }
+        
+    ],
+    "statesA" : [
+        {
+            "name":"Alaska",
+            "count":79.7,
+            "diff":40
+        },
+        {
+            "name":"South Dakota",
+            "count":70.2,
+            "diff":30
+        },
+        {
+            "name":"Michigan",
+            "count":46.4,
+            "diff":7
+        },
+        {
+            "name":"New Mexico",
+            "count":45.9,
+            "diff":6
+        },
+        {
+            "name":"Arkansas",
+            "count":42.3,
+            "diff":3
+        }
+    ],
+    "averageA":40,
+    "averageV":122
+}

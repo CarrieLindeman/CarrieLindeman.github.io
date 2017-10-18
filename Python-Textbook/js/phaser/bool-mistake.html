@@ -1,0 +1,98 @@
+<html>
+<head>
+
+<script src="phaser.js"></script>
+<script>
+    var game = new Phaser.Game(700,300,Phaser.AUTO,'experience',{preload: preload, create: create, update: update});
+    var num = 8;
+    var items;
+    var won = false;
+    var success;
+    var wrong;
+    var lost = false;
+    var bigCount = 0;
+            function preload(){
+                game.load.image("bg","img/bool-mistake/bg.png");
+                
+                //load in items dynamically
+                for(var i = 0; i < num; i++){
+                    var path="img/bool-mistake/"+(i+1)+".png";
+                    game.load.image(i,path);   
+                }
+                game.load.image("success","img/bool-mistake/success.png");
+                game.load.image('wrong','img/bool-mistake/wrong.png');
+            }
+    
+            function create(){
+                items = []
+                game.stage.backgroundColor = "#FFFFFF";
+                game.add.sprite(0,0,'bg');
+                //make all of the answers drag and dropable
+                for(var i = 0; i < num; i++){
+                    items.push(game.add.sprite(15,i*30,i)); 
+                    items[i].inputEnabled = true;
+                    items[i].input.enableDrag(true);
+                }
+                //initialize winning or losing messages
+                success = game.add.sprite(50,100,'success');
+                success.alpha = 0;
+                wrong = game.add.sprite(50,100,'wrong');
+                wrong.alpha = 0;
+            }
+            
+            function update(){
+                
+                //resets game winner or loser to false after a few loop iterations
+                bigCount++;
+                if(bigCount > 100){
+                    won = false;
+                    lost = false;
+                    bigCount = 0;
+                }
+                
+                //counts that an item has been added to the RIGHT category
+                count = 0;
+                countOver = 0;
+                for(var i = 0; i < 5; i++){
+                    if(items[i].x > 272 && items[i].x < 473){
+                        count++;  
+                    }
+                }
+                for(var i = 5; i < num; i++){
+                    if(items[i].x > 497 && items[i].x < 677){
+                        count++;   
+                    }
+                }
+                
+                //counts that all of the items have been dragged to a different category
+                for(var i = 0; i < num; i++){
+                    if(items[i].x > 272){
+                        countOver++
+                    }
+                }
+                
+                //when to set win
+                if(count == (num-1) && won == false){
+                    fadeSuccess();
+                    won = true;
+                }
+                //when to set lose
+                if(countOver == (num-1) && count != (num-1) && lost == false){
+                    fadeWrong();
+                    lost = true;
+                }
+               
+                
+            }
+            function fadeSuccess(){
+                game.add.tween(success).to({alpha:1}, 500, Phaser.Linear, true, 1000);  
+                game.add.tween(wrong).to({alpha:0}, 500, Phaser.Linear, true, 1000); 
+            }
+            function fadeWrong(){
+                game.add.tween(success).to({alpha:0}, 500, Phaser.Linear, true, 1000);
+                game.add.tween(wrong).to({alpha:1}, 500, Phaser.Linear, true, 1000);  
+            }
+</script>
+</head>
+<body id="experience"></body>
+    </html>

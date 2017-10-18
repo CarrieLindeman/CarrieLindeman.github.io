@@ -1,0 +1,470 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Chen Yi Monologue</title>
+    <style>
+        .center {
+            margin: auto;
+            width: 75%;
+            padding-top: 38px;
+        }
+    </style>
+    <script type="text/javascript" src="assets/js/phaser.js"></script>
+    <script>
+        var game = new Phaser.Game(1000, 600, Phaser.AUTO, 'experience', {
+            preload: preload,
+            create: create,
+            update: update
+        });
+        /*EXPLOSION*/
+        var manager = null;
+        var emitter = null;
+        
+        var x;
+        //global variables for assets that I utilized in outside functions. Not all of these were used
+        var c1, c2, c3, c4, stars, randx, randy, constellations, eyes, eyeGlow, rain, emitter2;
+        var birdSprite, birdPerch, birdSprite2, birdPerch2;
+        var key0, key1, key2, key3, key4, key5, key6, key7;
+        var endCave;
+        var end;
+        var end2;
+        var endTog = false;
+        var b2 = false; //ugh
+        var lastTime = 0; // used for random
+        var lastTime2 = 0; // used for random
+        var oldStarIndex = 0;
+        var hasPlayed = false;
+        var hasRained = false;
+        var hasStormLeft1 = false;
+        var hasBirdLeft = false;
+        var viewEyes = false;
+        var theRain;
+
+        var LL;
+        var LR;
+        var LC;
+
+        function preload() {
+            game.load.image('sky', 'newAssets/bg.png');
+
+
+            game.load.spritesheet('starsprite', 'assets/img/star-sprite2.png', 90, 84);
+
+            game.load.image('day', 'assets/img/Day2.png');
+            game.load.image('dayPrincess', 'assets/img/dayPrincess.png');
+
+            game.load.image('spark', 'assets/img/spark.png');
+            game.load.image('spark2', 'assets/img/spark2.png');
+            game.load.image('spark3', 'assets/img/spark3.png');
+
+            game.load.image(1, 'assets/img/starSprites/1.png');
+            game.load.image(2, 'assets/img/starSprites/2.png');
+            game.load.image(3, 'assets/img/starSprites/3.png');
+
+            game.load.image('front', 'newAssets/frontLand.png');
+            game.load.image('frontEnd', 'newAssets/frontLandEnd.png');
+            game.load.image('eyes', 'newAssets/eyes.png');
+            game.load.image('eyesG', 'newAssets/eyesWGlow.png');
+            game.load.image('rain', 'newAssets/rain.png');
+
+            game.load.image('lightL', 'newAssets/lightL.png');
+            game.load.image('lightR', 'newAssets/lightR.png');
+            game.load.image('lightC', 'newAssets/lightC.png');
+
+            game.load.image('cloud1', 'newAssets/cloud1.png');
+            game.load.image('cloud2', 'newAssets/cloud2.png');
+            game.load.image('cloud3', 'newAssets/cloud3.png');
+            game.load.image('cloud4', 'newAssets/cloud4.png');
+            
+            game.load.spritesheet('bird', 'newAssets/birdSprite.png', 65.05, 90);
+            game.load.image('birdPerch', 'newAssets/birdShadow.png');
+            
+            game.forceSingleUpdate = true;
+
+            /*EXPLOSION*/
+            game.load.image('stone','newAssets/stone.png');
+            game.load.image('flash','newAssets/muzzleflash3.png');
+            game.load.image('smoke','newAssets/smoke-puff.png');
+            
+            game.load.image('end', 'newAssets/end.jpg');
+
+        }
+
+        function create() {
+            game.add.sprite(0, 0, 'sky');
+
+
+            constellations = game.add.group(); //initialize group that will hold star drawings
+
+            star = game.add.sprite(10, 10, 'starsprite'); // add twinkling star
+            stars = [];
+            for (var i = 0; i < 50; i++) {
+                stars.push(game.add.sprite(getRandom(0, 1000), getRandom(0, 300), 'starsprite')); //adds randomly placed star to array
+                stars[i].animations.add('twinkle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 18, false); //adds the twinkle animation to each star
+            }
+
+            game.add.sprite(0, 0, 'front');
+            endCave = game.add.sprite(0,0,'frontEnd');
+            endCave.visible = false;
+            
+            birdSprite = game.add.sprite(-200 ,100,'bird');
+            birdSprite.animations.add('fly', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19], 18, true);
+            birdSprite.animations.play('fly');
+            birdPerch = game.add.sprite(835,182,'birdPerch');
+            birdPerch.scale.setTo(.06);
+            birdPerch.visible = false;
+            
+            birdSprite2 = game.add.sprite(-300 ,50,'bird');
+            birdSprite2.animations.add('fly', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19], 23, true);
+            birdSprite2.animations.play('fly');
+            birdPerch2 = game.add.sprite(800,215,'birdPerch');
+            birdPerch2.scale.setTo(.06);
+            birdPerch2.visible = false;
+
+            LL = game.add.sprite(250, 100, 'lightL');
+            LL.scale.setTo(.8);
+            LR = game.add.sprite(350, 100, 'lightR');
+            LR.scale.setTo(.6);
+            LC = game.add.sprite(550, 100, 'lightC');
+            LL.visible = false;
+            LR.visible = false;
+            LC.visible = false;
+
+            eyes = game.add.sprite(0, 0, 'eyes');
+            eyeGlow = game.add.sprite(0, 0, 'eyesG');
+            eyeGlow.alpha = 0;
+            
+            eyes.visible=false;
+            eyeGlow.visible=false;
+
+            emitter2 = game.add.emitter(game.world.centerX, 0, 400);
+
+            emitter2.width = game.world.width;
+            // emitter2.angle = 30; // uncomment to set an angle for the rain.
+
+            emitter2.makeParticles('rain');
+
+            emitter2.minParticleScale = 0.1;
+            emitter2.maxParticleScale = 0.5;
+
+            emitter2.setYSpeed(300, 500);
+            emitter2.setXSpeed(-5, 5);
+
+            emitter2.minRotation = 0;
+            emitter2.maxRotation = 0;
+
+            //                
+
+            //                swordGlow.alpha = 0; //initialize sprite alpha for the glows
+            //                princessGlow.alpha = .2;
+            //                swordShadow.alpha = 1;
+            game.add.tween(eyeGlow).to({
+                alpha: 1
+            }, 2000, Phaser.Easing.Linear.None, true, 0, 2500, true); //add fading tween
+            //                game.add.tween(emitter2).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true,0, 2000, true);    //for each glow
+            //                game.add.tween(swordShadow).to( {alpha: 0}, 2000, Phaser.Easing.Linear.None, true, 0, 2000, true); //and shadow
+            //                game.add.tween(princessGlow).to( { alpha: 1}, 2000, Phaser.Easing.Linear.None, true, 0, 2000,true);
+            //                
+
+            cursors = game.input.keyboard.createCursorKeys(); //sets arrow keys to be cursors
+            key0 = game.input.keyboard.addKey(Phaser.Keyboard.ZERO);
+            key0.onDown.add(eyesToggle, this);
+            key1 = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+            key1.onDown.add(bringInClouds, this);
+            key2 = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+            key2.onDown.add(endRain, this);
+            key3 = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+            key3.onDown.add(bringBirds, this);
+            key4 = game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+            key4.onDown.add(birdsLeave, this);
+            key5 = game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
+            key5.onDown.add(crumble, this);
+            key6 = game.input.keyboard.addKey(Phaser.Keyboard.SIX);
+            key6.onDown.add(endCrumb, this);
+            key7 = game.input.keyboard.addKey(Phaser.Keyboard.SEVEN);
+            key7.onDown.add(endToggle,this);
+            
+            c1 = game.add.sprite(1000, 0, 'cloud1');
+            c2 = game.add.sprite(1000, 0, 'cloud2');
+            c3 = game.add.sprite(-1000, 0, 'cloud3');
+            c4 = game.add.sprite(-1000, 0, 'cloud4');
+            
+        emitter = game.add.emitter(150, 400, 50);
+        //emitter.width = 200;
+
+        emitter.makeParticles('smoke');
+
+        //emitter.minParticleSpeed.set(0, 300);
+        //emitter.maxParticleSpeed.set(0, 400);
+
+        emitter.setRotation(0, 0);
+        emitter.setAlpha(0.3, 0.8);
+        emitter.setScale(0.5, 0.5, 3, 3);
+        emitter.gravity = 50;
+
+        //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
+        //	The 5000 value is the lifespan of each particle before it's killed
+        //emitter.start(false, 2500, 40);
+
+            
+            emitterStone = game.add.emitter(140,320,20);
+            emitterStone.makeParticles('stone');
+            //emitterStone.setScale(0.01, 0.01, .2, .2);
+            
+            emitterStone.gravity = 200;
+            //emitterStone.start(false,10000,20);
+            
+            end = game.add.sprite(0,0,'end');
+            end.alpha = 0;
+            end2 = game.add.sprite(0,0,'end');
+            end2.visible=false;
+        }
+
+        function crumble(){
+            emitter.start(false, 2500, 40);
+            emitterStone.start(false,10000,20);
+            endCave.visible=false;
+        }
+        
+        function endCrumb(){
+            emitter.on = false;
+            emitterStone.on = false;
+            endCave.visible = true;
+        }
+        
+        function bringInClouds() {
+            if (hasPlayed == false) {
+                game.add.tween(c1).to({
+                    x: 0
+                }, 12500, "Linear", true);
+
+                game.add.tween(c2).to({
+                    x: 0
+                }, 12600, "Linear", true);
+
+                game.add.tween(c3).to({
+                    x: 0
+                }, 12100, "Linear", true);
+
+                game.add.tween(c4).to({
+                    x: 0
+                }, 12900, "Linear", true);
+
+                console.log(c2.x + "x, " + hasPlayed);
+
+                hasPlayed = true;
+
+            }
+        }
+
+        function startRain() {
+            if (c4.x == 0 && hasRained == false) {
+                theRain = emitter2.start(false, 1600, 5, 0);
+                hasRained = true;
+            }
+            
+            hasStormLeft1 = false;
+
+        }
+        
+        function endRain(){
+            if (hasStormLeft1 == false) {
+                theRain.on = false;
+                
+                game.add.tween(c1).to({
+                    x: -1000
+                }, 14500, "Linear", true);
+
+                game.add.tween(c2).to({
+                    x: 1000
+                }, 14600, "Linear", true);
+
+                game.add.tween(c3).to({
+                    x: -1000
+                }, 14100, "Linear", true);
+
+                game.add.tween(c4).to({
+                    x: 1000
+                }, 14900, "Linear", true);
+
+                hasStormLeft1 = true;
+
+            }
+            hasPlayed = false;
+            hasRained = false;
+        }
+
+        function eyesToggle(){
+            
+            if(viewEyes == true){
+                eyes.visible = false;
+                eyeGlow.visible = false;
+                viewEyes= false;
+            }else{
+               eyes.visible = true;
+                eyeGlow.visible = true;
+                viewEyes= true; 
+            }
+            
+        }
+        
+        function endToggle(){
+            if(endTog == false){
+                fadeIn();
+                endTog = true;
+            }
+        }
+        
+        function fadeOut(){
+            game.add.tween(end).to({alpha:0},7500,"Linear", true);
+            console.log("out");
+        }
+        
+        function fadeIn(){
+            game.add.tween(end).to( { alpha: 100 },700000, Phaser.Linear, true);
+            console.log("in");
+        }
+        
+        function bringBirds(){
+            game.add.tween(birdSprite).to({x: 817, y:150}, 7500, "Linear", true);
+        }
+        
+        function bringBirds2(){   
+            console.log("cadlled");
+            game.add.tween(birdSprite2).to({x: 778, y:190}, 8500, "Linear", true);
+        }
+        
+        function birdsLeave(){
+            hasBirdLeft = true;
+            birdSprite.visible = true;
+            birdPerch.visible = false;
+            game.add.tween(birdSprite).to({x: 2000, y:170}, 7500, "Linear", true);
+            
+        }
+        
+        function birdsLeave2(){
+            hasBirdLeft = true;
+            birdSprite2.visible = true;
+            birdPerch2.visible = false;
+            game.add.tween(birdSprite2).to({x: 2000, y:190}, 7000, "Linear", true);
+            
+        }
+        
+        function update() {
+            if(end.alpha>.97 && end.alpha<.99){
+                end2.visible=true;
+            }
+            
+            if(birdSprite.x == 817 && hasBirdLeft == false){
+                birdSprite.visible = false;
+                birdPerch.visible = true;
+            }
+            
+            if(birdSprite.x > 72.37 && b2 == false){
+                bringBirds2();
+                b2 = true;
+            }
+             if(birdSprite2.x == 778 && hasBirdLeft == false){
+                birdSprite2.visible = false;
+                birdPerch2.visible = true;
+            }
+            
+            if(birdSprite.x > 870 && hasBirdLeft == true){
+                birdsLeave2();
+            }
+            /*
+            if (cursors.down.isDown) {
+                bringInClouds();
+            }*/
+
+            if (cursors.left.isDown) {
+                LL.visible = true;
+            } else {
+                LL.visible = false;
+            }
+
+            if (cursors.right.isDown) {
+                LR.visible = true;
+            } else {
+                LR.visible = false;
+            }
+
+            if (cursors.up.isDown) {
+                LC.visible = true;
+            } else {
+                LC.visible = false;
+            }
+
+            if (hasPlayed == true) {
+                startRain();
+            }
+            var randomTime = getRandom(1500, 5500);
+            // evaluates to true if the current time is greater than the last time we ran this code plus a random number
+            if (game.time.now >= lastTime + (randomTime / 2)) {
+                var index = parseInt(getRandom(0, 50)); // gets random INT for an index
+                stars[index].animations.play('twinkle'); // plays that index's star and twinkles
+                lastTime = game.time.now; //updates last time to be now
+                stars[oldStarIndex].animations.stop(null, true); //stops the last star's animation so they do not all keep going
+                oldStarIndex = index; //assigns new old star
+
+            }
+            randomTime = getRandom(1500, 5500);
+            if (game.time.now >= lastTime + (randomTime / 2)) {
+                var index = parseInt(getRandom(0, 50)); // gets random INT for an index
+                stars[index].animations.play('twinkle'); // plays that index's star and twinkles
+                lastTime = game.time.now; //updates last time to be now
+                stars[oldStarIndex].animations.stop(null, true); //stops the last star's animation so they do not all keep going
+                oldStarIndex = index; //assigns new old star
+
+            }
+
+            randomTime = getRandom(1500, 5500);
+            if (game.time.now >= lastTime + (randomTime / 2)) {
+                var index = parseInt(getRandom(0, 50)); // gets random INT for an index
+                stars[index].animations.play('twinkle'); // plays that index's star and twinkles
+                lastTime = game.time.now; //updates last time to be now
+                stars[oldStarIndex].animations.stop(null, true); //stops the last star's animation so they do not all keep going
+                oldStarIndex = index; //assigns new old star
+
+            }
+
+            randomTime = getRandom(1500, 5500);
+            if (game.time.now >= lastTime + (randomTime / 2)) {
+                var index = parseInt(getRandom(0, 50)); // gets random INT for an index
+                stars[index].animations.play('twinkle'); // plays that index's star and twinkles
+                lastTime = game.time.now; //updates last time to be now
+                stars[oldStarIndex].animations.stop(null, true); //stops the last star's animation so they do not all keep going
+                oldStarIndex = index; //assigns new old star
+
+            }
+
+            randomTime = getRandom(1500, 5500);
+            if (game.time.now >= lastTime + (randomTime / 2)) {
+                var index = parseInt(getRandom(0, 50)); // gets random INT for an index
+                stars[index].animations.play('twinkle'); // plays that index's star and twinkles
+                lastTime = game.time.now; //updates last time to be now
+                stars[oldStarIndex].animations.stop(null, true); //stops the last star's animation so they do not all keep going
+                oldStarIndex = index; //assigns new old star
+
+            }
+
+        }
+
+        //return a random double between min and max 
+        function getRandom(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+        
+      
+    </script>
+</head>
+
+<body style="background-color:black;">
+    <div class="center" id="experience">
+
+
+    </div>
+</body>
+
+</html>
