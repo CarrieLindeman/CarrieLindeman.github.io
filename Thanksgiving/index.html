@@ -60,9 +60,11 @@
             game.load.image('turkeySit', 'assets/img/turkeySit.png');
             game.load.image('turkeyBlink', 'assets/img/blinkEyes.png');
             game.load.image('branch1', 'assets/img/branch1.png');
-            game.load.image('branch2', 'assets/img/branch2.png');
-            game.load.image('thanks', 'assets/img/thanksgivingText.png');
-            game.load.image('instructions', 'assets/img/instructions.png');
+            game.load.image('branch2', 'assets/img/branch2.png');            
+            game.load.image('thanks', 'assets/img/happythanksgiving_desktop.png');
+            game.load.image('instructions', 'assets/img/instructions_desktop.png');
+            game.load.image('thanksMobile', 'assets/img/happythanksgiving_mobile.png');
+            game.load.image('instructionsMobile', 'assets/img/instructions_mobile.png');
             game.load.image('brand', 'assets/img/brandText.png');
             
             
@@ -151,44 +153,65 @@
             
             thanks = game.add.sprite(0, 0, 'thanks');
             instructions = game.add.sprite(0, 0, 'instructions');
+            thanksMobile = game.add.sprite(0,0, 'thanksMobile');
+            instructionsMobile = game.add.sprite(0,0,'instructionsMobile');
+            thanks.visible = false;
+            instructions.visible = false;
+            thanksMobile.visible = false;
+            instructionsMobile.visible = false;
             
-            if(game.world.width >= 1100){
-            thanks.scale.setTo(.8,.8);  
-            instructions.scale.setTo(.9,.9);
-            }else{
-            thanks.scale.setTo(1.2,1.2);
-            instructions.scale.setTo(1.5,1.5);
-            }
-            thanks.x = game.world.centerX - (thanks.width/2);
-            thanks.y = (thanks.height/2);
-            
-            instructions.x = game.world.centerX - (instructions.width/2);
-            instructions.y = thanks.y + thanks.height + 10;
-            
-            thanks.alpha= 0;
-            instructions . alpha = 0;
             
             branch1 = game.add.sprite(0,0,'branch1');
             branch2 = game.add.sprite(0,0,'branch2');
-            /*
-            if(game.world.width >= 1100){
-                branch1.y = instructions.y+instructions.height;
-                branch2.y = instructions.y+instructions.height;
-                console.log('here');
-            }else{
-                branch1.y = (game.world.height/2)-(branch1.height*2);
-                branch2.y = (game.world.height/2)-(branch2.height*2);
-            }*/
             
-            if(game.world.width >= game.world.height){
-                branch1.y = instructions.y;
-                branch2.y = instructions.y;
+            if(game.world.width >= 1100){
+            //thanks.scale.setTo(.8,.8);  
+            //instructions.scale.setTo(.9,.9);
+                thanks.visible = true;
+                instructions.visible = true;
+                thanks.x = game.world.centerX - (thanks.width/2);
+                thanks.y = (thanks.height/2);
+                
+                instructions.x = game.world.centerX - (instructions.width/2);
+                instructions.y = thanks.y + thanks.height + 10;
+            
+                thanks.alpha = 0;
+                instructions.alpha = 0;
+                
+                if(game.world.width >= game.world.height){
+                    branch1.y = instructions.y;
+                    branch2.y = instructions.y;
+                }else{
+                    branch1.y = instructions.y+instructions.height;
+                    branch2.y = instructions.y+instructions.height;    
+                }
             }else{
-                branch1.y = instructions.y+instructions.height;
-                branch2.y = instructions.y+instructions.height;    
+                thanksMobile.scale.setTo(1.5,1.5);
+                instructionsMobile.scale.setTo(1.9,1.9);
+               thanksMobile.visible = true;
+                instructionsMobile.visible = true;
+                
+                thanksMobile.x = game.world.centerX - (thanksMobile.width/2);
+                thanksMobile.y = (thanksMobile.height/2);
+                
+                instructionsMobile.x = game.world.centerX - (instructionsMobile.width/2);
+                instructionsMobile.y = thanksMobile.y + thanksMobile.height + 10;
+                if(game.world.width >= game.world.height){
+                    branch1.y = instructionsMobile.y;
+                    branch2.y = instructionsMobile.y;
+                }else{
+                    branch1.y = instructionsMobile.y+instructionsMobile.height;
+                    branch2.y = instructionsMobile.y+instructionsMobile.height;    
+                }
             }
             
+            thanks.alpha= 0;
+            instructions . alpha = 0;
+            thanksMobile.alpha= 0;
+            instructionsMobile.alpha = 0;
             branch2.x = game.width - branch2.width;
+            
+            
             
             /*BUTTONS*/
             
@@ -602,9 +625,14 @@
         }
         
         function update(){
-            game.add.tween(thanks).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
+               game.add.tween(thanks).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
             if(thanks.alpha >.8){
                 game.add.tween(instructions).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
+            }
+            
+            game.add.tween(thanksMobile).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
+            if(thanksMobile.alpha >.8){
+                game.add.tween(instructionsMobile).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
             }
             
             var sizeUp = 1.09;
@@ -969,7 +997,7 @@
                 leaf5button.visible = true;
                 
             }
-            if(leaf6.y >=  game.world.height - 20 - (game.world.height*.25) && fall1 == true && leaf6.visible == true){
+            if(leaf6.y >=  game.world.height - 20 - (game.world.height*.23) && fall1 == true && leaf6.visible == true){
                 leaf6button.x = leaf6.x;
                 leaf6button.y = leaf6.y;
                 leaf6.visible = false;
