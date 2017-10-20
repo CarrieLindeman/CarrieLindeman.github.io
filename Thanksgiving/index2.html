@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>goulston&amp;storrs</title>
+        <script type="text/javascript" src="assets/js/phaser.js"></script>
+        <script>
+            
+            var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+        var game = new Phaser.Game(x-20, y-20, Phaser.AUTO, 'card', { preload: preload, create: create, update: update });
+            
+        function preload(){
+            game.load.image('sky', 'assets/img/sky.png');
+            game.load.image('hills','assets/img/hills.png');
+        }
+            
+        function create(){
+            game.world.setBounds(0, 0, 2000, 2000);
+            sky = game.add.sprite(0, 0, 'sky');
+            hills = game.add.sprite(0, 380, 'hills');
+            cameraShake();
+            
+        }
+            
+        function update(){
+        }
+            
+        function cameraShake(){
+
+            var shakeRange= 20;
+var shakeCount = 20;
+var shakeInterval = 20;
+var randomShake = false;
+var randomizeInterval = true;
+var shakeAxis = "x"; //xy x y
+ 
+shake_timer = game.time.create(false);
+ 
+var camera_current_position =  this.game.camera.position;
+shake_timer.loop(randomizeInterval?(Math.random()*shakeInterval+shakeInterval):shakeInterval, function(){
+ 
+        if (shakeCount == 0) {
+            //if shake end set camera to default position
+            this.game.camera.position = camera_current_position;
+            //stop shake timer
+            shake_timer.stop();
+            return;
+        }
+ 
+        var shift1, shift2;
+ 
+        if(randomShake){
+ 
+            //if uneven shifts in the coordinates
+            var shift1 = game.rnd.integerInRange(-shakeRange/2,shakeRange/2);
+            var shift2 = game.rnd.integerInRange(-shakeRange/2,shakeRange/2);
+ 
+        }
+         else{
+ 
+            //If regular shifts
+            if(shakeCount % 2){
+                shift1 = shift2 = -shakeRange/2;
+            }
+            else{
+                shift1 = shift2 = shakeRange/2;
+            }
+        }
+ 
+        if(shakeAxis!="y"){this.game.camera.x += shift1; console.log("HERE");}
+        if(shakeAxis!="x"){this.game.camera.y += shift2; console.log("HERE");}
+    
+            console.log(this.game.camera.position);
+ 
+        shakeCount--;
+ 
+ 
+ 
+}, this);
+ 
+shake_timer.start();   
+        }
+        </script>
+    </head>
+</html>
