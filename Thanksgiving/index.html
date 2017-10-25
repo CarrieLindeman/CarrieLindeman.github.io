@@ -45,6 +45,8 @@
         var rollPlay25 = false;
         var rollPlay26 = false;
         var rollPlay27 = false;
+        var rollPlay28 = false;
+        
         
         
         function preload(){
@@ -72,7 +74,7 @@
                 game.load.image('leaf'+i,'assets/img/leafs/leaf'+i+'.png');
             }
             
-            for(var i = 1; i <= 27; i++){
+            for(var i = 1; i <= 28; i++){
                 game.load.image('art'+i,'assets/img/child-art/art'+i+'.png');
             }
             
@@ -331,13 +333,17 @@
             leaf25button.inputEnabled = true;
             leaf25button.name = "25"; 
             
-            leaf26button = game.add.button(branch2.x+350,branch2.y+15, 'leaf12', actionOnClick, this, 1, 1, 2);
+            leaf26button = game.add.button(branch2.x+350,branch2.y+25, 'leaf12', actionOnClick, this, 1, 1, 2);
             leaf26button.inputEnabled = true;
             leaf26button.name = "26"; 
             
             leaf27button = game.add.button(branch2.x+450,branch2.y+110, 'leaf13', actionOnClick, this, 1, 1, 2);
             leaf27button.inputEnabled = true;
-            leaf27button.name = "27"; 
+            leaf27button.name = "27";
+            
+            leaf28button = game.add.button(branch2.x+478,branch2.y+42, 'leaf14', actionOnClick, this, 1, 1, 2);
+            leaf28button.inputEnabled = true;
+            leaf28button.name = "28";
             
             
             leaf1 = game.add.sprite(branch1.x+20, branch1.y+(branch1.height/2)-50,'leaf1');
@@ -599,6 +605,12 @@
             art27.x = game.world.centerX - (art27.width/2);
             art27.y = game.world.centerY - (art27.height/2) - size.height;
             art27.visible = false;
+            
+            art28 = game.add.sprite(0, 0, 'art28');
+            art28.scale.setTo(xScale, yScale);
+            art28.x = game.world.centerX - (art28.width/2);
+            art28.y = game.world.centerY - (art28.height/2) - size.height;
+            art28.visible = false;
 
             xButton = game.add.button(0, 0, 'x', closeArt, this, 1, 1, 2);
             xButton.x = art1.x + art1.width - xButton.width-3;
@@ -907,17 +919,18 @@
                 leaf27button.scale.setTo(1,1);
                 rollPlay27 = false;
             }
+            if(leaf28button.input.pointerOver() == true){
+                leaf28button.scale.setTo(sizeUp,sizeUp);
+                if(rollPlay28 == false){
+                    leafRollOver.play();
+                    rollPlay28 = true;
+                }
+            }else{
+                leaf28button.scale.setTo(1,1);
+                rollPlay28 = false;
+            }
            
            
-            
-            //tweenA = game.add.tween(turkeyTail).to({ angle : -5}, 100, Phaser.Easing.Bounce.Out, true);
-            //tweenB = game.add.tween(turkeyTail).to({ angle : 5}, 100, Phaser.Easing.Bounce.Out, true);
-            //tweenB.chain(tweenA);
-            //game.add.tween(turkeyTail).to({ angle : -5}, 100, Phaser.Easing.Bounce.Out, true);
-            //game.add.tween(turkeyTail).to({ angle : 0}, 50, Phaser.Easing.Bounce.Out, true);
-            //game.add.tween(turkeyTail).to( { alpha: 0 }, 100, Phaser.Easing.Linear.None, true, 0, 100, true); 
-            
-            
             if(game.time.totalElapsedSeconds()>6){
                 turkeyStand.visible = false;
                 turkeyTail.visible = false;
@@ -1081,7 +1094,7 @@
                 }
             }
             
-            if(art1.visible == true || art2.visible == true || art3.visible == true || art4.visible == true || art5.visible == true || art6.visible == true || art7.visible == true || art8.visible == true || art9.visible == true || art10.visible == true || art11.visible == true || art12.visible == true || art13.visible == true || art14.visible == true || art15.visible == true || art16.visible == true || art23.visible == true || art24.visible == true || art25.visible == true || art26.visible == true || art27.visible == true || art8.visible == true || art17.visible == true || art18.visible == true || art19.visible == true || art20.visible == true || art21.visible == true || art22.visible == true){
+            if(art1.visible == true || art2.visible == true || art3.visible == true || art4.visible == true || art5.visible == true || art6.visible == true || art7.visible == true || art8.visible == true || art9.visible == true || art10.visible == true || art11.visible == true || art12.visible == true || art13.visible == true || art14.visible == true || art15.visible == true || art16.visible == true || art23.visible == true || art24.visible == true || art25.visible == true || art26.visible == true || art27.visible == true || art8.visible == true || art17.visible == true || art18.visible == true || art19.visible == true || art20.visible == true || art21.visible == true || art22.visible == true || art28.visible == true){
                 rollPlay1 = true;
                 rollPlay2 = true;
                 rollPlay3 = true;
@@ -1109,6 +1122,7 @@
                 rollPlay25 = true;
                 rollPlay26 = true;
                 rollPlay27 = true;
+                rollPlay28 = true;
             }
             
             
@@ -1148,6 +1162,7 @@
             art25.visible = false;
             art26.visible = false;
             art27.visible = false;
+            art28.visible = false;
             
             var leafNum = Number(button.name);
             
@@ -1205,6 +1220,8 @@
              art26.visible = true;
             }else if(leafNum == 27){
              art27.visible = true;
+            }else if(leafNum == 28){
+             art28.visible = true;
             }
             
         
@@ -1243,6 +1260,7 @@
             art25.visible = false;
             art26.visible = false;
             art27.visible = false;
+            art28.visible = false;
             xButton.visible = false;
             
         }
