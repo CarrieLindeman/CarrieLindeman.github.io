@@ -54,6 +54,7 @@
             game.load.audio('sitSound', 'assets/sound/sit.mp3');
             game.load.audio('clickSound','assets/sound/click.mp3');
             game.load.audio('swipeSound', 'assets/sound/swipe.mp3');
+            game.load.audio('bgmusic', 'assets/sound/music.wav');
             
             game.load.image('sky', 'assets/img/sky.png');
             game.load.image('hills','assets/img/hills.png');
@@ -68,6 +69,7 @@
             game.load.image('thanksMobile', 'assets/img/happythanksgiving_mobile.png');
             game.load.image('instructionsMobile', 'assets/img/instructions_mobile.png');
             game.load.image('brand', 'assets/img/brandText.png');
+            game.load.image('mouse', 'assets/img/mouse.png');
             
             
             for(var i = 1; i <= 14; i++){
@@ -90,7 +92,8 @@
             clickSound = game.add.audio('clickSound');
             swipeSound = game.add.audio('swipeSound');
             //leafRollOver.addMarker('roll', 0, 1.5);
-            
+            music = game.add.audio('bgmusic');
+            music.play();
             
             sky = game.add.sprite(0, 0, 'sky');
             skySized = false;
@@ -634,6 +637,9 @@
             brand.x = game.world.centerX-(brand.width/2);
             brand.y = game.world.height-brand.height-5;
             
+            mouse = game.add.sprite(game.world.centerX, game.world.centerY, 'mouse');
+            mouse.visible = false;
+            
         }
         
         function update(){
@@ -966,7 +972,7 @@
                 leaf12.body.allowGravity = true;
                 leaf14.body.allowGravity = true;
                 
-                 game.add.tween(instructions).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
+                game.add.tween(instructions).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
                 game.add.tween(instructionsMobile).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
                 
                 fall3 = true;
@@ -1005,6 +1011,9 @@
                 leaf5button.y = leaf5.y;
                 leaf5.visible = false;
                 leaf5button.visible = true;
+                //MOUSE MOVE
+                mouse.visible = true;
+                game.add.tween(mouse).to( { x: leaf5.x+(leaf5.width/2), y: leaf5.y+(leaf5.height/2) }, 500, Phaser.Easing.Linear.None, true);
                 
             }
             if(leaf6.y >=  game.world.height - 20 - (game.world.height*.23) && fall1 == true && leaf6.visible == true){
@@ -1063,7 +1072,7 @@
                 leaf13button.visible = true;
                 
             }
-            if(leaf14.y >=  game.world.height - 20 - (game.world.height*.25) && fall1 == true && leaf14.visible == true){
+            if(leaf14.y >=  game.world.height - 20 - (game.world.height*.18) && fall1 == true && leaf14.visible == true){
                 leaf14button.x = leaf14.x;
                 leaf14button.y = leaf14.y;
                 leaf14.visible = false;
@@ -1130,6 +1139,7 @@
         function actionOnClick (button) {
             swipeSound.play();
             xButton.visible = true;
+            mouse.visible = false;
             
             art1.visible = false; 
             art2.visible = false;
