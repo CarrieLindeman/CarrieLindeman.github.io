@@ -176,17 +176,17 @@
                 thanks.y = (thanks.height/2);
                 
                 instructions.x = game.world.centerX - (instructions.width/2);
-                instructions.y = thanks.y + thanks.height + 10;
+                instructions.y = turkeySit.y + turkeySit.height + 10;
             
                 thanks.alpha = 0;
                 instructions.alpha = 0;
                 
                 if(game.world.width >= game.world.height){
-                    branch1.y = instructions.y;
-                    branch2.y = instructions.y;
+                    branch1.y = thanks.y;
+                    branch2.y = thanks.y;
                 }else{
-                    branch1.y = instructions.y+instructions.height;
-                    branch2.y = instructions.y+instructions.height;    
+                    branch1.y = thanks.y+thanks.height;
+                    branch2.y = thanks.y+thanks.height;    
                 }
             }else{
                 thanksMobile.scale.setTo(2,2);
@@ -198,13 +198,13 @@
                 thanksMobile.y = (thanksMobile.height/2);
                 
                 instructionsMobile.x = game.world.centerX - (instructionsMobile.width/2);
-                instructionsMobile.y = thanksMobile.y + thanksMobile.height + 10;
+                instructionsMobile.y = turkeySit.y + turkeySit.height + 10;
                 if(game.world.width >= game.world.height){
-                    branch1.y = instructionsMobile.y;
-                    branch2.y = instructionsMobile.y;
+                    branch1.y = thanksMobile.y;
+                    branch2.y = thanksMobile.y;
                 }else{
-                    branch1.y = instructionsMobile.y+instructionsMobile.height;
-                    branch2.y = instructionsMobile.y+instructionsMobile.height;    
+                    branch1.y = thanksMobile.y+thanksMobile.height;
+                    branch2.y = thanksMobile.y+thanksMobile.height;    
                 }
             }
             
@@ -412,7 +412,7 @@
             leaf11.body.gravity.y = 35.8;
             leaf11.body.allowGravity = false;
             
-            leaf12 = game.add.sprite(branch2.x+280, branch1.y+(branch1.height/2)-78,'leaf12');
+            leaf12 = game.add.sprite(branch2.x+280, branch1.y+(branch1.height/2)-58,'leaf12');
             leaf12.inputEnabled = true;
             game.physics.enable(leaf12, Phaser.Physics.ARCADE);
             leaf12.body.gravity.y = 35.8;
@@ -637,15 +637,9 @@
         }
         
         function update(){
-               game.add.tween(thanks).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
-            if(thanks.alpha >.8){
-                game.add.tween(instructions).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
-            }
-            
+            game.add.tween(thanks).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
             game.add.tween(thanksMobile).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
-            if(thanksMobile.alpha >.8){
-                game.add.tween(instructionsMobile).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
-            }
+            
             
             var sizeUp = 1.09;
            
@@ -930,12 +924,12 @@
                 rollPlay28 = false;
             }
            
-           
+           //TURKEY SIT
             if(game.time.totalElapsedSeconds()>6){
                 turkeyStand.visible = false;
                 turkeyTail.visible = false;
                 turkeySit.visible = true;
-                
+               
                 if(sat == false){
                 playSitSound();
                 shake();
@@ -971,6 +965,9 @@
                 leaf9.body.allowGravity = true;
                 leaf12.body.allowGravity = true;
                 leaf14.body.allowGravity = true;
+                
+                 game.add.tween(instructions).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
+                game.add.tween(instructionsMobile).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
                 
                 fall3 = true;
             }
@@ -1017,7 +1014,7 @@
                 leaf6button.visible = true;
                 
             }
-            if(leaf7.y >=  game.world.height - 20 - (game.world.height*.37) && fall1 == true && leaf7.visible == true){
+            if(leaf7.y >=  game.world.height - 20 - (game.world.height*.2) && fall1 == true && leaf7.visible == true){
                 leaf7button.x = leaf7.x;
                 leaf7button.y = leaf7.y;
                 leaf7.visible = false;
@@ -1052,7 +1049,7 @@
                 leaf11button.visible = true;
                 
             }
-            if(leaf12.y >=  game.world.height - 20 - (game.world.height*.37) && fall1 == true && leaf12.visible == true){
+            if(leaf12.y >=  game.world.height - 20 - (game.world.height*.2) && fall1 == true && leaf12.visible == true){
                 leaf12button.x = leaf12.x;
                 leaf12button.y = leaf12.y;
                 leaf12.visible = false;
