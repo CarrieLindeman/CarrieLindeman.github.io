@@ -1014,7 +1014,7 @@
                 leaf5button.visible = true;
                 //MOUSE MOVE
                 mouse.visible = true;
-                game.add.tween(mouse).to( { x: leaf5.x+(leaf5.width/2), y: leaf5.y+(leaf5.height/2) }, 5000, Phaser.Easing.Linear.None, true);
+                game.add.tween(mouse).to( { x: leaf5.x+(leaf5.width/2), y: leaf5.y+(leaf5.height/2) }, 2000, Phaser.Easing.Linear.None, true);
                 
             }
             if(leaf6.y >=  game.world.height - 20 - (game.world.height*.23) && fall1 == true && leaf6.visible == true){
@@ -1135,19 +1135,24 @@
             if(mouse.x == leaf5button.x+(leaf5button.width/2)){
                 mouse.x = game.world.centerX;
                 mouse.y = game.world.centerY;
-                game.add.tween(mouse).to( { x: leaf13button.x+(leaf13button.width/2), y: leaf13button.y+(leaf13button.height/2) }, 5000, Phaser.Easing.Linear.None, true);
+                game.add.tween(mouse).to( { x: leaf13button.x+(leaf13button.width/2), y: leaf13button.y+(leaf13button.height/2) }, 2000, Phaser.Easing.Linear.None, true);
             }
             
             if(mouse.x == leaf13button.x+(leaf13button.width/2)){
                 mouse.x = game.world.centerX;
                 mouse.y = game.world.centerY;
-                game.add.tween(mouse).to( { x: leaf17button.x+(leaf17button.width/2), y: leaf17button.y+(leaf17button.height/2) }, 5000, Phaser.Easing.Linear.None, true);
+                game.add.tween(mouse).to( { x: leaf17button.x+(leaf17button.width/2), y: leaf17button.y+(leaf17button.height/2) }, 2000, Phaser.Easing.Linear.None, true);
             }
             
             if(mouse.x == leaf17button.x+(leaf17button.width/2)){
                 mouse.x = game.world.centerX;
                 mouse.y = game.world.centerY;
-                game.add.tween(mouse).to( { x: leaf5button.x+(leaf5button.width/2), y: leaf5button.y+(leaf5button.height/2) }, 5000, Phaser.Easing.Linear.None, true);
+                game.add.tween(mouse).to( { x: leaf22button.x+(leaf22button.width/2), y: leaf22button.y+(leaf22button.height/2) }, 2000, Phaser.Easing.Linear.None, true);
+            }
+            if(mouse.x == leaf22button.x+(leaf22button.width/2)){
+                mouse.x = game.world.centerX;
+                mouse.y = game.world.centerY;
+                game.add.tween(mouse).to( { x: leaf5button.x+(leaf5button.width/2), y: leaf5button.y+(leaf5button.height/2) }, 2000, Phaser.Easing.Linear.None, true);
             }
             
             
