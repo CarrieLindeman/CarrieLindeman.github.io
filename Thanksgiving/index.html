@@ -58,8 +58,8 @@
             
             game.load.image('sky', 'assets/img/sky.png');
             game.load.image('hills','assets/img/hills.png');
-            game.load.image('turkeyTail', 'assets/img/turkeyTail.png');
-            game.load.image('turkeyStand','assets/img/turkeyStandBody.png');
+            //game.load.image('turkeyTail', 'assets/img/turkeyTail.png');
+            game.load.image('turkeyStand','assets/img/turkeyStand.png');
             game.load.image('turkeySit', 'assets/img/turkeySit.png');
             game.load.image('turkeyBlink', 'assets/img/blinkEyes.png');
             game.load.image('branch1', 'assets/img/branch1.png');
@@ -134,7 +134,7 @@
             
             
             //SIZE BREAK
-
+            /*
             turkeyTail = game.add.sprite(0, 0, 'turkeyTail');
             //turkeyTail.x = game.world.centerX-(turkeyTail.width/2);
             //turkeyTail.y = game.world.centerY-(turkeyTail.height/2);
@@ -142,6 +142,7 @@
             turkeyTail.anchor.y = .9;
             turkeyTail.x = game.world.centerX;
             turkeyTail.y = game.world.centerY+(turkeyTail.height/2)-30;
+            */
             
             turkeyStand = game.add.sprite(0, 0, 'turkeyStand');
             turkeyStand.x = game.world.centerX-(turkeyStand.width/2);
@@ -933,7 +934,6 @@
            //TURKEY SIT
             if(game.time.totalElapsedSeconds()>6){
                 turkeyStand.visible = false;
-                turkeyTail.visible = false;
                 turkeySit.visible = true;
                
                 if(sat == false){
@@ -1013,7 +1013,7 @@
                 leaf5button.visible = true;
                 //MOUSE MOVE
                 mouse.visible = true;
-                game.add.tween(mouse).to( { x: leaf5.x+(leaf5.width/2), y: leaf5.y+(leaf5.height/2) }, 500, Phaser.Easing.Linear.None, true);
+                game.add.tween(mouse).to( { x: leaf5.x+(leaf5.width/2), y: leaf5.y+(leaf5.height/2) }, 5000, Phaser.Easing.Linear.None, true);
                 
             }
             if(leaf6.y >=  game.world.height - 20 - (game.world.height*.23) && fall1 == true && leaf6.visible == true){
@@ -1130,6 +1130,26 @@
                 rollPlay27 = true;
                 rollPlay28 = true;
             }
+            
+            if(mouse.x == leaf5button.x+(leaf5button.width/2)){
+                mouse.x = game.world.centerX;
+                mouse.y = game.world.centerY;
+                game.add.tween(mouse).to( { x: leaf13button.x+(leaf13button.width/2), y: leaf13button.y+(leaf13button.height/2) }, 5000, Phaser.Easing.Linear.None, true);
+            }
+            
+            if(mouse.x == leaf13button.x+(leaf13button.width/2)){
+                mouse.x = game.world.centerX;
+                mouse.y = game.world.centerY;
+                game.add.tween(mouse).to( { x: leaf17button.x+(leaf17button.width/2), y: leaf17button.y+(leaf17button.height/2) }, 5000, Phaser.Easing.Linear.None, true);
+            }
+            
+            if(mouse.x == leaf17button.x+(leaf17button.width/2)){
+                mouse.x = game.world.centerX;
+                mouse.y = game.world.centerY;
+                game.add.tween(mouse).to( { x: leaf5button.x+(leaf5button.width/2), y: leaf5button.y+(leaf5button.height/2) }, 5000, Phaser.Easing.Linear.None, true);
+            }
+            
+            
             
             
         }
