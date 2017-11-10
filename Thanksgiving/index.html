@@ -46,6 +46,8 @@
         var rollPlay26 = false;
         var rollPlay27 = false;
         var rollPlay28 = false;
+        var currNumber = 0;
+        var neverClicked = false;
         
         
         
@@ -83,6 +85,8 @@
             game.load.image('thanksMobile', 'assets/img/newTopText.png');
             game.load.image('instructionsMobile', 'assets/img/clickPlain.png');
             game.load.image('glowGiving', 'assets/img/glowGiving.png');
+            game.load.image('next', 'assets/img/next.png');
+            game.load.image('previous', 'assets/img/previous.png');
         }
         
         function create(){
@@ -185,11 +189,11 @@
                 thanks.x = game.world.centerX - (thanks.width/2);
                 thanks.y = (thanks.height/2);
                 
-                instructions.x = game.world.centerX - (instructions.width/2);
-                instructions.y = turkeySit.y + turkeySit.height + 10;
-                
                 glowGiving.x = game.world.centerX - (glowGiving.width/2);
-                glowGiving.y = instructions.y - glowGiving.height;
+                glowGiving.y = turkeySit.y + turkeySit.height-3;
+                
+                instructions.x = game.world.centerX - (instructions.width/2);
+                instructions.y = glowGiving.y + glowGiving.height-5;
                 
                 thanks.alpha = 0;
                 instructions.alpha = 0;
@@ -212,12 +216,13 @@
                 thanksMobile.x = game.world.centerX - (thanksMobile.width/2);
                 thanksMobile.y = (thanksMobile.height/2);
                 
-                instructionsMobile.x = game.world.centerX - (instructionsMobile.width/2);
-                instructionsMobile.y = turkeySit.y + turkeySit.height + 10;
-                
                 glowGiving.x = game.world.centerX - (glowGiving.width/2);
-                glowGiving.y = instructionsMobile.y-glowGiving.height;
+                glowGiving.y = turkeySit.y + turkeySit.height + 10;
                 glowGiving.alpha = 0;
+                
+                instructionsMobile.x = game.world.centerX - (instructionsMobile.width/2);
+                instructionsMobile.y = glowGiving.y+glowGiving.height +15;
+                
                 if(game.world.width >= game.world.height){
                     branch1.y = thanksMobile.y;
                     branch2.y = thanksMobile.y;
@@ -655,6 +660,10 @@
             
             mouse = game.add.sprite(game.world.centerX, game.world.centerY, 'mouse');
             mouse.visible = false;
+            next = game.add.button(art1.x+(art1.width*.86),art1.y+(art1.height*.76), 'next', nextPic, this, 1, 1, 2);
+            previous = game.add.button(art1.x+(art1.width*.66),art1.y+(art1.height*.76), 'previous', prevPic, this, 1, 1, 2);
+            next.visible = false;
+            previous.visible = false;
             
         }
         
@@ -994,6 +1003,11 @@
                 fall3 = true;
             }
             
+            if(game.time.totalElapsedSeconds() > 20 && neverClicked == false){
+                nextPic();
+                neverClicked = true;
+            }
+            
             if(leaf1.y >=  game.world.height - 20 - (game.world.height*.25) && fall1 == true && leaf1.visible == true){
                 leaf1button.x = leaf1.x;
                 leaf1button.y = leaf1.y;
@@ -1008,7 +1022,7 @@
                 leaf2button.visible = true;
                 
             }
-            if(leaf3.y >=  game.world.height - 20 - (game.world.height*.35) && fall1 == true && leaf3.visible == true){
+            if(leaf3.y >=  game.world.height - 20 - (game.world.height*.38) && fall1 == true && leaf3.visible == true){
                 leaf3button.x = leaf3.x;
                 leaf3button.y = leaf3.y;
                 leaf3.visible = false;
@@ -1181,6 +1195,8 @@
             swipeSound.play();
             xButton.visible = true;
             mouse.visible = false;
+            next.visible = true;
+            previous.visible = true;
             
             art1.visible = false; 
             art2.visible = false;
@@ -1213,9 +1229,9 @@
             art28.visible = false;
             
             var leafNum = Number(button.name);
-            
+            currNumber = leafNum;
             if(leafNum ==1){
-             art1.visible = true;   
+             art1.visible = true; 
             }else if(leafNum == 2){
              art2.visible = true;
             }else if(leafNum == 3){
@@ -1310,6 +1326,8 @@
             art27.visible = false;
             art28.visible = false;
             xButton.visible = false;
+            next.visible = false;
+            previous.visible = false;
             
         }
         
@@ -1365,6 +1383,212 @@ shake_timer.loop(randomizeInterval?(Math.random()*shakeInterval+shakeInterval):s
         }, this);
  
             shake_timer.start();
+            }
+            
+            function nextPic(){
+            swipeSound.play();
+            xButton.visible = true;
+            mouse.visible = false;
+            next.visible = true;
+            previous.visible = true;
+            
+            art1.visible = false; 
+            art2.visible = false;
+            art3.visible = false;
+            art4.visible = false;
+            art5.visible = false;
+            art6.visible = false;
+            art7.visible = false;
+            art8.visible = false;
+            art9.visible = false;
+            art10.visible = false;
+            art11.visible = false;
+            art12.visible = false;
+            art13.visible = false;
+            art13.visible = false;
+            art14.visible = false;
+            art15.visible = false;
+            art16.visible = false; 
+            art17.visible = false;
+            art18.visible = false;
+            art19.visible = false;
+            art20.visible = false;
+            art21.visible = false;
+            art22.visible = false;
+            art23.visible = false;
+            art24.visible = false;
+            art25.visible = false;
+            art26.visible = false;
+            art27.visible = false;
+            art28.visible = false;
+            
+            if(currNumber == 28){
+                var leafNum = 1;
+            } else {
+                var leafNum = currNumber + 1;
+            }
+            currNumber = leafNum;
+            
+            if(leafNum ==1){
+             art1.visible = true; 
+            }else if(leafNum == 2){
+             art2.visible = true;
+            }else if(leafNum == 3){
+             art3.visible = true;   
+            }else if(leafNum == 4){
+             art4.visible = true;
+            }else if(leafNum == 5){
+             art5.visible = true;
+            }else if(leafNum == 6){
+             art6.visible = true;
+            }else if(leafNum == 7){
+             art7.visible = true;
+            }else if(leafNum == 8){
+             art8.visible = true;
+            }else if(leafNum == 9){
+             art9.visible = true;
+            }else if(leafNum == 10){
+             art10.visible = true;
+            }else if(leafNum == 11){
+             art11.visible = true;
+            }else if(leafNum == 12){
+             art12.visible = true;
+            }else if(leafNum == 13){
+             art13.visible = true;
+            }else if(leafNum == 14){
+             art14.visible = true;
+            }else if(leafNum == 15){
+             art15.visible = true;
+            }else if(leafNum == 16){
+             art16.visible = true;
+            }else if(leafNum == 17){
+             art17.visible = true;
+            }else if(leafNum == 18){
+             art18.visible = true;
+            }else if(leafNum == 19){
+             art19.visible = true;
+            }else if(leafNum == 20){
+             art20.visible = true;
+            }else if(leafNum == 21){
+             art21.visible = true;
+            }else if(leafNum == 22){
+             art22.visible = true;
+            }else if(leafNum == 23){
+             art23.visible = true;
+            }else if(leafNum == 24){
+             art24.visible = true;
+            }else if(leafNum == 25){
+             art25.visible = true;
+            }else if(leafNum == 26){
+             art26.visible = true;
+            }else if(leafNum == 27){
+             art27.visible = true;
+            }else if(leafNum == 28){
+             art28.visible = true;
+            }
+            }
+            
+            function prevPic(){
+            swipeSound.play();
+            xButton.visible = true;
+            mouse.visible = false;
+            next.visible = true;
+            previous.visible = true;
+            
+            art1.visible = false; 
+            art2.visible = false;
+            art3.visible = false;
+            art4.visible = false;
+            art5.visible = false;
+            art6.visible = false;
+            art7.visible = false;
+            art8.visible = false;
+            art9.visible = false;
+            art10.visible = false;
+            art11.visible = false;
+            art12.visible = false;
+            art13.visible = false;
+            art13.visible = false;
+            art14.visible = false;
+            art15.visible = false;
+            art16.visible = false; 
+            art17.visible = false;
+            art18.visible = false;
+            art19.visible = false;
+            art20.visible = false;
+            art21.visible = false;
+            art22.visible = false;
+            art23.visible = false;
+            art24.visible = false;
+            art25.visible = false;
+            art26.visible = false;
+            art27.visible = false;
+            art28.visible = false;
+            
+            if(currNumber == 1){
+                var leafNum = 28;
+            } else {
+                var leafNum = currNumber - 1;
+            }
+            currNumber = leafNum;
+            
+            if(leafNum ==1){
+             art1.visible = true; 
+            }else if(leafNum == 2){
+             art2.visible = true;
+            }else if(leafNum == 3){
+             art3.visible = true;   
+            }else if(leafNum == 4){
+             art4.visible = true;
+            }else if(leafNum == 5){
+             art5.visible = true;
+            }else if(leafNum == 6){
+             art6.visible = true;
+            }else if(leafNum == 7){
+             art7.visible = true;
+            }else if(leafNum == 8){
+             art8.visible = true;
+            }else if(leafNum == 9){
+             art9.visible = true;
+            }else if(leafNum == 10){
+             art10.visible = true;
+            }else if(leafNum == 11){
+             art11.visible = true;
+            }else if(leafNum == 12){
+             art12.visible = true;
+            }else if(leafNum == 13){
+             art13.visible = true;
+            }else if(leafNum == 14){
+             art14.visible = true;
+            }else if(leafNum == 15){
+             art15.visible = true;
+            }else if(leafNum == 16){
+             art16.visible = true;
+            }else if(leafNum == 17){
+             art17.visible = true;
+            }else if(leafNum == 18){
+             art18.visible = true;
+            }else if(leafNum == 19){
+             art19.visible = true;
+            }else if(leafNum == 20){
+             art20.visible = true;
+            }else if(leafNum == 21){
+             art21.visible = true;
+            }else if(leafNum == 22){
+             art22.visible = true;
+            }else if(leafNum == 23){
+             art23.visible = true;
+            }else if(leafNum == 24){
+             art24.visible = true;
+            }else if(leafNum == 25){
+             art25.visible = true;
+            }else if(leafNum == 26){
+             art26.visible = true;
+            }else if(leafNum == 27){
+             art27.visible = true;
+            }else if(leafNum == 28){
+             art28.visible = true;
+            }
             }
             
         </script>
