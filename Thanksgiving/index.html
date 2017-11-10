@@ -3,12 +3,7 @@
     <head>
         <title>goulston&amp;storrs</title>
         <script type="text/javascript" src="assets/js/phaser.js"></script>
-        <script>
-        window.onload = function(){
-            var el = document.getElementById('body');
-            el.style.display = 'none';
-        };
-        </script>
+    
         <script>
             
             var w = window,
@@ -683,7 +678,6 @@
         }
         
         function update(){
-            console.log(hasClicked);
             game.add.tween(thanks).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
             game.add.tween(thanksMobile).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
             
@@ -1052,7 +1046,7 @@
                 leaf4button.visible = true;
                 
             }
-            if(leaf5.y >=  game.world.height - 20 - (game.world.height*.30) && fall1 == true && leaf5.visible == true){
+            if(leaf5.y >=  game.world.height - 20 - (game.world.height*.20) && fall1 == true && leaf5.visible == true){
                 leaf5button.x = leaf5.x;
                 leaf5button.y = leaf5.y;
                 leaf5.visible = false;
@@ -1099,7 +1093,7 @@
                 leaf10button.visible = true;
                 
             }
-            if(leaf11.y >=  game.world.height - 20 - (game.world.height*.31) && fall1 == true && leaf11.visible == true){
+            if(leaf11.y >=  game.world.height - 20 - (game.world.height*.21) && fall1 == true && leaf11.visible == true){
                 leaf11button.x = leaf11.x;
                 leaf11button.y = leaf11.y;
                 leaf11.visible = false;
