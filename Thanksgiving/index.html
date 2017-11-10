@@ -4,6 +4,12 @@
         <title>goulston&amp;storrs</title>
         <script type="text/javascript" src="assets/js/phaser.js"></script>
         <script>
+        window.onload = function(){
+            var el = document.getElementById('body');
+            el.style.display = 'none';
+        };
+        </script>
+        <script>
             
             var w = window,
             d = document,
@@ -18,6 +24,7 @@
         var fall1 = false;
         var fall2 = false;
         var fall3 = false;
+        var hasClicked = false;
         var rollPlay1 = false;
         var rollPlay2 = false;
         var rollPlay3 = false;
@@ -47,11 +54,14 @@
         var rollPlay27 = false;
         var rollPlay28 = false;
         var currNumber = 0;
-        var neverClicked = false;
+        
         
         
         
         function preload(){
+            //game.load.image('loadLogo', 'assets/img/brand.png');
+            //game.add.sprite(0,0,'loadLogo');
+            //console.log("tried");
             game.load.audio('leafSound', 'assets/sound/leaf.wav');
             game.load.audio('sitSound', 'assets/sound/sit.mp3');
             game.load.audio('clickSound','assets/sound/click.mp3');
@@ -65,19 +75,10 @@
             game.load.image('turkeySit', 'assets/img/turkeySit.png');
             game.load.image('turkeyBlink', 'assets/img/blinkEyes.png');
             game.load.image('branch1', 'assets/img/branch1.png');
-            game.load.image('branch2', 'assets/img/branch2.png');            
-            game.load.image('brand', 'assets/img/brandText.png');
+            game.load.image('branch2', 'assets/img/branch2.png');
             game.load.image('mouse', 'assets/img/mouse.png');
             
-            
-            for(var i = 1; i <= 14; i++){
-                game.load.image('leaf'+i,'assets/img/leafs/leaf'+i+'.png');
-            }
-            
-            for(var i = 1; i <= 28; i++){
-                game.load.image('art'+i,'assets/img/child-art/art'+i+'.png');
-            }
-            
+            largeItemLoads();
             game.load.image('x','assets/img/x.png');
             
             game.load.image('thanks', 'assets/img/newTopTextBig.png');
@@ -87,9 +88,22 @@
             game.load.image('glowGiving', 'assets/img/glowGiving.png');
             game.load.image('next', 'assets/img/next.png');
             game.load.image('previous', 'assets/img/previous.png');
+            
+            game.load.image('brand', 'assets/img/brandText.png');
         }
         
+        function largeItemLoads(){
+             for(var i = 1; i <= 14; i++){
+                game.load.image('leaf'+i,'assets/img/leafs/leaf'+i+'.png');
+            }
+            
+            for(var i = 1; i <= 28; i++){
+                game.load.image('art'+i,'assets/img/child-art/art'+i+'.png');
+            }
+        }
+            
         function create(){
+            //largeItemLoads();
              game.physics.startSystem(Phaser.Physics.ARCADE);
             game.world.setBounds(0, 0, game.world.width+5, game.world.height+5);
             
@@ -100,6 +114,7 @@
             //leafRollOver.addMarker('roll', 0, 1.5);
             music = game.add.audio('bgmusic');
             music.play();
+            music.loopFull();
             
             sky = game.add.sprite(0, 0, 'sky');
             skySized = false;
@@ -668,6 +683,7 @@
         }
         
         function update(){
+            console.log(hasClicked);
             game.add.tween(thanks).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
             game.add.tween(thanksMobile).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
             
@@ -1003,9 +1019,9 @@
                 fall3 = true;
             }
             
-            if(game.time.totalElapsedSeconds() > 20 && neverClicked == false){
+            if(game.time.totalElapsedSeconds() > 20 && hasClicked == false){
                 nextPic();
-                neverClicked = true;
+                hasClicked = true;
             }
             
             if(leaf1.y >=  game.world.height - 20 - (game.world.height*.25) && fall1 == true && leaf1.visible == true){
@@ -1042,7 +1058,9 @@
                 leaf5.visible = false;
                 leaf5button.visible = true;
                 //MOUSE MOVE
-                mouse.visible = true;
+                if(hasClicked == false){
+                    mouse.visible = true;
+                }
                 game.add.tween(mouse).to( { x: leaf5.x+(leaf5.width/2), y: leaf5.y+(leaf5.height/2) }, 2000, Phaser.Easing.Linear.None, true);
                 
             }
@@ -1192,6 +1210,7 @@
         /*BUTTON FUNCTIONS*/
     
         function actionOnClick (button) {
+            hasClicked = true;
             swipeSound.play();
             xButton.visible = true;
             mouse.visible = false;
@@ -1588,13 +1607,14 @@ shake_timer.loop(randomizeInterval?(Math.random()*shakeInterval+shakeInterval):s
              art27.visible = true;
             }else if(leafNum == 28){
              art28.visible = true;
-            }
+                }
             }
             
         </script>
     </head>
     <body>
         <div id="card">
+            <!--<img src="assets/img/brandText.png" >-->
         </div>
     </body>
 </html>
