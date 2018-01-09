@@ -54,9 +54,6 @@
         
         
         function preload(){
-            //game.load.image('loadLogo', 'assets/img/brand.png');
-            //game.add.sprite(0,0,'loadLogo');
-            //console.log("tried");
             game.load.audio('leafSound', 'assets/sound/leaf.wav');
             game.load.audio('sitSound', 'assets/sound/sit.mp3');
             game.load.audio('clickSound','assets/sound/click.mp3');
@@ -65,7 +62,6 @@
             
             game.load.image('sky', 'assets/img/sky.png');
             game.load.image('hills','assets/img/hills.png');
-            //game.load.image('turkeyTail', 'assets/img/turkeyTail.png');
             game.load.image('turkeyStand','assets/img/turkeyStand.png');
             game.load.image('turkeySit', 'assets/img/turkeySit.png');
             game.load.image('turkeyBlink', 'assets/img/blinkEyes.png');
@@ -98,7 +94,6 @@
         }
             
         function create(){
-            //largeItemLoads();
              game.physics.startSystem(Phaser.Physics.ARCADE);
             game.world.setBounds(0, 0, game.world.width+5, game.world.height+5);
             
@@ -106,7 +101,6 @@
             sitSound = game.add.audio('sitSound');
             clickSound = game.add.audio('clickSound');
             swipeSound = game.add.audio('swipeSound');
-            //leafRollOver.addMarker('roll', 0, 1.5);
             music = game.add.audio('bgmusic');
             music.play();
             music.loopFull();
@@ -149,17 +143,6 @@
             hills.y = game.world.height * .5;
             
             
-            //SIZE BREAK
-            /*
-            turkeyTail = game.add.sprite(0, 0, 'turkeyTail');
-            //turkeyTail.x = game.world.centerX-(turkeyTail.width/2);
-            //turkeyTail.y = game.world.centerY-(turkeyTail.height/2);
-            turkeyTail.anchor.x = .5;
-            turkeyTail.anchor.y = .9;
-            turkeyTail.x = game.world.centerX;
-            turkeyTail.y = game.world.centerY+(turkeyTail.height/2)-30;
-            */
-            
             turkeyStand = game.add.sprite(0, 0, 'turkeyStand');
             turkeyStand.x = game.world.centerX-(turkeyStand.width/2);
             turkeyStand.y = game.world.centerY-(turkeyStand.height/2);
@@ -190,8 +173,7 @@
             branch2 = game.add.sprite(0,0,'branch2');
             
             if(game.world.width >= 1100){
-            //thanks.scale.setTo(.8,.8);  
-            //instructions.scale.setTo(.9,.9);
+            
                 thanks.visible = true;
                 instructions.visible = true;
                 glowGiving.visible = true;
@@ -653,7 +635,6 @@
             
             poly = new Phaser.Polygon();
 
-            //  And then populate it via setTo, using any combination of values as above
             poly.setTo([ new Phaser.Point(0, game.world.height), new Phaser.Point(0, game.world.height - size.height - 18), new Phaser.Point(game.world.width, game.world.height - size.height - 18), new Phaser.Point(game.world.width, game.world.height) ]);
 
 
@@ -965,7 +946,6 @@
                 rollPlay28 = false;
             }
            
-           //TURKEY SIT
             if(game.time.totalElapsedSeconds()>6){
                 turkeyStand.visible = false;
                 turkeySit.visible = true;
@@ -983,10 +963,7 @@
                 leaf4.body.allowGravity = true;
                 leaf7.body.allowGravity = true;
                 leaf10.body.allowGravity = true;
-                //game.add.tween(leaf1).to({ y: game.world.height - 20 - (game.world.height*.25)}, 2000, Phaser.Easing.Linear.In, true);
-                //game.add.tween(leaf4).to({ y: game.world.height - 20 - (game.world.height*.22)}, 1400, Phaser.Easing.Linear.None, true);
-                //game.add.tween(leaf7).to({ y: game.world.height - 100 - (game.world.height*.15)}, 2600, Phaser.Easing.Linear.None, true);
-                //game.add.tween(leaf10).to({ y: game.world.height - 40 - (game.world.height*.30)}, 2400, Phaser.Easing.Linear.None, true);
+               
                 fall1 = true;
             }
             
@@ -1128,7 +1105,6 @@
                 
                 if((Math.floor(Math.random() * 1001) >995) || blinker == true){
                     turkeyBlink.visible = true;
-                    //turkeySit.visible = true;
                     blinkNum += 1;
                     blinker = true;
                     if(blinkNum > 22){
@@ -1138,7 +1114,6 @@
                     
                 }else{
                     turkeyBlink.visible = false;
-                    //turkeySit.visible = true;
                 }
             }
             
@@ -1608,7 +1583,6 @@ shake_timer.loop(randomizeInterval?(Math.random()*shakeInterval+shakeInterval):s
     </head>
     <body>
         <div id="card">
-            <!--<img src="assets/img/brandText.png" >-->
         </div>
     </body>
 </html>
