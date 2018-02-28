@@ -19,10 +19,7 @@
                 game.load.image('selected-button3', 'img/buttons/selected-button3.png');
                 game.load.image('button4', 'img/buttons/button4.png');
                 game.load.image('selected-button4', 'img/buttons/selected-button4.png');
-                game.load.image('button5', 'img/buttons/button5.png');
-                game.load.image('selected-button5', 'img/buttons/selected-button5.png');
-                game.load.image('button6', 'img/buttons/button6.png');
-                game.load.image('selected-button6', 'img/buttons/selected-button6.png');
+                
                 game.load.image('submit-button', 'img/buttons/submit-button.png');
                 game.load.image('try-again', 'img/buttons/try-again.png');
                 game.load.image('continue', 'img/buttons/continue.png');
@@ -37,22 +34,18 @@
                 button2 = game.add.button(570, 295, 'button2', clickButton2, this, 0, 0, 0);
                 button3 = game.add.button(570, 390, 'button3', clickButton3, this, 0, 0, 0);
                 button4 = game.add.button(570, 485, 'button4', clickButton4, this, 0, 0, 0);
-                button5 = game.add.button(570, 580, 'button5', clickButton5, this, 0, 0, 0);
-                button6 = game.add.button(570, 675, 'button6', clickButton6, this, 0, 0, 0);            
-                submit = game.add.button(160, 685, 'submit-button', submit, this, 0, 0, 0);
+            
+                submit = game.add.button(660, 585, 'submit-button', submit, this, 0, 0, 0);
                 
                 selectedButton1 = game.add.button(570, 200, 'selected-button1', clickButton1, this, 0, 0, 0);
                 selectedButton2 = game.add.button(570, 295, 'selected-button2', clickButton2, this, 0, 0, 0);
                 selectedButton3 = game.add.button(570, 390, 'selected-button3', clickButton3, this, 0, 0, 0);
                 selectedButton4 = game.add.button(570, 485, 'selected-button4', clickButton4, this, 0, 0, 0);
-                selectedButton5 = game.add.button(570, 580, 'selected-button5', clickButton5, this, 0, 0, 0);
-                selectedButton6 = game.add.button(570, 675, 'selected-button6', clickButton6, this, 0, 0, 0);                
+
                 selectedButton1.visible = false;
                 selectedButton2.visible = false;
                 selectedButton3.visible = false;
                 selectedButton4.visible = false;
-                selectedButton5.visible = false;
-                selectedButton6.visible = false;                
                 
                 correctFeedback = game.add.sprite(70, 425, 'correct-feedback');
                 incorrectFeedback = game.add.sprite(70, 425, 'incorrect-feedback');
@@ -106,26 +99,9 @@
                     selectedButton4.visible = false;
                 }
             }
-            function clickButton5(){
-                if(button5.visible == true){
-                    button5.visible = false;
-                    selectedButton5.visible = true;
-                }else{
-                    button5.visible = true;
-                    selectedButton5.visible = false;
-                }
-            }
-            function clickButton6(){
-                if(button6.visible == true){
-                    button6.visible = false;
-                    selectedButton6.visible = true;
-                }else{
-                    button6.visible = true;
-                    selectedButton6.visible = false;
-                }
-            }
+            
             function submit(){
-                if((selectedButton1.visible == true) && (selectedButton2.visible == true) && (selectedButton3.visible == false) && (selectedButton4.visible == true) && (selectedButton5.visible == true) && (selectedButton6.visible == true)){
+                if((selectedButton1.visible == true) && (selectedButton2.visible == false) && (selectedButton3.visible == true) && (selectedButton4.visible == true)){
                     incorrectFeedback.visible = false;
                     tryAgainButton.visible = false;
                     correctFeedback.visible = true;
@@ -140,6 +116,14 @@
             function tryAgain(){
                 incorrectFeedback.visible = false;
                 tryAgainButton.visible = false;
+                button1.visible = true;
+                button2.visible = true;
+                button3.visible = true;
+                button4.visible = true;
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                selectedButton3.visible = false;
+                selectedButton4.visible = false;
             }
             function continueFunc(){
                 console.log("Next part of the module");

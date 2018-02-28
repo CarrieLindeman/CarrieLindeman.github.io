@@ -33,20 +33,20 @@
             
             function create(){
                 game.add.sprite(0, 0, 'bg');
-                button1 = game.add.button(570, 200, 'button1', clickButton1, this, 0, 0, 0);
-                button2 = game.add.button(570, 295, 'button2', clickButton2, this, 0, 0, 0);
-                button3 = game.add.button(570, 390, 'button3', clickButton3, this, 0, 0, 0);
-                button4 = game.add.button(570, 485, 'button4', clickButton4, this, 0, 0, 0);
-                button5 = game.add.button(570, 580, 'button5', clickButton5, this, 0, 0, 0);
-                button6 = game.add.button(570, 675, 'button6', clickButton6, this, 0, 0, 0);            
-                submit = game.add.button(160, 685, 'submit-button', submit, this, 0, 0, 0);
+                button1 = game.add.button(570, 190, 'button1', clickButton1, this, 0, 0, 0);
+                button2 = game.add.button(570, 285, 'button2', clickButton2, this, 0, 0, 0);
+                button3 = game.add.button(570, 380, 'button3', clickButton3, this, 0, 0, 0);
+                button4 = game.add.button(570, 475, 'button4', clickButton4, this, 0, 0, 0);
+                button5 = game.add.button(570, 570, 'button5', clickButton5, this, 0, 0, 0);
+                button6 = game.add.button(570, 665, 'button6', clickButton6, this, 0, 0, 0);            
+                submit = game.add.button(150, 675, 'submit-button', submit, this, 0, 0, 0);
                 
-                selectedButton1 = game.add.button(570, 200, 'selected-button1', clickButton1, this, 0, 0, 0);
-                selectedButton2 = game.add.button(570, 295, 'selected-button2', clickButton2, this, 0, 0, 0);
-                selectedButton3 = game.add.button(570, 390, 'selected-button3', clickButton3, this, 0, 0, 0);
-                selectedButton4 = game.add.button(570, 485, 'selected-button4', clickButton4, this, 0, 0, 0);
-                selectedButton5 = game.add.button(570, 580, 'selected-button5', clickButton5, this, 0, 0, 0);
-                selectedButton6 = game.add.button(570, 675, 'selected-button6', clickButton6, this, 0, 0, 0);                
+                selectedButton1 = game.add.button(570, 190, 'selected-button1', clickButton1, this, 0, 0, 0);
+                selectedButton2 = game.add.button(570, 285, 'selected-button2', clickButton2, this, 0, 0, 0);
+                selectedButton3 = game.add.button(570, 380, 'selected-button3', clickButton3, this, 0, 0, 0);
+                selectedButton4 = game.add.button(570, 475, 'selected-button4', clickButton4, this, 0, 0, 0);
+                selectedButton5 = game.add.button(570, 570, 'selected-button5', clickButton5, this, 0, 0, 0);
+                selectedButton6 = game.add.button(570, 665, 'selected-button6', clickButton6, this, 0, 0, 0);                
                 selectedButton1.visible = false;
                 selectedButton2.visible = false;
                 selectedButton3.visible = false;
@@ -140,6 +140,18 @@
             function tryAgain(){
                 incorrectFeedback.visible = false;
                 tryAgainButton.visible = false;
+                button1.visible = true;
+                button2.visible = true;
+                button3.visible = true;
+                button4.visible = true;
+                button5.visible = true;
+                button6.visible = true;
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                selectedButton3.visible = false;
+                selectedButton4.visible = false;
+                selectedButton5.visible = false;
+                selectedButton6.visible = false;
             }
             function continueFunc(){
                 console.log("Next part of the module");

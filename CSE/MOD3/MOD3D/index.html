@@ -39,7 +39,7 @@
                 correctFeedback.visible = false;
                 incorrectFeedback.visible = false;
                 
-                tryAgainButton = game.add.button(165, 580, 'try-again', tryAgain, this, 0, 0, 0);
+                tryAgainButton = game.add.button(165, 570, 'try-again', tryAgain, this, 0, 0, 0);
                 continueButton = game.add.button(165, 580, 'continue', continueFunc, this, 0, 0, 0);
                 tryAgainButton.visible = false;
                 continueButton.visible = false;
@@ -88,6 +88,10 @@
             function tryAgain(){
                 incorrectFeedback.visible = false;
                 tryAgainButton.visible = false;
+                button1.visible = true;
+                button2.visible = true;
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
             }
             function continueFunc(){
                 console.log("Next part of the module");
