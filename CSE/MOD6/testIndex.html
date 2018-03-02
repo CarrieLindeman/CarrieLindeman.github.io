@@ -1,0 +1,557 @@
+<html>
+<head>
+        <title>LAX iCARE Module 6</title>
+        <script type="text/javascript" src="js/phaser.js"></script>  
+    
+        <script>
+            function runMOD6A(){
+         var game = new Phaser.Game(1024,768,Phaser.AUTO,'module',{preload: preload, create: create, update: update});
+         var button1, selectedButton1, button2, selectedButton2, button3, selectedButton3, submit, correctFeedback, incorrectFeedback, tryAgainButton, continueButton;    
+            
+            function preload(){
+                var branch = "MOD6A/";
+                game.load.image('bg', branch+'img/bg.png');
+                /* BUTTONS */
+                game.load.image('button1', branch+'img/buttons/button1.png');
+                game.load.image('selected-button1', branch+'img/buttons/selected-button1.png');
+                game.load.image('button2', branch+'img/buttons/button2.png');
+                game.load.image('selected-button2', branch+'img/buttons/selected-button2.png');
+                game.load.image('button3', branch+'img/buttons/button3.png');
+                game.load.image('selected-button3', branch+'img/buttons/selected-button3.png');
+                game.load.image('button4', branch+'img/buttons/button4.png');
+                game.load.image('selected-button4', branch+'img/buttons/selected-button4.png');
+                game.load.image('button5', branch+'img/buttons/button5.png');
+                game.load.image('selected-button5', branch+'img/buttons/selected-button5.png');
+                game.load.image('button6', branch+'img/buttons/button6.png');
+                game.load.image('selected-button6', branch+'img/buttons/selected-button6.png');
+                game.load.image('submit-button', branch+'img/buttons/submit-button.png');
+                game.load.image('try-again', branch+'img/buttons/try-again.png');
+                game.load.image('continue', branch+'img/buttons/continue.png');
+                /* FEEDBACK */
+                game.load.image('correct-feedback', branch+'img/buttons/correct-feedback.png');
+                game.load.image('incorrect-feedback', branch+'img/buttons/incorrect-feedback.png');    
+            }
+            
+            function create(){
+                game.add.sprite(0, 0, 'bg');
+                button1 = game.add.button(555, 125, 'button1', clickButton1, this, 0, 0, 0);
+                button2 = game.add.button(555, 220, 'button2', clickButton2, this, 0, 0, 0);
+                button3 = game.add.button(555, 315, 'button3', clickButton3, this, 0, 0, 0);
+                button4 = game.add.button(555, 410, 'button4', clickButton4, this, 0, 0, 0);
+                button5 = game.add.button(555, 505, 'button5', clickButton5, this, 0, 0, 0);
+                button6 = game.add.button(555, 600, 'button6', clickButton6, this, 0, 0, 0);
+                submit = game.add.button(645, 695, 'submit-button', submit, this, 0, 0, 0);
+                
+                selectedButton1 = game.add.button(555, 125, 'selected-button1', clickButton1, this, 0, 0, 0);
+                selectedButton2 = game.add.button(555, 220, 'selected-button2', clickButton2, this, 0, 0, 0);
+                selectedButton3 = game.add.button(555, 315, 'selected-button3', clickButton3, this, 0, 0, 0);
+                selectedButton4 = game.add.button(555, 410, 'selected-button4', clickButton4, this, 0, 0, 0);
+                selectedButton5 = game.add.button(555, 505, 'selected-button5', clickButton5, this, 0, 0, 0);
+                selectedButton6 = game.add.button(555, 600, 'selected-button6', clickButton6, this, 0, 0, 0);
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                selectedButton3.visible = false;
+                selectedButton4.visible = false;
+                selectedButton5.visible = false;
+                selectedButton6.visible = false;
+                
+                
+                correctFeedback = game.add.sprite(90, 350, 'correct-feedback');
+                incorrectFeedback = game.add.sprite(90, 350, 'incorrect-feedback');
+                correctFeedback.visible = false;
+                incorrectFeedback.visible = false;
+                
+                tryAgainButton = game.add.button(175, 465, 'try-again', tryAgain, this, 0, 0, 0);
+                continueButton = game.add.button(175, 465, 'continue', continueFunc, this, 0, 0, 0);
+                tryAgainButton.visible = false;
+                continueButton.visible = false;
+                
+            }
+            
+            function update(){
+                
+            }
+            
+            function clickButton1(){
+                if(button1.visible == true){
+                    button1.visible = false;
+                    selectedButton1.visible = true;
+                }else{
+                    button1.visible = true;
+                    selectedButton1.visible = false;
+                }
+            }
+            function clickButton2(){
+                if(button2.visible == true){
+                    button2.visible = false;
+                    selectedButton2.visible = true;
+                }else{
+                    button2.visible = true;
+                    selectedButton2.visible = false;
+                }
+            }
+            function clickButton3(){
+                if(button3.visible == true){
+                    button3.visible = false;
+                    selectedButton3.visible = true;
+                }else{
+                    button3.visible = true;
+                    selectedButton3.visible = false;
+                }
+            }
+            function clickButton4(){
+                if(button4.visible == true){
+                    button4.visible = false;
+                    selectedButton4.visible = true;
+                }else{
+                    button4.visible = true;
+                    selectedButton4.visible = false;
+                }
+            }
+            function clickButton5(){
+                if(button5.visible == true){
+                    button5.visible = false;
+                    selectedButton5.visible = true;
+                }else{
+                    button5.visible = true;
+                    selectedButton5.visible = false;
+                }
+            }
+            function clickButton6(){
+                if(button6.visible == true){
+                    button6.visible = false;
+                    selectedButton6.visible = true;
+                }else{
+                    button6.visible = true;
+                    selectedButton6.visible = false;
+                }
+            }
+            
+            
+            function submit(){
+                if((selectedButton1.visible == true) && (selectedButton2.visible == false) && (selectedButton3.visible == true) && (selectedButton4.visible == true) && (selectedButton5.visible == false) && (selectedButton6.visible == true)){
+                    incorrectFeedback.visible = false;
+                    tryAgainButton.visible = false;
+                    correctFeedback.visible = true;
+                    continueButton.visible = true;
+                }else{
+                    correctFeedback.visible = false;
+                    continueButton.visible = false;
+                    incorrectFeedback.visible = true;
+                    tryAgainButton.visible = true;
+                }
+            }
+            function tryAgain(){
+                incorrectFeedback.visible = false;
+                tryAgainButton.visible = false;
+                button1.visible = true;
+                button2.visible = true;
+                button3.visible = true;
+                button4.visible = true;
+                button5.visible = true;
+                button6.visible = true;
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                selectedButton3.visible = false;
+                selectedButton4.visible = false;
+                selectedButton5.visible = false;
+                selectedButton6.visible = false;
+            }
+            function continueFunc(){
+                console.log("Next part of the module");
+                //window.open(link, "_self");
+                document.getElementById('module').innerHTML = "";
+                runMOD6B();
+            }
+            }
+        </script>
+    
+    <script>
+    function runMOD6B(){
+     var game = new Phaser.Game(1024,768,Phaser.AUTO,'module',{preload: preload, create: create, update: update});
+         var button1, selectedButton1, button2, selectedButton2, button3, selectedButton3, submit, correctFeedback, incorrectFeedback, tryAgainButton, continueButton;    
+            
+            function preload(){
+                var branch = "MOD6B/";
+                game.load.image('bg',branch+'img/bg.png');
+                /* BUTTONS */
+                game.load.image('button1', branch+'img/buttons/button1.png');
+                game.load.image('selected-button1', branch+'img/buttons/selected-button1.png');
+                game.load.image('button2', branch+'img/buttons/button2.png');
+                game.load.image('selected-button2', branch+'img/buttons/selected-button2.png');
+                game.load.image('submit-button', branch+'img/buttons/submit-button.png');
+                game.load.image('try-again', branch+'img/buttons/try-again.png');
+                game.load.image('continue', branch+'img/buttons/continue.png');
+                /* FEEDBACK */
+                game.load.image('correct-feedback', branch+'img/buttons/correct-feedback.png');
+                game.load.image('incorrect-feedback', branch+'img/buttons/incorrect-feedback.png');    
+            }
+            
+            function create(){
+                game.add.sprite(0, 0, 'bg');
+                button1 = game.add.button(115, 350, 'button1', clickButton1, this, 0, 0, 0);
+                button2 = game.add.button(115, 445, 'button2', clickButton2, this, 0, 0, 0);
+                submit = game.add.button(205, 540, 'submit-button', submit, this, 0, 0, 0);
+                
+                selectedButton1 = game.add.button(115, 350, 'selected-button1', clickButton1, this, 0, 0, 0);
+                selectedButton2 = game.add.button(115, 445, 'selected-button2', clickButton2, this, 0, 0, 0);
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                
+                correctFeedback = game.add.sprite(585, 350, 'correct-feedback');
+                incorrectFeedback = game.add.sprite(585, 350, 'incorrect-feedback');
+                correctFeedback.visible = false;
+                incorrectFeedback.visible = false;
+                
+                tryAgainButton = game.add.button(670, 465, 'try-again', tryAgain, this, 0, 0, 0);
+                continueButton = game.add.button(670, 465, 'continue', continueFunc, this, 0, 0, 0);
+                tryAgainButton.visible = false;
+                continueButton.visible = false;
+                
+            }
+            
+            function update(){
+                
+            }
+            
+            function clickButton1(){
+                if(button1.visible == true){
+                    button1.visible = false;
+                    selectedButton1.visible = true;
+                    selectedButton2.visible = false;
+                    button2.visible = true;
+                }else{
+                    button1.visible = true;
+                    selectedButton1.visible = false;
+                }
+            }
+            function clickButton2(){
+                if(button2.visible == true){
+                    button2.visible = false;
+                    selectedButton2.visible = true;
+                    selectedButton1.visible = false;
+                    button1.visible = true;
+                }else{
+                    button2.visible = true;
+                    selectedButton2.visible = false;
+                }
+            }
+            function submit(){
+                if((selectedButton1.visible == false) && (selectedButton2.visible == true)){
+                    incorrectFeedback.visible = false;
+                    tryAgainButton.visible = false;
+                    correctFeedback.visible = true;
+                    continueButton.visible = true;
+                }else{
+                    correctFeedback.visible = false;
+                    continueButton.visible = false;
+                    incorrectFeedback.visible = true;
+                    tryAgainButton.visible = true;
+                }
+            }
+            function tryAgain(){
+                incorrectFeedback.visible = false;
+                tryAgainButton.visible = false;
+                button1.visible = true;
+                button2.visible = true;
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+            }
+            function continueFunc(){
+                console.log("Next part of the module");
+                //window.open(link, "_self");
+                document.getElementById('module').innerHTML = "";
+                runMOD6C();
+            }   
+    }
+    </script>
+    
+    <script>
+        function runMOD6C(){
+            var game = new Phaser.Game(1024,768,Phaser.AUTO,'module',{preload: preload, create: create, update: update});
+         var button1, selectedButton1, button2, selectedButton2, button3, selectedButton3, button4, selectedButton4, button5, selectedButton5, button6, selectedButton6, submit, correctFeedback, incorrectFeedback, tryAgainButton, continueButton;    
+            
+            function preload(){
+                var branch = "MOD6C/";
+                game.load.image('bg', branch+'img/bg.png');
+                /* BUTTONS */
+                game.load.image('button1', branch+'img/buttons/button1.png');
+                game.load.image('selected-button1', branch+'img/buttons/selected-button1.png');
+                game.load.image('button2', branch+'img/buttons/button2.png');
+                game.load.image('selected-button2', branch+'img/buttons/selected-button2.png');
+                game.load.image('button3', branch+'img/buttons/button3.png');
+                game.load.image('selected-button3', branch+'img/buttons/selected-button3.png');
+                game.load.image('button4', branch+'img/buttons/button4.png');
+                game.load.image('selected-button4', branch+'img/buttons/selected-button4.png');
+                game.load.image('button5', branch+'img/buttons/button5.png');
+                game.load.image('selected-button5', branch+'img/buttons/selected-button5.png');
+                game.load.image('button6', branch+'img/buttons/button6.png');
+                game.load.image('selected-button6', branch+'img/buttons/selected-button6.png');
+                game.load.image('submit-button', branch+'img/buttons/submit-button.png');
+                game.load.image('try-again', branch+'img/buttons/try-again.png');
+                game.load.image('continue', branch+'img/buttons/continue.png');
+                /* FEEDBACK */
+                game.load.image('correct-feedback', branch+'img/buttons/correct-feedback.png');
+                game.load.image('incorrect-feedback', branch+'img/buttons/incorrect-feedback.png');    
+            }
+            
+            function create(){
+                game.add.sprite(0, 0, 'bg');
+                button1 = game.add.button(555, 125, 'button1', clickButton1, this, 0, 0, 0);
+                button2 = game.add.button(555, 220, 'button2', clickButton2, this, 0, 0, 0);
+                button3 = game.add.button(555, 315, 'button3', clickButton3, this, 0, 0, 0);
+                button4 = game.add.button(555, 410, 'button4', clickButton4, this, 0, 0, 0);
+                button5 = game.add.button(555, 505, 'button5', clickButton5, this, 0, 0, 0);
+                button6 = game.add.button(555, 600, 'button6', clickButton6, this, 0, 0, 0);
+                submit = game.add.button(645, 695, 'submit-button', submit, this, 0, 0, 0);
+                
+                selectedButton1 = game.add.button(555, 125, 'selected-button1', clickButton1, this, 0, 0, 0);
+                selectedButton2 = game.add.button(555, 220, 'selected-button2', clickButton2, this, 0, 0, 0);
+                selectedButton3 = game.add.button(555, 315, 'selected-button3', clickButton3, this, 0, 0, 0);
+                selectedButton4 = game.add.button(555, 410, 'selected-button4', clickButton4, this, 0, 0, 0);
+                selectedButton5 = game.add.button(555, 505, 'selected-button5', clickButton5, this, 0, 0, 0);
+                selectedButton6 = game.add.button(555, 600, 'selected-button6', clickButton6, this, 0, 0, 0);
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                selectedButton3.visible = false;
+                selectedButton4.visible = false;
+                selectedButton5.visible = false;
+                selectedButton6.visible = false;
+                
+                
+                correctFeedback = game.add.sprite(90, 350, 'correct-feedback');
+                incorrectFeedback = game.add.sprite(90, 350, 'incorrect-feedback');
+                correctFeedback.visible = false;
+                incorrectFeedback.visible = false;
+                
+                tryAgainButton = game.add.button(175, 465, 'try-again', tryAgain, this, 0, 0, 0);
+                continueButton = game.add.button(175, 465, 'continue', continueFunc, this, 0, 0, 0);
+                tryAgainButton.visible = false;
+                continueButton.visible = false;
+                
+            }
+            
+            function update(){
+                
+            }
+            
+            function clickButton1(){
+                if(button1.visible == true){
+                    button1.visible = false;
+                    selectedButton1.visible = true;
+                }else{
+                    button1.visible = true;
+                    selectedButton1.visible = false;
+                }
+            }
+            function clickButton2(){
+                if(button2.visible == true){
+                    button2.visible = false;
+                    selectedButton2.visible = true;
+                }else{
+                    button2.visible = true;
+                    selectedButton2.visible = false;
+                }
+            }
+            function clickButton3(){
+                if(button3.visible == true){
+                    button3.visible = false;
+                    selectedButton3.visible = true;
+                }else{
+                    button3.visible = true;
+                    selectedButton3.visible = false;
+                }
+            }
+            function clickButton4(){
+                if(button4.visible == true){
+                    button4.visible = false;
+                    selectedButton4.visible = true;
+                }else{
+                    button4.visible = true;
+                    selectedButton4.visible = false;
+                }
+            }
+            function clickButton5(){
+                if(button5.visible == true){
+                    button5.visible = false;
+                    selectedButton5.visible = true;
+                }else{
+                    button5.visible = true;
+                    selectedButton5.visible = false;
+                }
+            }
+            function clickButton6(){
+                if(button6.visible == true){
+                    button6.visible = false;
+                    selectedButton6.visible = true;
+                }else{
+                    button6.visible = true;
+                    selectedButton6.visible = false;
+                }
+            }
+            
+            
+            function submit(){
+                if((selectedButton1.visible == true) && (selectedButton2.visible == false) && (selectedButton3.visible == true) && (selectedButton4.visible == false) && (selectedButton5.visible == true) && (selectedButton6.visible == true)){
+                    incorrectFeedback.visible = false;
+                    tryAgainButton.visible = false;
+                    correctFeedback.visible = true;
+                    continueButton.visible = true;
+                }else{
+                    correctFeedback.visible = false;
+                    continueButton.visible = false;
+                    incorrectFeedback.visible = true;
+                    tryAgainButton.visible = true;
+                }
+            }
+            function tryAgain(){
+                incorrectFeedback.visible = false;
+                tryAgainButton.visible = false;
+                button1.visible = true;
+                button2.visible = true;
+                button3.visible = true;
+                button4.visible = true;
+                button5.visible = true;
+                button6.visible = true;
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                selectedButton3.visible = false;
+                selectedButton4.visible = false;
+                selectedButton5.visible = false;
+                selectedButton6.visible = false;
+            }
+            function continueFunc(){
+                console.log("Next part of the module");
+                //window.open(link, "_self");
+                document.getElementById('module').innerHTML = "";
+                runMOD6D();
+            }
+        }
+    </script>
+    
+    
+    <script>
+        function runMOD6D(){
+            var game = new Phaser.Game(1024,768,Phaser.AUTO,'module',{preload: preload, create: create, update: update});
+         var button1, selectedButton1, button2, selectedButton2, button3, selectedButton3, button4, selectedButton4, button5, selectedButton5, button6, selectedButton6, submit, correctFeedback, incorrectFeedback, tryAgainButton, continueButton;    
+            
+            function preload(){
+                var branch = "MOD6D/";
+                game.load.image('bg', branch+'img/bg.png');
+                /* BUTTONS */
+                game.load.image('button1', branch+'img/buttons/button1.png');
+                game.load.image('selected-button1', branch+'img/buttons/selected-button1.png');
+                game.load.image('button2', branch+'img/buttons/button2.png');
+                game.load.image('selected-button2', branch+'img/buttons/selected-button2.png');
+                game.load.image('button3', branch+'img/buttons/button3.png');
+                game.load.image('selected-button3', branch+'img/buttons/selected-button3.png');
+                game.load.image('submit-button', branch+'img/buttons/submit-button.png');
+                game.load.image('try-again', branch+'img/buttons/try-again.png');
+                game.load.image('continue', branch+'img/buttons/continue.png');
+                /* FEEDBACK */
+                game.load.image('correct-feedback', branch+'img/buttons/correct-feedback.png');
+                game.load.image('incorrect-feedback', branch+'img/buttons/incorrect-feedback.png');    
+            }
+            
+            function create(){
+                game.add.sprite(0, 0, 'bg');
+                button1 = game.add.button(120, 300, 'button1', clickButton1, this, 0, 0, 0);
+                button2 = game.add.button(120, 395, 'button2', clickButton2, this, 0, 0, 0);
+                button3 = game.add.button(120, 490, 'button3', clickButton3, this, 0, 0, 0);
+                submit = game.add.button(195, 585, 'submit-button', submit, this, 0, 0, 0);
+                
+                selectedButton1 = game.add.button(120, 300, 'selected-button1', clickButton1, this, 0, 0, 0);
+                selectedButton2 = game.add.button(120, 395, 'selected-button2', clickButton2, this, 0, 0, 0);
+                selectedButton3 = game.add.button(120, 490, 'selected-button3', clickButton3, this, 0, 0, 0);
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                selectedButton3.visible = false;
+                
+                
+                correctFeedback = game.add.sprite(585, 350, 'correct-feedback');
+                incorrectFeedback = game.add.sprite(585, 350, 'incorrect-feedback');
+                correctFeedback.visible = false;
+                incorrectFeedback.visible = false;
+                
+                tryAgainButton = game.add.button(670, 465, 'try-again', tryAgain, this, 0, 0, 0);
+                continueButton = game.add.button(670, 465, 'continue', continueFunc, this, 0, 0, 0);
+                tryAgainButton.visible = false;
+                continueButton.visible = false;
+                
+            }
+            
+            function update(){
+                
+            }
+            
+            function clickButton1(){
+                if(button1.visible == true){
+                    button1.visible = false;
+                    selectedButton1.visible = true;
+                }else{
+                    button1.visible = true;
+                    selectedButton1.visible = false;
+                }
+            }
+            function clickButton2(){
+                if(button2.visible == true){
+                    button2.visible = false;
+                    selectedButton2.visible = true;
+                }else{
+                    button2.visible = true;
+                    selectedButton2.visible = false;
+                }
+            }
+            function clickButton3(){
+                if(button3.visible == true){
+                    button3.visible = false;
+                    selectedButton3.visible = true;
+                }else{
+                    button3.visible = true;
+                    selectedButton3.visible = false;
+                }
+            }
+            
+            
+            function submit(){
+                if((selectedButton1.visible == true) && (selectedButton2.visible == false) && (selectedButton3.visible == true)){
+                    incorrectFeedback.visible = false;
+                    tryAgainButton.visible = false;
+                    correctFeedback.visible = true;
+                    continueButton.visible = true;
+                }else{
+                    correctFeedback.visible = false;
+                    continueButton.visible = false;
+                    incorrectFeedback.visible = true;
+                    tryAgainButton.visible = true;
+                }
+            }
+            function tryAgain(){
+                incorrectFeedback.visible = false;
+                tryAgainButton.visible = false;
+                button1.visible = true;
+                button2.visible = true;
+                button3.visible = true;
+                selectedButton1.visible = false;
+                selectedButton2.visible = false;
+                selectedButton3.visible = false;
+            }
+            function continueFunc(){
+                console.log("Next part of the module");
+                //window.open(link, "_self");
+                //document.getElementById('module').innerHTML = "";
+                //runMOD6D();
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+    runMOD6A();
+    </script>
+    <div id="module">
+    
+    </div>
+    <div id="test"></div>
+</body>
+</html>
