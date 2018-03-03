@@ -4,6 +4,12 @@
         <script type="text/javascript" src="js/phaser.js"></script>  
     
         <script>
+            function nextModule(){
+                //please fill with next step
+            }
+        </script>
+    
+        <script>
             function runMOD5A(){
          var game = new Phaser.Game(1024,768,Phaser.AUTO,'module',{preload: preload, create: create, update: update});
          var button1, selectedButton1, button2, selectedButton2, button3, selectedButton3, submit, correctFeedback, incorrectFeedback, tryAgainButton, continueButton;    
@@ -328,9 +334,7 @@
             }
             function continueFunc(){
                 console.log("Next part of the module");
-                //window.open(link, "_self");
-                //document.getElementById('module').innerHTML = "";
-                //runMOD4C();
+                nextModule();
             }
         }
     </script>
