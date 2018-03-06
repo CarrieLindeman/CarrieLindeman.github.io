@@ -308,8 +308,6 @@
                 game.load.image('selected-button4', branch+'img/buttons/selected-button4.png');
                 game.load.image('button5', branch+'img/buttons/button5.png');
                 game.load.image('selected-button5', branch+'img/buttons/selected-button5.png');
-                game.load.image('button6', branch+'img/buttons/button6.png');
-                game.load.image('selected-button6', branch+'img/buttons/selected-button6.png');
                 game.load.image('submit-button', branch+'img/buttons/submit-button.png');
                 game.load.image('try-again', branch+'img/buttons/try-again.png');
                 game.load.image('continue', branch+'img/buttons/continue.png');
@@ -320,26 +318,23 @@
             
             function create(){
                 game.add.sprite(0, 0, 'bg');
-                button1 = game.add.button(555, 125, 'button1', clickButton1, this, 0, 0, 0);
-                button2 = game.add.button(555, 220, 'button2', clickButton2, this, 0, 0, 0);
-                button3 = game.add.button(555, 315, 'button3', clickButton3, this, 0, 0, 0);
-                button4 = game.add.button(555, 410, 'button4', clickButton4, this, 0, 0, 0);
-                button5 = game.add.button(555, 505, 'button5', clickButton5, this, 0, 0, 0);
-                button6 = game.add.button(555, 600, 'button6', clickButton6, this, 0, 0, 0);
+                button1 = game.add.button(555, 220, 'button1', clickButton1, this, 0, 0, 0);
+                button2 = game.add.button(555, 315, 'button2', clickButton2, this, 0, 0, 0);
+                button3 = game.add.button(555, 410, 'button3', clickButton3, this, 0, 0, 0);
+                button4 = game.add.button(555, 505, 'button4', clickButton4, this, 0, 0, 0);
+                button5 = game.add.button(555, 600, 'button5', clickButton5, this, 0, 0, 0);
                 submit = game.add.button(645, 695, 'submit-button', submit, this, 0, 0, 0);
                 
-                selectedButton1 = game.add.button(555, 125, 'selected-button1', clickButton1, this, 0, 0, 0);
-                selectedButton2 = game.add.button(555, 220, 'selected-button2', clickButton2, this, 0, 0, 0);
-                selectedButton3 = game.add.button(555, 315, 'selected-button3', clickButton3, this, 0, 0, 0);
-                selectedButton4 = game.add.button(555, 410, 'selected-button4', clickButton4, this, 0, 0, 0);
-                selectedButton5 = game.add.button(555, 505, 'selected-button5', clickButton5, this, 0, 0, 0);
-                selectedButton6 = game.add.button(555, 600, 'selected-button6', clickButton6, this, 0, 0, 0);
+                selectedButton1 = game.add.button(555, 220, 'selected-button1', clickButton1, this, 0, 0, 0);
+                selectedButton2 = game.add.button(555, 315, 'selected-button2', clickButton2, this, 0, 0, 0);
+                selectedButton3 = game.add.button(555, 410, 'selected-button3', clickButton3, this, 0, 0, 0);
+                selectedButton4 = game.add.button(555, 505, 'selected-button4', clickButton4, this, 0, 0, 0);
+                selectedButton5 = game.add.button(555, 600, 'selected-button5', clickButton5, this, 0, 0, 0);
                 selectedButton1.visible = false;
                 selectedButton2.visible = false;
                 selectedButton3.visible = false;
                 selectedButton4.visible = false;
                 selectedButton5.visible = false;
-                selectedButton6.visible = false;
                 
                 
                 correctFeedback = game.add.sprite(90, 350, 'correct-feedback');
@@ -347,7 +342,7 @@
                 correctFeedback.visible = false;
                 incorrectFeedback.visible = false;
                 
-                tryAgainButton = game.add.button(175, 465, 'try-again', tryAgain, this, 0, 0, 0);
+                tryAgainButton = game.add.button(175, 485, 'try-again', tryAgain, this, 0, 0, 0);
                 continueButton = game.add.button(175, 465, 'continue', continueFunc, this, 0, 0, 0);
                 tryAgainButton.visible = false;
                 continueButton.visible = false;
@@ -403,19 +398,10 @@
                     selectedButton5.visible = false;
                 }
             }
-            function clickButton6(){
-                if(button6.visible == true){
-                    button6.visible = false;
-                    selectedButton6.visible = true;
-                }else{
-                    button6.visible = true;
-                    selectedButton6.visible = false;
-                }
-            }
             
             
             function submit(){
-                if((selectedButton1.visible == true) && (selectedButton2.visible == false) && (selectedButton3.visible == true) && (selectedButton4.visible == false) && (selectedButton5.visible == true) && (selectedButton6.visible == false)){
+                if((selectedButton1.visible == true) && (selectedButton2.visible == false) && (selectedButton3.visible == true) && (selectedButton4.visible == false) && (selectedButton5.visible == false)){
                     incorrectFeedback.visible = false;
                     tryAgainButton.visible = false;
                     correctFeedback.visible = true;
@@ -435,13 +421,11 @@
                 button3.visible = true;
                 button4.visible = true;
                 button5.visible = true;
-                button6.visible = true;
                 selectedButton1.visible = false;
                 selectedButton2.visible = false;
                 selectedButton3.visible = false;
                 selectedButton4.visible = false;
                 selectedButton5.visible = false;
-                selectedButton6.visible = false;
             }
             function continueFunc(){
                 console.log("Next part of the module");
