@@ -1,0 +1,1 @@
+var codeBlock1 = "def sum(values):  # values is of type 'list'\n\tresult = 0\n\tfor value in values:\n\tresult += value\n\treturn result\n\ndef main(): \n\ttotal = sum([1, 2, 3, 4, 5, 6, 7])  # a list of any length with numbers \n\tprint total"

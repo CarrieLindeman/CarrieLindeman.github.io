@@ -1,0 +1,16 @@
+code {
+  background-color: #eee;
+    cursor: default;
+}
+
+pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 10px;
+}
+
+.question-text{
+    background-color: #eee;
+     padding: 10px;
+}
