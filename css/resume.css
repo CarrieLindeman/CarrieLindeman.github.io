@@ -17,6 +17,11 @@ body {
   }
 }
 
+table, th, td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+}
+
 h1,
 h2,
 h3,
