@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h3>Tooltip Example</h3>
+  <p>The data-placement attribute specifies the tooltip position.</p>
+  <ul class="list-inline">
+    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">Top</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Hooray!">Bottom</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="left" title="Hooray!">Left</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">Right</a></li>
+  </ul>
+</div>
+    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+  Tooltip on top
+</button>
+    <p>thes here<span data-toggle="tooltip" data-placement="top" title="Tooltip on top">Testtesttest</span> more test</p>
+    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+  Popover on top
+</button>
+
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+    
+<table>
+  <tr>
+  <td style="padding-right: 3px">
+  <img height="auto" width="130px" src="/static/SusanWhite_Circle.png" alt="A picture of Professor Susan White " />
+      </td>
+      <td><img height="auto" width="130px" src="/static/MichaelFaulkender_Circle.png" alt="A picture of Professor Michael Faulkender" /></td>
+        </tr>
+        <tr>
+        <td style="padding-right: 3px"><b>Professor Susan White</b></td>
+        <td><b>Professor Michael Faulkender</b></td>
+        </tr>
+      <tr>
+        <td style="padding-right: 3px">Clinical Professor</td>
+        <td>Professor of Finance</td>
+        </tr>
+    </table>
+      
+<table>
+  <tr>
+  <td><p style="padding:0em 1em 0em 1em;">
+  <img height="auto" width="130px" src="/static/SusanWhite_Circle.png" alt="A picture of Professor Susan White " /><br />
+  <b>Professor Susan White</b><br />
+   Clinical Professor<br /></td>
+    <td> <img height="auto" width="130px" src="/static/MichaelFaulkender_Circle.png" alt="A picture of Professor Michael Faulkender" /><br />
+  <b>Professor Michael Faulkender</b><br />
+   Professor of Finance<br /></td>
+  </tr>
+
+
+</table>
+
+</body>
+</html>

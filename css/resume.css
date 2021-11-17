@@ -21,11 +21,26 @@ table, th, td {
   border: 1px solid grey;
   border-collapse: collapse;
 }
-.video-centered {
-    width: 50%;
-margin: 0 auto; 
 
+.btn-default, .btn-default:active, .btn-default:visited {
+    background-color: #1d824c;
+    color:white;
+    border:0px;
+    !important;
 }
+
+.btn-default:hover{
+    background-color: dimgrey;!important;
+    
+}
+
+.lrg-number-style{
+    font-size: 40px;
+    color: #1d824c;
+    font-weight: bold;
+    
+}
+
 h1,
 h2,
 h3,

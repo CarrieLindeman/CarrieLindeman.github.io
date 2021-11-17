@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Stack Overflow</title>
+
+    <meta charset="utf-8">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/shop-item.css" rel="stylesheet">
+    <link href="css/thesis.css" rel="stylesheet">
+    <script src="js/codeBlocks.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    
+    <script>
+function copyToClip(copyText) {
+  var el = document.createElement('textarea');
+   // Set value (string to be copied)
+   el.value = copyText;
+   // Set non-editable to avoid focus and move outside of view
+   el.setAttribute('readonly', '');
+   el.style = {position: 'absolute', left: '-9999px'};
+   document.body.appendChild(el);
+   // Select text inside element
+   el.select();
+   // Copy text to clipboard
+   document.execCommand('copy');
+   // Remove temporary element
+   document.body.removeChild(el);
+  //alert("Copied the text: " + copyText);
+    
+    document.getElementById("copyMessage").innerHTML = "<small>Copied to Clipbard</small>";
+}
+</script>
+    
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Stack Overflow</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+        <h1 class="my-4">Stack Overflow</h1>
+        <div class="list-group">
+          <a href="#" class="list-group-item active">Tags</a>
+          <a href="#" class="list-group-item">Users</a>
+          <a href="#" class="list-group-item">Jobs</a>
+        </div>
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        <div class="card border-success mt-4">
+            <a class="btn btn-info" href="#bestCode"><i class="fas fa-arrow-down"></i> JUMP TO BEST CODE SAMPLE</a>
+        </div> 
+          
+          <div class="card border-danger mt-4">
+            
+            
+             <div class="card-header">Question</div>
+              <div class="card-body">
+                <h5 class="card-title">Basic explanation of Python functions</h5>
+<pre><code class="prettyprint">def <span data-toggle="tooltip" data-placement="top" title="Name of the function" class="tooltip-underline">print_two_again</span>(<span data-toggle="tooltip" data-placement="top" title="Arguments of the function" class="tooltip-underline">arg1, arg2</span>):
+    <span data-toggle="tooltip" data-placement="top" title="Print statement" class="tooltip-underline">print</span> "arg1: %r, arg2: %r" % (arg1, arg2)<br>
+<span data-toggle="tooltip" data-placement="top" title="Function call" class="tooltip-underline">print_two_again</span>(<span data-toggle="tooltip" data-placement="top" title="Arguments being sent to the function as inputs" class="tooltip-underline">"Steve","Testing"</span>)</code></pre>
+                  <p>I have a basic question below to help try get my head around functions in python (following the LPTHW tutorials in prep for uni). Could someone explain the syntax above, and whether I am correct with my assumptions?</p>
+                  <p>I understand that the <code class="prettyprint">print_two_again</code> is the name of the function, but what is the purpose of having the <code class="prettyprint">arg1</code>, <code class="prettyprint">arg2</code> in the parenthesis next to it? Is it to call the "steve" "testing" into the print command below? or do those strings go directing into the <code class="prettyprint">print</code> command?</p>
+              </div>
+            </div>        
+         
+        <!-- /.card -->
+
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            Responses
+          </div>
+          <div class="card-body">
+              <div class="card border-success my-4">
+              <div class="card-body">
+                  <h5 class="card-title">Top Answer <i class="far fa-check-circle"></i> <small class="text-muted">16 votes</small></h5>
+                  <p class="question-text"><em>What is the purpose of having the arg1, arg2 in the parenthesis next to it?</em></p>
+
+                  <p>In this case, <code class="prettyprint">arg1</code> and <code class="prettyprint">arg2</code> are called arguments. Arguments allow functions to receive inputs it's expected to use in order to perform a task. The inputs are provided by the callers.</p>
+
+                  <p>For example, in school math, you may've already seen things like \(   z = f(x, y)\) where a function named \(f\) is defined as \(f(x, y) = x + y\). This is the same concept in a programming language.</p>
+
+                  <p id="bestCode">It also allows you do write more generic, flexible, and reusable code. For example, you don't have to write many different versions of a function to accomplish the same task with slightly different results, avoiding situations like <code class="prettyprint">add2(x, y) = x + y</code> and <code class="prettyprint">add3(x, y, z) = x + y + z</code>, and so on. You can simply do something like:</p>
+                  <div></div>
+                  <pre><code class="prettyprint">                  
+def <span data-toggle="tooltip" data-placement="top" title="Name of the function" class="tooltip-underline">sum</span>(<span data-toggle="tooltip" data-placement="top" title="Argument for the function, allows functions to receive inputs" class="tooltip-underline">values</span>):  # values is of type 'list'
+    result = 0
+    for value in values:
+        result += value
+    <span data-toggle="tooltip" data-placement="top" title="Return statement" class="tooltip-underline">return result</span>
+    
+#And call it like this:
+total = <span data-toggle="tooltip" data-placement="top" title="Calling the function" class="tooltip-underline">sum</span>(<span data-toggle="tooltip" data-placement="top" title="Arguments being sent to the function as inputs" class="tooltip-underline">[1, 2, 3, 4, 5, 6, 7]</span>) # a list of any length with numbers
+#Or like this:
+total = <span data-toggle="tooltip" data-placement="top" title="Calling the function" class="tooltip-underline">sum</span>(<span data-toggle="tooltip" data-placement="top" title="Arguments being sent to the function as inputs" class="tooltip-underline">[1, 2]</span>)
+    </code></pre>
+<div><button type="button" class="btn btn-info" onclick="copyToClip(codeBlock1)"><i class="far fa-clipboard"></i> Copy Code</button> <span id="copyMessage"><small></small></span></div>
+
+                  <p>How many arguments a function needs will depend on what it needs to do and other factors.</p>
+                  
+                  <p class="question-text"><em>What confuses me is the <code class="prettyprint">print_two_again("Steve","testing")</code> , what is this called and its purpose?</em></p>
+
+                  <p>The line <code class="prettyprint">print_two_again("Steve","testing")</code> is an invocation of the function (i.e. a function call). This causes the program to 'jump' into the body of the function named <code class="prettyprint">print_two_again</code> and start executing the code in it.</p>
+
+                  <p>The <code class="prettyprint">("Steve","testing")</code> part are the arguments being sent to the function as inputs. These are positional arguments, which basically means that they get "mapped" to the names <code class="prettyprint">arg1</code> and <code class="prettyprint">arg2</code> based on the order in which you've provided them when invoking the function.</p>
+
+                  <p>For example, consider the function \(f(x, y) = x - y\). If this function is called as \(z = f(3, 4)\) then the argument by the name of x will receive the value 3 and y will be 4, to return -1. If you reverse the arguments in the call, then you'd have \(x=4\) and \(y=3\) and it'd return 1 instead. The same is true of the arguments in the function you've provided.</p>
+
+                  <p>This means that the order of the arguments in a function call is important.</p>
+
+                  <p>The Python language, like many others, already has a set of built-in functionality. The function named print is an example of this. You can get a lot of information using the pydoc command (pydoc3 if you use Python3, which I'd recommend). For example, the command pydoc3 print produces the following documentation:</p>
+                  
+                  <p class="question-text">Help on built-in function print in module built-ins:</p>
+
+                  <div class="documentation">print(...) print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)<br>
+                  Prints the values to a stream, or to sys.stdout by default.<br><br>
+                  Optional keyword arguments:<br>
+                  file:  a file-like object (stream); defaults to the current sys.stdout.<br>
+                  sep:   string inserted between values, default a space.<br>
+                  end:   string appended after the last value, default a newline.<br>
+                  flush: whether to forcibly flush the stream.</div>
+                  
+                  <p>Note that this is documentation for Python3. Python2 documentation will be slightly different.</p>
+
+                  <p>There's a direct correlation between your understanding of functions, as seen in your math courses in school, and functions as seen in a programming language. This is because math is part of the underlying foundation of computer science and programming languages, among others (e.g. analysis of algorithms).</p>
+                  
+            <small class="text-muted">Posted by <a href="https://stackoverflow.com/users/4594973/code-dredd" target="_blank">code_dredd</a> on 9/5/15</small>
+                  </div>
+            </div>
+            <hr>
+              <h5 class="card-title">Answer <i class="far fa-comment"></i> <small class="text-muted">4 votes</small></h5>
+            <p class="question-text">What is the purpose of having the arg1, arg2 in the parenthesis next to it?</p>
+              <p>arg1 and arg2 are the names of the inputs and from there the function can use those inputs. In your case what your function does is to print them. Other functions can do other things with these arguments. But let's go step by step.</p>
+              <pre><code class="prettyprint">
+              
+def <span data-toggle="tooltip" data-placement="top" title="Name of the function" class="tooltip-underline">print_two_again</span>(<span data-toggle="tooltip" data-placement="top" title="Arguments for the function, allows functions to receive inputs" class="tooltip-underline">arg1, arg2</span>):
+    <span data-toggle="tooltip" data-placement="top" title="Print statement" class="tooltip-underline">print "arg1: %r, arg2: %r" % (arg1, arg2)</span> 
+    
+              </code></pre>
+              <p>In the first two lines starting with def, you define a function. It does something. In your case prints the two arguments it takes.</p>
+              <pre><code class="prettyprint"><span data-toggle="tooltip" data-placement="top" title="Calling the function" class="tooltip-underline">
+print_two_again</span>(<span data-toggle="tooltip" data-placement="top" title="Arguments being sent to the function as inputs" class="tooltip-underline">"Steve","Testing")</span>
+                </code></pre>
+              <p>On the third line what you actually do is to call that function. When you call that function you tell the function to pass "Steve" and "Testing" arguments to the function definition.</p>
+
+              <p>Above line is literally called a function call. Let's say you have a program and you want it to print two words. You need to define how you want it to be done. This is called function definition, where you define how things work. That's OK, but not enough. You would want to make it happen. So what you do is to execute that function. This is called a function call.</p>
+              
+              <pre><code class="prettyprint">
+              
+<span data-toggle="tooltip" data-placement="top" title="Calling the function" class="tooltip-underline">print_two_again</span>(<span data-toggle="tooltip" data-placement="top" title="Arguments being sent to the function as inputs" class="tooltip-underline">"First","Call"</span>)
+<span data-toggle="tooltip" data-placement="top" title="Calling the function" class="tooltip-underline">print_two_again</span>(<span data-toggle="tooltip" data-placement="top" title="Arguments being sent to the function as inputs" class="tooltip-underline">"Second","Call"</span>) 
+
+              </code></pre>
+              
+              <p>In the above lines, what we did is to call the previously defined function two times but with different arguments.</p>
+              
+              <p>Now let's look at the second line, which probably confuses you.</p>
+              <pre><code class="prettyprint">
+              
+<span data-toggle="tooltip" data-placement="top" title="Print statement" class="tooltip-underline">print "arg1: %r, arg2: %r" % (arg1, arg2)</span> 
+
+    </code></pre>
+              <p>print is a built-in function in Python. What above line does here is to pass arg1 and arg2 arguments and print them with the format of "arg1: %r, arg2: %r"</p>
+              
+            <small class="text-muted">Posted by <a href="https://stackoverflow.com/users/170671/semih-yagcioglu" target="_blank">Semih Yagcioglu</a> on 9/5/15</small>
+            <hr>
+              <h5 class="card-title">Answer <i class="far fa-comment"></i> <small class="text-muted">1 vote</small></h5>
+            
+              <p class="question-text">What is the purpose of having the arg1, arg2 in the parenthesis?</p>
+              <p>Here def print_two_again(arg1, arg2): is a function and arg1, arg2 is called argument and in function those are two variable and print_two_again function needed two argument.</p>
+
+              <p class="question-text">What confuses me is the print_two_again("Steve","testing")?</p>
+
+              <p>When You call print_two_again("Steve","Testing") that, arg1 receive Steve and arg2 receive  Testing.</p>
+
+              <p>When you want to print, internal (ie. in between ".....") place any text as a simple text and %r use for catch corresponding variable value.</p>
+
+              <p>If you want you can rewrite like:</p>
+<pre><code class="prettyprint">
+<span data-toggle="tooltip" data-placement="top" title="Print statement" class="tooltip-underline">print "Argument 1: %r, Argument 2: %r" % (arg1, arg2)</span>
+</code>
+</pre>
+              <p>You can change plane text but variable list follow which name you indicate first.</p>
+            <small class="text-muted">Posted by <a href="https://stackoverflow.com/users/1494085/sakib-ahammed" target="_blank">Sakib Ahammed</a> on 9/5/15</small>
+            <hr>
+            <a href="#" class="btn btn-success">Leave an Answer</a>
+          </div>
+        </div>
+        <!-- /.card -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Stack Overflow</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+</body>
+
+</html>
